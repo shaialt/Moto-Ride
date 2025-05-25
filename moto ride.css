@@ -378,6 +378,7 @@ header {
   height: 40px;
   padding-top: 10px;
   padding-bottom: 10px;
+  cursor: pointer;
 }
 
 .right_nav_block_ul_icon {
@@ -431,6 +432,77 @@ header {
   margin-left: 10px;
   cursor: pointer;
   color: white;
+}
+
+/*Side Filter*/
+.navigation_menu {
+  margin: 0px;
+  width: 80%;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  z-index: 999;
+  transition: transform 0.3s ease;
+  background-color: black;
+  color: white;
+  display: none;
+  border-left: 1px solid white;
+  overflow-y: auto;
+}
+
+.navigation_menu_open_click {
+  transform: translateX(0);
+}
+
+.navigation_menu_close_click {
+  transform: translateX(100%);
+}
+
+.navigation_menu a {
+  color: white;
+  text-decoration: none;
+}
+
+.headline_section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding: 0px 10px 0px 20px;
+}
+
+.headline_section h2 {
+  font-family: "Exile", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.navigation_menu_close_button {
+  color: #00a6ed;
+  cursor: pointer;
+}
+
+.top_navigation_menu_section {
+  display: flex;
+  align-items: center;
+  padding: 0px 10px;
+  margin-top: 30px;
+}
+
+.top_navigation_menu_section i {
+  background-color: #292D3E;
+  color: #D3D3DE;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.house_icon_menue {
+  color: #FF0033 !important;
+}
+
+.top_navigation_menu_section:last-child {
+  margin-bottom: 20px;
 }
 
 /*Image slider block*/
@@ -1608,6 +1680,11 @@ svg {
     display: block;
   }
 
+  /*בלוק של תפריט ראשי*/
+  .navigation_menu {
+    display: block;
+  }
+
   /*בלוק של גלילת תמונות*/
   .image_slider_box {
     width: calc(100% - 40px);
@@ -1821,6 +1898,11 @@ svg {
     display: block;
   }
 
+  /*בלוק של תפריט ראשי*/
+  .navigation_menu {
+    display: block;
+  }
+
   /*בלוק של גלילת תמונות*/
   .image_slider_box {
     width: calc(100% - 40px);
@@ -1949,10 +2031,7 @@ svg {
   /*מבנה תיבת מוצר*/
   .top_product_super_box {
     width: calc(50% - 40px);
-  }
-
-  /*בלוק הצטרפות מועדון*/
-  
+  }  
 
   /*חלק תחתון של אתר*/
   footer {
@@ -2007,6 +2086,11 @@ svg {
 
   .li_nav {
     display: none;
+  }
+
+  /*בלוק של תפריט ראשי*/
+  .navigation_menu {
+    display: block;
   }
 
   /*בלוק של גלילת תמונות*/
