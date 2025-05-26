@@ -2193,10 +2193,7 @@ svg {
   /*מבנה תיבת מוצר*/
   .top_product_super_box {
     width: calc(50% - 40px);
-  }
-
-  /*בלוק הצטרפות מועדון*/
-  
+  }  
 
   /*חלק תחתון של אתר*/
   footer {
@@ -2339,8 +2336,6 @@ svg {
     width: calc(25% - 40px);
   }
 
-  /*Subcategory block*/
-  
   /*חלק תחתון של אתר*/
   footer {
     padding: 0px;
@@ -2695,6 +2690,7 @@ i {
   margin-right: 10px;
   background-color: white;
   border: none;
+  text-align: center;
 }
 
 .coupns_code_box_submit {
@@ -2702,6 +2698,8 @@ i {
   height: 30px;
   background-color: white;
   border: none;
+  color: black;
+  cursor: pointer;
 }
 
 .update_cart_button {
@@ -2709,6 +2707,8 @@ i {
   height: 30px;
   background-color: white;
   border: none;
+  color: black;
+  cursor: pointer;
 }
 
 .update_cart_button i {
@@ -2756,7 +2756,7 @@ i {
 }
 
 .checkout_box_shipping_input {
-  font-size: 13px;
+  font-size: 16px;
   margin-bottom: 10px;
 }
 
@@ -2765,7 +2765,7 @@ i {
 }
 
 .checkout_box_shipping_content_message {
-  font-size: 10px;
+  font-size: 13px;
   color: #989898;
   margin-bottom: 10px;
 }
@@ -2802,6 +2802,7 @@ i {
   border: none;
   cursor: pointer;
   background: linear-gradient(135deg, #34ab5a, #2d9c4d, #1f8c42);
+  color: black;
 }
 
 .checkout_box_message {
@@ -2815,8 +2816,8 @@ i {
     padding: 0px;
   }
 
-  .cart_box p {
-    font-size: 10px;
+  .cart_header p {
+    font-size: 13px;
   }
 
   .chosen_products_box {
@@ -2827,7 +2828,7 @@ i {
   }
 
   .cart_filter ul {
-    font-size: 10px;
+    font-size: 13px;
     width: calc(100% - 135px);
   }
 
@@ -2843,12 +2844,12 @@ i {
   }
 
   .coupns_code_box input {
-    width: 80px;
+    width: 100px;
     font-size: 10px;
   }
 
   .update_cart_button {
-    width: 80px;
+    width: 100px;
     font-size: 10px;
   }
 
@@ -3091,6 +3092,7 @@ i {
 .wish_product_buttons button {
   width: 100px;
   height: 30px;
+  color: black;
 }
 
 .wish_actions {
@@ -3110,6 +3112,7 @@ i {
   background-color: white;
   border: none;
   margin-right: 10px;
+  color: black;
 }
 
 .wish_share {
@@ -3117,6 +3120,7 @@ i {
   height: 30px;
   background-color: white;
   border: none;
+  color: black;
 }
 
 .update_wish_button {
@@ -3124,6 +3128,7 @@ i {
   height: 30px;
   background-color: white;
   border: none;
+  color: black;
 }
 
 /*Phone*/
@@ -3143,7 +3148,7 @@ i {
   }
 
   .wish_chosen_product_content_box {
-    height: 115px;
+    height: 125px;
     width: calc(100% - 185px);
     margin-left: 20px;
   }
@@ -3161,24 +3166,26 @@ i {
     font-size: 10px;
   }
 
-  .coupns_code_box input {
-    width: 80px;
-    font-size: 10px;
-  }
-
   .wish_product_buttons {
-    width: 130px;
+    width: 150px;
   }
 
   .wish_product_buttons button {
-    width: 60px;
-    height: 15px;
+    width: 70px;
+    height: 25px;
     font-size: 10px;
   }
 
+  .add_all_to_cart {
+    width: 100px;
+  }
+
+  .wish_share {
+    width: 100px;
+  }
+
   .update_wish_button {
-    width: 80px;
-    font-size: 10px;
+    width: 100px;
   }
 }
 
@@ -3210,11 +3217,6 @@ i {
   .wish_product_buttons button {
     width: 75px;
   }
-
-  .update_wish_button {
-    width: 80px;
-    font-size: 10px;
-  }
 }
 
 /*Tablet*/
@@ -3237,11 +3239,6 @@ i {
     width: 80px;
     font-size: 10px;
   }
-
-  .update_wish_button {
-    width: 80px;
-    font-size: 10px;
-  }
 }
 
 /*Xl Tablet*/
@@ -3261,11 +3258,6 @@ i {
   }
 
   .coupns_code_box input {
-    width: 80px;
-    font-size: 10px;
-  }
-
-  .update_wish_button {
     width: 80px;
     font-size: 10px;
   }
