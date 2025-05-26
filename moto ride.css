@@ -3093,6 +3093,7 @@ i {
   width: 100px;
   height: 30px;
   color: black;
+  cursor: pointer;
 }
 
 .wish_actions {
@@ -3113,6 +3114,7 @@ i {
   border: none;
   margin-right: 10px;
   color: black;
+  cursor: pointer;
 }
 
 .wish_share {
@@ -3121,6 +3123,7 @@ i {
   background-color: white;
   border: none;
   color: black;
+  cursor: pointer;
 }
 
 .update_wish_button {
@@ -3129,6 +3132,7 @@ i {
   background-color: white;
   border: none;
   color: black;
+  cursor: pointer;
 }
 
 /*Phone*/
@@ -3148,7 +3152,7 @@ i {
   }
 
   .wish_chosen_product_content_box {
-    height: 125px;
+    height: 130px;
     width: calc(100% - 185px);
     margin-left: 20px;
   }
@@ -3167,12 +3171,11 @@ i {
   }
 
   .wish_product_buttons {
-    width: 150px;
+    width: 160px;
   }
 
   .wish_product_buttons button {
-    width: 70px;
-    height: 25px;
+    width: 75px;
     font-size: 10px;
   }
 
