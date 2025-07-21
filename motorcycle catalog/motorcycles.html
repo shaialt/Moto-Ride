@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /></head>
 <body class="waves">
-    <header>
+    <header id="category_header">
         <nav class="nav">
         <div class="left_nav_block">
             <div class="welcome_animation_box">
@@ -43,97 +43,6 @@
     </header>
 
     <main>
-        <section class="navigation_menu navigation_menu_close_click">
-            <div class="headline_section">
-                <h2>Navigation menu</h2>
-                <p class="navigation_menu_close_button">Close</p>
-            </div>
-
-            <a href="../index.html">
-                <div class="top_navigation_menu_section">
-                    <i class="fa-solid fa-house house_icon_menue"></i>
-                    <h4>Home</h4>
-                </div>
-            </a>
-
-            <a class="search_menu_link" href="#welcome_animation_input">
-                <div class="top_navigation_menu_section">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <h4>Advanced Search</h4>
-                </div>
-            </a>
-
-            <a href="../contact/contact.html">
-                <div class="top_navigation_menu_section">
-                    <i class="fa-solid fa-comments"></i>
-                    <h4>Contact With Our Team</h4>  
-                </div>
-            </a>
-
-            <a href="../log in/log in.html">
-                <div class="top_navigation_menu_section">
-                    <i class="fa-solid fa-right-to-bracket"></i>
-                    <h4>Log In / Sign In</h4>
-                </div>
-            </a>
-
-            <a href="../wishlist/wishlist.html">
-                <div class="top_navigation_menu_section">
-                    <i class="fa-solid fa-heart"></i>
-                    <h4>My Wishlist</h4>
-                </div>
-            </a>
-
-            <a href="../cart/cart.html">
-                <div class="top_navigation_menu_section">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <h4>View Shopping Cart</h4>
-                </div>
-            </a>
-
-            <a href="#">
-                <div class="top_navigation_menu_section">
-                    <i class="fa-solid fa-address-card"></i>
-                    <h4>About Us</h4>
-                </div>
-            </a>
-
-            <a href="#">
-                <div class="top_navigation_menu_section">
-                    <i class="fa-solid fa-newspaper"></i>
-                    <h4>Blog / Article And News</h4>
-                </div>
-            </a>
-
-            <a href="#">
-                <div class="top_navigation_menu_section">
-                    <i class="fa-solid fa-compass"></i>
-                    <h4>Test Ride Booking</h4>
-                </div>
-            </a>
-
-            <a href="#">
-                <div class="top_navigation_menu_section">
-                    <i class="fa-solid fa-circle-question"></i>
-                    <h4>Frequently Asked Questions</h4>
-                </div>
-            </a>
-
-            <a href="#">
-                <div class="top_navigation_menu_section">
-                    <i class="fa-solid fa-coins"></i>
-                    <h4>Financing Options</h4>
-                </div>
-            </a>
-
-            <a href="#">
-                <div class="top_navigation_menu_section">
-                    <i class="fa-solid fa-check"></i>
-                    <h4>Customer Reviews</h4>
-                </div>
-            </a>
-        </section>
-
         <section class="display-flex margin-0">
             <section class="filter_sidebar display-flex justifyContent-center color-white margin-0">
                 <form action="motorcycles.html" method="get" class="display-flex flexDirection-column">
@@ -186,9 +95,9 @@
             </section>
 
             <section class="products_list_box margin-0">
-                <div class="filter_box color-white">
+                <div id="filter_box" class="filter_box">
                     <ul class="display-flex justifyContent-spaceBetween">
-                        <li class="display-flex"><i class="fa-solid fa-list"></i><p>Filter</p></li>
+                        <li class="quick_menu_filter display-flex"><i class="fa-solid fa-list"></i><p>Filter</p></li>
                         <li class="display-flex"><i class="fa-solid fa-arrow-up-from-bracket"></i><p>Share</p></li>
                     </ul>
                 </div>
@@ -738,6 +647,177 @@
             </div>
         </div>
     </footer>
+    <!--Pop-ups-->
+    <section class="overlay"></section>
+    <section class="navigation_menu">
+        <div class="headline_section">
+            <h2>Navigation menu</h2>
+            <p class="navigation_menu_close_button">Close</p>
+        </div>
+
+        <ul>
+            <li>
+                <a href="../index.html">
+                    <div class="top_navigation_menu_section">
+                        <i class="fa-solid fa-house house_icon_menue"></i>
+                        <h4>Home</h4>
+                    </div>
+                </a>
+            </li>
+
+            <li>
+                <a class="search_menu_link" href="#welcome_animation_input">
+                    <div class="top_navigation_menu_section">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <h4>Advanced Search</h4>
+                    </div>
+                </a>
+            </li>
+
+            <li>
+                <a href="../contact/contact.html">
+                    <div class="top_navigation_menu_section">
+                        <i class="fa-solid fa-comments"></i>
+                        <h4>Contact With Our Team</h4>  
+                    </div>
+                </a>
+            </li>
+
+            <li>
+                <a href="../log in/log in.html">
+                    <div class="top_navigation_menu_section">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <h4>Log In / Sign In</h4>
+                    </div>
+                </a>
+            </li>
+
+            <li>
+                <a href="../wishlist/wishlist.html">
+                    <div class="top_navigation_menu_section">
+                        <i class="fa-solid fa-heart"></i>
+                        <h4>My Wishlist</h4>
+                    </div>
+                </a>
+            </li>
+
+            <li>
+                <a href="../cart/cart.html">
+                    <div class="top_navigation_menu_section">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <h4>View Shopping Cart</h4>
+                    </div>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <div class="top_navigation_menu_section">
+                        <i class="fa-solid fa-address-card"></i>
+                        <h4>About Us</h4>
+                    </div>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <div class="top_navigation_menu_section">
+                        <i class="fa-solid fa-newspaper"></i>
+                        <h4>Blog / Article And News</h4>
+                    </div>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <div class="top_navigation_menu_section">
+                        <i class="fa-solid fa-compass"></i>
+                        <h4>Test Ride Booking</h4>
+                    </div>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <div class="top_navigation_menu_section">
+                        <i class="fa-solid fa-circle-question"></i>
+                        <h4>Frequently Asked Questions</h4>
+                    </div>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <div class="top_navigation_menu_section">
+                        <i class="fa-solid fa-coins"></i>
+                        <h4>Financing Options</h4>
+                    </div>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <div class="top_navigation_menu_section">
+                        <i class="fa-solid fa-check"></i>
+                        <h4>Customer Reviews</h4>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </section>
+
+    <section class="catalog_overlay"></section>
+    <section class="catalog_menu">
+        <section class="filter_sidebar_responsive display-flex justifyContent-center color-white margin-0">
+                <form action="motorcycles.html" method="get" class="display-flex flexDirection-column">
+                    <div><br>
+                        <h3>price</h3>
+                        <div class="display-flex justifyContent-spaceBetween alignItems-center">
+                            <input type="number" class="price_input" placeholder="Min">
+                            <p>-</p>
+                            <input type="number" class="price_input" placeholder="Max">
+                        </div><br>
+                        <input type="range" class="range_input">
+                        <br><br>
+                        <button class="Filter_by_price_button">Filter by price</button>
+                    </div><br>
+
+                    <div class="display-flex justifyContent-spaceBetween">
+                        <button class="reset_button">Reset</button>
+                        <button class="share_button"><i class="fa-solid fa-arrow-up-from-bracket"></i>share</button>
+                    </div><br>
+
+                    <div>
+                        <h3>Manufacturer</h3>
+                        <input type="checkbox" id="suzuki"><label for="suzuki">Suzuki</label><br>
+                        <input type="checkbox" id="Kawasaki"><label for="Kawasaki">Kawasaki</label><br>
+                        <input type="checkbox" id="Ducati"><label for="Ducati">Ducati</label><br>
+                        <input type="checkbox" id="Yamaha"><label for="Yamaha">Yamaha</label><br>
+                        <input type="checkbox" id="Honda"><label for="Honda">Honda</label><br>
+                        <input type="checkbox" id="Harly Davidson"><label for="Harly Davidson">Harly Davidson</label><br>
+                        <input type="checkbox" id="B.M.W"><label for="B.M.W">B.M.W</label>
+                    </div><br>
+
+                    <div>
+                        <h3>Motorcycle type</h3>
+                        <input type="checkbox" id="Road"><label for="Road">Road</label><br>
+                        <input type="checkbox" id="Off-road"><label for="Off-road">Off-road</label><br>
+                        <input type="checkbox" id="Dual purpose"><label for="Dual purpose">Dual purpose</label><br>
+                        <input type="checkbox" id="Scooter"><label for="Scooter">Scooter</label><br> 
+                        <input type="checkbox" id="Moped"><label for="Moped">Moped</label>
+                    </div><br>
+                    
+                    <div>
+                        <h3>Filter by</h3>
+                        <input type="checkbox" id="Normal"><label for="Normal">Normal</label><br>
+                        <input type="checkbox" id="On sales"><label for="On sales">On sales</label><br>
+                        <input type="checkbox" id="Popular"><label for="Popular">Popular</label><br>
+                        <input type="checkbox" id="New"><label for="New">New</label><br>
+                        <input type="checkbox" id="Recomended"><label for="Recomended">Recomended</label>
+                    </div><br>
+                </form>
+            </section>
+    </section>
     <script src="../moto ride.js"></script>
 </body>
 </html>
