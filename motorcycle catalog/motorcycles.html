@@ -96,493 +96,71 @@
 
             <section class="products_list_box margin-0">
                 <div id="filter_box" class="filter_box">
-                    <ul class="display-flex justifyContent-spaceBetween">
+                    <ul>
                         <li class="quick_menu_filter display-flex"><i class="fa-solid fa-list"></i><p>Filter</p></li>
                         <li class="display-flex"><i class="fa-solid fa-arrow-up-from-bracket"></i><p>Share</p></li>
                     </ul>
+
+                    <section class="catalog_menu">
+                        <div class="catalog_menu_overflow">
+                            <section class="filter_sidebar_responsive">
+                                <form action="motorcycles.html" method="get" class="display-flex flexDirection-column">
+                                    <div><br>
+                                        <h3>price</h3>
+                                        <div class="display-flex justifyContent-spaceBetween alignItems-center">
+                                            <input type="number" class="price_input" placeholder="Min">
+                                            <p>-</p>
+                                            <input type="number" class="price_input" placeholder="Max">
+                                        </div><br>
+                                        <input type="range" class="range_input">
+                                        <br><br>
+                                        <button class="Filter_by_price_button">Filter by price</button>
+                                    </div><br>
+
+                                    <div class="display-flex justifyContent-spaceBetween">
+                                        <button class="reset_button">Reset</button>
+                                        <button class="share_button"><i class="fa-solid fa-arrow-up-from-bracket"></i>share</button>
+                                    </div><br>
+
+                                    <div>
+                                        <h3>Manufacturer</h3>
+                                        <input type="checkbox" id="suzuki"><label for="suzuki">Suzuki</label><br>
+                                        <input type="checkbox" id="Kawasaki"><label for="Kawasaki">Kawasaki</label><br>
+                                        <input type="checkbox" id="Ducati"><label for="Ducati">Ducati</label><br>
+                                        <input type="checkbox" id="Yamaha"><label for="Yamaha">Yamaha</label><br>
+                                        <input type="checkbox" id="Honda"><label for="Honda">Honda</label><br>
+                                        <input type="checkbox" id="Harly Davidson"><label for="Harly Davidson">Harly Davidson</label><br>
+                                        <input type="checkbox" id="B.M.W"><label for="B.M.W">B.M.W</label>
+                                    </div><br>
+
+                                    <div>
+                                        <h3>Motorcycle type</h3>
+                                        <input type="checkbox" id="Road"><label for="Road">Road</label><br>
+                                        <input type="checkbox" id="Off-road"><label for="Off-road">Off-road</label><br>
+                                        <input type="checkbox" id="Dual purpose"><label for="Dual purpose">Dual purpose</label><br>
+                                        <input type="checkbox" id="Scooter"><label for="Scooter">Scooter</label><br> 
+                                        <input type="checkbox" id="Moped"><label for="Moped">Moped</label>
+                                    </div><br>
+                                    
+                                    <div>
+                                        <h3>Filter by</h3>
+                                        <input type="checkbox" id="Normal"><label for="Normal">Normal</label><br>
+                                        <input type="checkbox" id="On sales"><label for="On sales">On sales</label><br>
+                                        <input type="checkbox" id="Popular"><label for="Popular">Popular</label><br>
+                                        <input type="checkbox" id="New"><label for="New">New</label><br>
+                                        <input type="checkbox" id="Recomended"><label for="Recomended">Recomended</label>
+                                    </div><br>
+                                </form>
+                            </section>
+                        </div>
+                    </section>
+
+                    <section class="catalog_overlay"></section>
+
                 </div>
 
-                <div class="products_list display-flex flexWrap-wrap">
-                    <div class="product_super_box" id="1" style="--isPopular:true">
-                        <div class="box"><p>Moto & Ride 🏍️</p></div>
-                        <div class="product_box">
-                            <div class="product_img_box">
-                                <img src="../images/product/kawasaki product/z1000sx.png" class="product_img">
-                            </div>
-
-                            <div class="product_logo_box">
-                                <img src="../images/product logos/kawasaki logo.png" class="product_logo_img">
-                                <div>
-                                    <i class="fa-solid fa-heart add_to_wishlist"></i>
-                                    <i class="fa-solid fa-cart-shopping add_to_cart"></i>
-                                </div>
-                            </div>
-
-                            <div class="center">
-                                <article class="product_name_box">
-                                    <h3 class="product_name">Z1000SX</h3>
-                                </article>
-
-                                <article class="describe_box">
-                                    <p class="describe">A sport-touring motorcycle with a 1,043cc engine, 142 hp, and advanced electronics</p>
-                                </article>
-
-                                <article class="buy_box">
-                                    <div>
-                                        <div class="original_price_box">
-                                            <h4 class="original_price"></h4>
-                                            <p class="discount"></p>
-                                        </div>
-                                        <h2>27,960.40 $</h2>
-                                    </div>
-                                    <button class="button"><a href="#" class="a_button"><i class="fa-solid fa-bag-shopping"></i></a></button>
-                                </article>
-                            </div>
-                            <div class="new_popular"></div>
-                            <div class="curve"></div>
-                        </div>
-                    </div>
-
-                    <div class="product_super_box" id="2" style="--isNew:true">
-                        <div class="box"><p>Moto & Ride 🏍️</p></div>
-                        <div class="product_box">
-                            <div class="product_img_box">
-                                <img src="../images/product/suzuki product/GSX-R125.png" class="product_img">
-                            </div>
-
-                            <div class="product_logo_box">
-                                <img src="../images/product logos/suzuki logo.png" class="product_logo_img">
-                                <div>
-                                    <i class="fa-solid fa-heart add_to_wishlist"></i>
-                                    <i class="fa-solid fa-cart-shopping add_to_cart"></i>
-                                </div>
-                            </div>
-
-                            <div class="center">
-                                <article class="product_name_box">
-                                    <h3 class="product_name">GSX-R125</h3>
-                                </article>
-                                
-                                <article class="describe_box">
-                                    <p class="describe">A lightweight sportbike with a 125cc engine, 14.7 hp, and agile handling</p>
-                                </article>
-                                
-                                <article class="buy_box">
-                                    <div>
-                                        <div class="original_price_box">
-                                            <h4 class="original_price"></h4>
-                                            <p class="discount"></p>
-                                        </div>
-                                        <h2>6,399.70 $</h2>
-                                    </div>
-                                    <button class="button"><a href="#" class="a_button"><i class="fa-solid fa-bag-shopping"></i></a></button>
-                                </article>
-                            </div>
-                            <div class="new_popular"></div>
-                            <div class="curve"></div>
-                        </div>
-                    </div>
-
-                    <div class="product_super_box" id="3" style="--isSales:true">
-                        <div class="box"><p>Moto & Ride 🏍️</p></div>
-                        <div class="product_box">
-                            <div class="product_img_box">
-                                <img src="../images/product/bmw product/Triumph Bonneville.png" class="product_img">
-                            </div>
-
-                            <div class="product_logo_box">
-                                <img src="../images/product logos/BMW logo.png" class="product_logo_img">
-                                <div>
-                                    <i class="fa-solid fa-heart add_to_wishlist"></i>
-                                    <i class="fa-solid fa-cart-shopping add_to_cart"></i>
-                                </div>
-                            </div>
-
-                            <div class="center">
-                                <article class="product_name_box">
-                                    <h3 class="product_name">Triumph Bonneville</h3>
-                                </article>
-
-                                <article class="describe_box">
-                                    <p class="describe">A classic motorcycle with a 900cc engine, 64.1 HP, and retro styling</p>
-                                </article>
-                                
-                                <article class="buy_box">
-                                    <div>
-                                        <div class="original_price_box">
-                                            <h4 class="original_price">10,561.95 $</h4>
-                                            <p class="discount">-5%</p>
-                                        </div>
-                                        <h2>10,033.85 $</h2>
-                                    </div>
-                                    <button class="button"><a href="#" class="a_button"><i class="fa-solid fa-bag-shopping"></i></a></button>
-                                </article>
-                            </div>
-                            <div class="new_popular"></div>
-                            <div class="curve"></div>
-                        </div>
-                    </div>
-
-                    <div class="product_super_box" id="4" style="--isNew:true">
-                        <div class="box"><p>Moto & Ride 🏍️</p></div>
-                        <div class="product_box">
-                            <div class="product_img_box">
-                                <img src="../images/product/yamaha product/R6.webp" class="product_img">
-                            </div>
-
-                            <div class="product_logo_box">
-                                <img src="../images/product logos/yamaha logo.png" class="product_logo_img">
-                                <div>
-                                    <i class="fa-solid fa-heart add_to_wishlist"></i>
-                                    <i class="fa-solid fa-cart-shopping add_to_cart"></i>
-                                </div>
-                            </div>
-
-                            <div class="center">
-                                <article class="product_name_box">
-                                    <h3 class="product_name">R6</h3>
-                                </article>
-
-                                <article class="describe_box">
-                                    <p class="describe">A high-performance supersport motorcycle with a 599cc engine, 117 hp, and advanced handling</p>
-                                </article>
-
-                                <article class="buy_box">
-                                    <div>
-                                        <div class="original_price_box">
-                                            <h4 class="original_price"></h4>
-                                            <p class="discount"></p>
-                                        </div>
-                                        <h2>23769.91 $</h2>
-                                    </div>
-                                    <button class="button"><a href="#" class="a_button"><i class="fa-solid fa-bag-shopping"></i></a></button>
-                                </article>
-                            </div>
-                            <div class="new_popular"></div>
-                            <div class="curve"></div>
-                        </div>
-                    </div>
-
-                    <div class="product_super_box" id="5" style="--isPopular:true">
-                        <div class="box"><p>Moto & Ride 🏍️</p></div>
-                        <div class="product_box">
-                            <div class="product_img_box">
-                                <img src="../images/product/harley davidson/Olive gold glide.png" class="product_img">
-                            </div>
-
-                            <div class="product_logo_box">
-                                <img src="../images/product logos/harly davidson logo.png" class="product_logo_img">
-                                <div>
-                                    <i class="fa-solid fa-heart add_to_wishlist"></i>
-                                    <i class="fa-solid fa-cart-shopping add_to_cart"></i>
-                                </div>
-                            </div>
-
-                            <div class="center">
-                                <article class="product_name_box">
-                                    <h3 class="product_name">Olive gold glide</h3>
-                                </article>
-
-                                <article class="describe_box">
-                                    <p class="describe">A touring motorcycle with a 1,690cc engine, advanced infotainment, and stylish fairing</p>
-                                </article>
-
-                                <article class="buy_box">
-                                    <div>
-                                        <div class="original_price_box">
-                                            <h4 class="original_price"></h4>
-                                            <p class="discount"></p>
-                                        </div>
-                                        <h2>41,499.46 $</h2>
-                                    </div>
-                                    <button class="button"><a href="#" class="a_button"><i class="fa-solid fa-bag-shopping"></i></a></button>
-                                </article>
-                            </div>
-                            <div class="new_popular"></div>
-                            <div class="curve"></div>
-                        </div>
-                    </div>
-
-                    <div class="product_super_box" id="6" style="--isSales:true">
-                        <div class="box"><p>Moto & Ride 🏍️</p></div>
-                        <div class="product_box">
-                            <div class="product_img_box">
-                                <img src="../images/product/kawasaki product/h2 sx.png" class="product_img">
-                            </div>
-
-                            <div class="product_logo_box">
-                                <img src="../images/product logos/kawasaki logo.png" class="product_logo_img">
-                                <div>
-                                    <i class="fa-solid fa-heart add_to_wishlist"></i>
-                                    <i class="fa-solid fa-cart-shopping add_to_cart"></i>
-                                </div>
-                            </div>
-                            
-                            <div class="center">
-                                <article class="product_name_box">
-                                    <h3 class="product_name">Ninja h2 sx</h3>
-                                </article>
-
-                                <article class="describe_box">
-                                    <p class="describe">A high-performance sport bike from Kawasaki, featuring a 998cc supercharged engine that</p>
-                                </article>
-
-                                <article class="buy_box">
-                                    <div>
-                                        <div class="original_price_box">
-                                            <h4 class="original_price">29,642.47 $</h4>
-                                            <p class="discount">-10%</p>
-                                        </div>
-                                        <h2>26,678.22 $</h2>
-                                    </div>
-                                    <button class="button"><a href="../products/product page.html" class="a_button"><i class="fa-solid fa-bag-shopping"></i></a></button>
-                                </article>
-                            </div>
-                            <div class="new_popular"></div>
-                            <div class="curve"></div>
-                        </div>
-                    </div>
-
-                    <div class="product_super_box" id="7" style="--isNormal:true">
-                        <div class="box"><p>Moto & Ride 🏍️</p></div>
-                        <div class="product_box">
-                            <div class="product_img_box">
-                                <img src="../images/product/ducati product/Diavel v4.png" class="product_img">
-                            </div>
-
-                            <div class="product_logo_box">
-                                <img src="../images/product logos/ducati logo.png" class="product_logo_img">
-                                <div>
-                                    <i class="fa-solid fa-heart add_to_wishlist"></i>
-                                    <i class="fa-solid fa-cart-shopping add_to_cart"></i>
-                                </div>
-                            </div>
-
-                            <div class="center">
-                                <article class="product_name_box">
-                                    <h3 class="product_name">Diavel v4</h3>
-                                </article>
-
-                                <article class="describe_box">
-                                    <p class="describe">A power cruiser with a 1,158cc engine, 168 hp, and aggressive styling</p>
-                                </article>
-
-                                <article class="buy_box">
-                                    <div>
-                                        <div class="original_price_box">
-                                            <h4 class="original_price"></h4>
-                                            <p class="discount"></p>
-                                        </div>
-                                        <h2>59,284.95 $</h2>
-                                    </div>
-                                    <button class="button"><a href="#" class="a_button"><i class="fa-solid fa-bag-shopping"></i></a></button>
-                                </article>
-                            </div>
-                            <div class="new_popular"></div>
-                            <div class="curve"></div>
-                        </div>
-                    </div>
-
-                    <div class="product_super_box" id="8" style="--isNormal:true">
-                        <div class="box"><p>Moto & Ride 🏍️</p></div>
-                        <div class="product_box">
-                            <div class="product_img_box">
-                                <img src="../images/product/honda/CBR 600F4i.webp" class="product_img">
-                            </div>
-
-                            <div class="product_logo_box">
-                                <img src="../images/product logos/honda logo.png" class="product_logo_img">
-                                <div>
-                                    <i class="fa-solid fa-heart add_to_wishlist"></i>
-                                    <i class="fa-solid fa-cart-shopping add_to_cart"></i>
-                                </div>
-                            </div>
-
-                            <div class="center">
-                                <article class="product_name_box">
-                                    <h3 class="product_name">CBR 600F4i</h3>
-                                </article>
-
-                                <article class="describe_box">
-                                    <p class="describe">A sportbike with a 599cc engine, 109 hp, and lightweight design</p>
-                                </article>
-
-                                <article class="buy_box">
-                                    <div>
-                                        <div class="original_price_box">
-                                            <h4 class="original_price"></h4>
-                                            <p class="discount"></p>
-                                        </div>
-                                        <h2>8,389.38 $</h2>
-                                    </div>
-                                    <button class="button"><a href="#" class="a_button"><i class="fa-solid fa-bag-shopping"></i></a></button>
-                                </article>
-                            </div>
-                            <div class="new_popular"></div>
-                            <div class="curve"></div>
-                        </div>
-                    </div>
-
-                    <div class="product_super_box" id="9" style="--isNormal:true">
-                        <div class="box"><p>Moto & Ride 🏍️</p></div>
-                        <div class="product_box">
-                            <div class="product_img_box">
-                                <img src="../images/product/kawasaki product/z e 1.png" class="product_img">
-                            </div>
-
-                            <div class="product_logo_box">
-                                <img src="../images/product logos/kawasaki logo.png" class="product_logo_img">
-                                <div>
-                                    <i class="fa-solid fa-heart add_to_wishlist"></i>
-                                    <i class="fa-solid fa-cart-shopping add_to_cart"></i>
-                                </div>
-                            </div>
-
-                            <div class="center">
-                                <article class="product_name_box">
-                                    <h3 class="product_name">Z e 1</h3>
-                                </article>
-
-                                <article class="describe_box">
-                                    <p class="describe">A classic motorcycle with a 903cc engine, 82 hp, and retro styling</p>
-                                </article>
-
-                                <article class="buy_box">
-                                    <div>
-                                        <div class="original_price_box">
-                                            <h4 class="original_price"></h4>
-                                            <p class="discount"></p>
-                                        </div>
-                                        <h2>7,830.09 $</h2>
-                                    </div>
-                                    <button class="button"><a href="#" class="a_button"><i class="fa-solid fa-bag-shopping"></i></a></button>
-                                </article>
-                            </div>
-                            <div class="new_popular"></div>
-                            <div class="curve"></div>
-                        </div>
-                    </div>
-
-                    <div class="product_super_box" id="10" style="--isSales:true">
-                        <div class="box"><p>Moto & Ride 🏍️</p></div>
-                        <div class="product_box">
-                            <div class="product_img_box">
-                                <img src="../images/product/bmw product/S1000RR.png" class="product_img">
-                            </div>
-
-                            <div class="product_logo_box">
-                                <img src="../images/product logos/BMW logo.png" class="product_logo_img">
-                                <div>
-                                    <i class="fa-solid fa-heart add_to_wishlist"></i>
-                                    <i class="fa-solid fa-cart-shopping add_to_cart"></i>
-                                </div>
-                            </div>
-
-                            <div class="center">
-                                <article class="product_name_box">
-                                    <h3 class="product_name">S1000RR</h3>
-                                </article>
-
-                                <article class="describe_box">
-                                    <p class="describe">A high-performance sportbike with a 999cc engine, 207 hp, and advanced electronics</p>
-                                </article>
-
-                                <article class="buy_box">
-                                    <div>
-                                        <div class="original_price_box">
-                                            <h4 class="original_price">46,700.88 $</h4>
-                                            <p class="discount">-7%</p>
-                                        </div>
-                                        <h2>43,431.818 $</h2>
-                                    </div>
-                                    <button class="button"><a href="#" class="a_button"><i class="fa-solid fa-bag-shopping"></i></a></button>
-                                </article>
-                            </div>
-                            <div class="new_popular"></div>
-                            <div class="curve"></div>
-                        </div>
-                    </div>
-
-                    <div class="product_super_box" id="11" style="--isNormal:true">
-                        <div class="box"><p>Moto & Ride 🏍️</p></div>
-                        <div class="product_box">
-                            <div class="product_img_box">
-                                <img src="../images/product/harley davidson/CVO Road kink.png" class="product_img">
-                            </div>
-
-                            <div class="product_logo_box">
-                                <img src="../images/product logos/harly davidson logo.png" class="product_logo_img">
-                                <div>
-                                    <i class="fa-solid fa-heart add_to_wishlist"></i>
-                                    <i class="fa-solid fa-cart-shopping add_to_cart"></i>
-                                </div>
-                            </div>
-
-                            <div class="center">
-                                <article class="product_name_box">
-                                    <h3 class="product_name">CVO Road kink</h3>
-                                </article>
-
-                                <article class="describe_box">
-                                    <p class="describe">A premium touring motorcycle with a 1,868cc engine, advanced infotainment, and custom styling</p>
-                                </article>
-
-                                <article class="buy_box">
-                                    <div>
-                                        <div class="original_price_box">
-                                            <h4 class="original_price"></h4>
-                                            <p class="discount"></p>
-                                        </div>
-                                        <h2>41,667.25 $</h2>
-                                    </div>
-                                    <button class="button"><a href="#" class="a_button"><i class="fa-solid fa-bag-shopping"></i></a></button>
-                                </article>
-                            </div>
-                            <div class="new_popular"></div>
-                            <div class="curve"></div>
-                        </div>
-                    </div>
-
-                    <div class="product_super_box" id="12" style="--isNormal:true">
-                        <div class="box"><p>Moto & Ride 🏍️</p></div>
-                        <div class="product_box">
-                            <div class="product_img_box">
-                                <img src="../images/product/kawasaki product/Versys_650_Tourer.png" class="product_img">
-                            </div>
-
-                            <div class="product_logo_box">
-                                <img src="../images/product logos/kawasaki logo.png" class="product_logo_img">
-                                <div>
-                                    <i class="fa-solid fa-heart add_to_wishlist"></i>
-                                    <i class="fa-solid fa-cart-shopping add_to_cart"></i>
-                                </div>
-                            </div>
-
-                            <div class="center">
-                                <article class="product_name_box">
-                                    <h3 class="product_name">Versys_650_Tourer</h3>
-                                </article>
-
-                                <article class="describe_box">
-                                    <p class="describe">A versatile touring motorcycle with a 649cc engine, 67 hp, and long-distance comfort</p>
-                                </article>
-
-                                <article class="buy_box">
-                                    <div>
-                                        <div class="original_price_box">
-                                            <h4 class="original_price"></h4>
-                                            <p class="discount"></p>
-                                        </div>
-                                        <h2>8,586.53 $</h2>
-                                    </div>
-                                    <button class="button"><a href="#" class="a_button"><i class="fa-solid fa-bag-shopping"></i></a></button>
-                                </article>
-                            </div>
-                            <div class="new_popular"></div>
-                            <div class="curve"></div>
-                        </div>
-                    </div>
-
+                <div id="motorcycles_catalog" class="products_list display-flex flexWrap-wrap">
+                    
                 </div>
             </section>
     </section>
@@ -764,60 +342,7 @@
                 </a>
             </li>
         </ul>
-    </section>
-
-    <section class="catalog_overlay"></section>
-    <section class="catalog_menu">
-        <section class="filter_sidebar_responsive display-flex justifyContent-center color-white margin-0">
-                <form action="motorcycles.html" method="get" class="display-flex flexDirection-column">
-                    <div><br>
-                        <h3>price</h3>
-                        <div class="display-flex justifyContent-spaceBetween alignItems-center">
-                            <input type="number" class="price_input" placeholder="Min">
-                            <p>-</p>
-                            <input type="number" class="price_input" placeholder="Max">
-                        </div><br>
-                        <input type="range" class="range_input">
-                        <br><br>
-                        <button class="Filter_by_price_button">Filter by price</button>
-                    </div><br>
-
-                    <div class="display-flex justifyContent-spaceBetween">
-                        <button class="reset_button">Reset</button>
-                        <button class="share_button"><i class="fa-solid fa-arrow-up-from-bracket"></i>share</button>
-                    </div><br>
-
-                    <div>
-                        <h3>Manufacturer</h3>
-                        <input type="checkbox" id="suzuki"><label for="suzuki">Suzuki</label><br>
-                        <input type="checkbox" id="Kawasaki"><label for="Kawasaki">Kawasaki</label><br>
-                        <input type="checkbox" id="Ducati"><label for="Ducati">Ducati</label><br>
-                        <input type="checkbox" id="Yamaha"><label for="Yamaha">Yamaha</label><br>
-                        <input type="checkbox" id="Honda"><label for="Honda">Honda</label><br>
-                        <input type="checkbox" id="Harly Davidson"><label for="Harly Davidson">Harly Davidson</label><br>
-                        <input type="checkbox" id="B.M.W"><label for="B.M.W">B.M.W</label>
-                    </div><br>
-
-                    <div>
-                        <h3>Motorcycle type</h3>
-                        <input type="checkbox" id="Road"><label for="Road">Road</label><br>
-                        <input type="checkbox" id="Off-road"><label for="Off-road">Off-road</label><br>
-                        <input type="checkbox" id="Dual purpose"><label for="Dual purpose">Dual purpose</label><br>
-                        <input type="checkbox" id="Scooter"><label for="Scooter">Scooter</label><br> 
-                        <input type="checkbox" id="Moped"><label for="Moped">Moped</label>
-                    </div><br>
-                    
-                    <div>
-                        <h3>Filter by</h3>
-                        <input type="checkbox" id="Normal"><label for="Normal">Normal</label><br>
-                        <input type="checkbox" id="On sales"><label for="On sales">On sales</label><br>
-                        <input type="checkbox" id="Popular"><label for="Popular">Popular</label><br>
-                        <input type="checkbox" id="New"><label for="New">New</label><br>
-                        <input type="checkbox" id="Recomended"><label for="Recomended">Recomended</label>
-                    </div><br>
-                </form>
-            </section>
-    </section>
+    </section>    
     <script src="../moto ride.js"></script>
 </body>
 </html>
