@@ -463,6 +463,7 @@ header {
   border-left: 1px solid white;
   overflow-y: auto;
   transform: translateX(100%);
+  padding-bottom: 60px;
 }
 
 .navigation_menu_open_click {
@@ -2414,7 +2415,7 @@ svg {
 
 /*!Motorcycle catalog*/
 .category_header {
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 998;
   background-image: url(images/other/abstract-pattern-design_1053-525.jpg);
@@ -2460,6 +2461,7 @@ svg {
   overflow-x: hidden;
   scrollbar-width: thin;
   scrollbar-color: #83cbff black;
+  padding-bottom: 60px;
 }
 
 .filter_sidebar_responsive {
@@ -2558,7 +2560,7 @@ svg {
 }
 
 .filter_box_query {
-  position: sticky;
+  position: fixed;
   left: 0px;
   top: 140.67px;
   z-index: 998;
