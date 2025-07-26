@@ -2415,7 +2415,7 @@ svg {
 
 /*!Motorcycle catalog*/
 .category_header {
-  position: fixed;
+  position: sticky;
   top: 0;
   z-index: 998;
   background-image: url(images/other/abstract-pattern-design_1053-525.jpg);
@@ -2559,7 +2559,7 @@ svg {
 }
 
 .filter_box_query {
-  position: fixed;
+  position: sticky;
   left: 0px;
   top: 140.67px;
   z-index: 998;
