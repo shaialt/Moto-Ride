@@ -1846,14 +1846,6 @@ svg {
     width: calc(100% - 40px);
   }
 
-  .add_to_wishlist:hover {
-    color: inherit;
-  }
-
-  .add_to_cart:hover {
-    color: inherit;
-  }
-
   /*Subcategory block*/
   .subcategory {
     margin: 0px 30px;
@@ -2075,14 +2067,6 @@ svg {
     width: calc(50% - 40px);
   }  
 
-  .add_to_wishlist:hover {
-    color: inherit;
-  }
-
-  .add_to_cart:hover {
-    color: inherit;
-  }
-
   /*חלק תחתון של אתר*/
   footer {
     padding: 0px;
@@ -2245,14 +2229,6 @@ svg {
     width: calc(50% - 40px);
   }  
 
-  .add_to_wishlist:hover {
-    color: inherit;
-  }
-
-  .add_to_cart:hover {
-    color: inherit;
-  }
-
   /*חלק תחתון של אתר*/
   footer {
     padding: 0px;
@@ -2392,14 +2368,6 @@ svg {
   /*מבנה תיבת מוצר*/
   .top_product_super_box {
     width: calc(25% - 40px);
-  }
-
-  .add_to_wishlist:hover {
-    color: inherit;
-  }
-
-  .add_to_cart:hover {
-    color: inherit;
   }
 
   /*חלק תחתון של אתר*/
