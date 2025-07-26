@@ -463,7 +463,7 @@ header {
   border-left: 1px solid white;
   overflow-y: auto;
   transform: translateX(100%);
-  padding-bottom: 60px;
+  padding-bottom: 70px;
 }
 
 .navigation_menu_open_click {
@@ -2487,7 +2487,6 @@ svg {
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #83cbff black;
-  margin-bottom: 50px;
 }
 
 .filter_sidebar h3 {
