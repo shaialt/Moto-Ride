@@ -293,7 +293,10 @@ function createProductCardItemElement(product){
 function saveToWishlist(event){
     // שינוי מצב הלב בקטלוג של הוספה והסרה של המוצר
     const heartIconClick = event.currentTarget;
-    heartIconClick.classList.toggle('add_to_wishlist_click');
+    if(heartIconClick.classList.contains('add_to_wishlist_click'))
+        heartIconClick.classList.remove('add_to_wishlist_click');
+    else
+        heartIconClick.classList.add('add_to_wishlist_click');
 
     // מציאת כרטיס המוצר
     const productBox = heartIconClick.closest('.product_super_box');
@@ -348,7 +351,10 @@ function saveToWishlist(event){
 function saveToCart(event){
     // שינוי מצב הלב בקטלוג של הוספה והסרה של המוצר
     const cartIconClick = event.currentTarget;
-    cartIconClick.classList.toggle('add_to_cart_click');
+    if(cartIconClick.classList.contains('add_to_cart_click'))
+        cartIconClick.classList.remove('add_to_cart_click');
+    else
+        cartIconClick.classList.add('add_to_cart_click');
 
     // מציאת כרטיס המוצר
     const productBox = cartIconClick.closest('.product_super_box');
