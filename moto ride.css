@@ -2417,7 +2417,7 @@ svg {
 .category_header {
   position: sticky;
   top: 0;
-  z-index: 998;
+  z-index: 999;
   background-image: url(images/other/abstract-pattern-design_1053-525.jpg);
   border-bottom: 1px solid white;
 }
@@ -2447,7 +2447,7 @@ svg {
   height: 100vh;
   background-color: rgb(0, 0, 0, 0.4);
   backdrop-filter: blur(4px);
-  top: 139.67px;
+  top: 0;
   left: 0;
   z-index: 996;
   margin: 0;
