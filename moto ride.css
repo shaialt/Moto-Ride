@@ -2423,11 +2423,10 @@ svg {
 }
 
 .catalog_menu {
-  width: 80%;
   height: 100vh;
   background-color: black;
   margin: 0;
-  position: fixed;
+  position: sticky;
   left: 0;
   top: 100px;
   z-index: 998;
@@ -2435,11 +2434,11 @@ svg {
   display: none;
   padding-bottom: 150px;
   transition: transform 0.3s ease;
-  transform: translateX(-100%);
+  transform: translate(-100%, -50px);
 }
 
 .catalog_menu_open {
-    transform: translateX(0%);
+    transform: translate(0%, -50px);
 }
 
 .catalog_overlay {
