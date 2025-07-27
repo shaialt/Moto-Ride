@@ -1259,11 +1259,6 @@ header {
   margin-right: 12px;
 }
 
-.add_to_wishlist:hover {
-  color: red;
-  cursor: pointer;
-}
-
 .add_to_wishlist_click {
     color: red;
 }
@@ -1272,11 +1267,6 @@ header {
   color: #a9a9a9;
   font-size: 24px;
   margin-right: 12px;
-}
-
-.add_to_cart:hover {
-  color: red;
-  cursor: pointer;
 }
 
 .add_to_cart_click {
