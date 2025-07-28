@@ -58,7 +58,8 @@ switchPageCloseMenu.forEach(item => {
 
 // סגירה ופתיחה תפריט ניווט משני
 let changeCatalogMenu = document.querySelector('.quick_menu_filter');
-changeCatalogMenu.addEventListener('click', changeCatalogMenueFunction);
+if(changeCatalogMenu)
+    changeCatalogMenu.addEventListener('click', changeCatalogMenueFunction);
 
 function changeCatalogMenueFunction(event) {
     let catalogMenu = document.querySelector('.catalog_menu');
@@ -109,34 +110,6 @@ function creator (product){
     //!: קריאה לפונקציה שמעדכנת מצב מועדפים ועגלה לאחר קבלת תשובה מהשרת
     updateWishlistHearts();
     updatecarts();
-}
-
-//TODO: עדכון צבע הלבבות לאחר יצירת הכרטיסים בהתאם ללוקאל סטורג
-function updateWishlistHearts() {
-  const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-  wishlist.forEach(savedItem => {
-    const productBox = document.getElementById(savedItem.id);
-    if (productBox) {
-      const heart = productBox.querySelector('.add_to_wishlist');
-      if (heart) {
-        heart.classList.add('add_to_wishlist_click');
-      }
-    }
-  });
-}
-
-//TODO: עדכון צבע העגלות לאחר יצירת הכרטיסים בהתאם ללוקאל סטורג
-function updatecarts() {
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
-  cart.forEach(savedItem => {
-    const productBox = document.getElementById(savedItem.id);
-    if (productBox) {
-      const cart = productBox.querySelector('.add_to_cart');
-      if (cart) {
-        cart.classList.add('add_to_cart_click');
-      }
-    }
-  });
 }
 
 //TODO: פונקציה ליצירת כרטיסיות מוצר
@@ -347,6 +320,182 @@ function saveToWishlist(event){
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
 }
 
+//TODO: עדכון צבע הלבבות לאחר יצירת הכרטיסים בהתאם ללוקאל סטורג
+function updateWishlistHearts() {
+  const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+  wishlist.forEach(savedItem => {
+    const productBox = document.getElementById(savedItem.id);
+    if (productBox) {
+      const heart = productBox.querySelector('.add_to_wishlist');
+      if (heart) {
+        heart.classList.add('add_to_wishlist_click');
+      }
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadWishlistFromLocalStorage();
+});
+
+//TODO: פונקציה ששולפת מהזיכרון את הנתונים של המוצרים ומזמנת פונקציה שבונה אותם
+function loadWishlistFromLocalStorage() {
+    const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    const container = document.querySelector('#wish_chosen_products_list_ul');
+    if (!container) {
+        console.warn('Container for wishlist not found!');
+        return; // יוצא מהפונקציה כדי לא לגרום לשגיאה
+    }
+    
+    container.innerHTML = ''; // מנקה את הרשימה לפני טעינה
+
+    if (wishlist.length === 0) {
+        return;
+    }
+
+    wishlist.forEach(product => {
+        createWishlistItemElement(product);
+    });
+
+    //TODO: קריאה לפונקציה שנותנת לכולם לאחר השליפה מהזיכרון איבנט למחיקת מוצר
+    addDeleteEventListeners();
+
+    // מעדכן את הטקסט בכותרת אחרי שינוי
+    const headerParagraph = document.querySelector('.wish_header p');
+    if (headerParagraph) {
+        headerParagraph.textContent = 'You have: ' + wishlist.length + ' items in your wishlist.';
+    }
+}
+
+//TODO: פונקציה ליצירת כרטיסיות מוצר למועדפים
+function createWishlistItemElement(productData) {
+    const wishlistListItem = document.createElement('li');
+    wishlistListItem.setAttribute('data-id', productData.id); // להוספה אם תצטרך בעתיד
+
+    const wishlistProductWrapper = document.createElement('div');
+    wishlistProductWrapper.classList.add('wish_chosen_product_list');
+
+    const wishlistDeleteIcon = document.createElement('i');
+    wishlistDeleteIcon.classList.add('wish_delete', 'fa-solid', 'fa-heart');
+
+    const wishlistImageBox = document.createElement('div');
+    wishlistImageBox.classList.add('wish_chosen_product_img_box');
+
+    const wishlistImageLink = document.createElement('a');
+    wishlistImageLink.href = `../motorcycle catalog/motorcycles.html#${productData.id}`;
+
+    const wishlistImage = document.createElement('img');
+    wishlistImage.src = productData.image;
+    wishlistImage.alt = productData.name;
+
+    const wishlistContentBox = document.createElement('article');
+    wishlistContentBox.classList.add('wish_chosen_product_content_box');
+
+    const wishlistPriceBox = document.createElement('div');
+    wishlistPriceBox.classList.add('wish_chosen_product_price');
+
+    const wishlistOriginalPriceBox = document.createElement('div');
+    wishlistOriginalPriceBox.classList.add('original_price_box');
+
+    const wishlistOriginalPrice = document.createElement('h4');
+    wishlistOriginalPrice.classList.add('original_price');
+    wishlistOriginalPrice.textContent = productData.originalPrice;
+
+    const wishlistDiscount = document.createElement('p');
+    wishlistDiscount.classList.add('discount');
+    wishlistDiscount.textContent = productData.discount;
+
+    const wishlistFinalPrice = document.createElement('h2');
+    wishlistFinalPrice.textContent = productData.finalPrice;
+
+    const wishlistTitleBox = document.createElement('div');
+    wishlistTitleBox.classList.add('wish_product_title');
+
+    const wishlistProductName = document.createElement('h3');
+    wishlistProductName.classList.add('wish_product_name');
+    wishlistProductName.textContent = productData.name;
+
+    const wishlistDescription = document.createElement('p');
+    wishlistDescription.classList.add('wish_describe');
+    wishlistDescription.textContent = productData.description;
+
+    const wishlistButtonsBox = document.createElement('div');
+    wishlistButtonsBox.classList.add('wish_product_buttons');
+
+    const wishlistAddToCartButton = document.createElement('button');
+    wishlistAddToCartButton.textContent = 'Add to cart';
+
+    const wishlistBuyNowButtonLink = document.createElement('a');
+    const wishlistBuyNowButton = document.createElement('button');
+    wishlistBuyNowButtonLink.href = productData.buyLink;
+    wishlistBuyNowButton.textContent = 'Buy now';
+    wishlistBuyNowButton.classList.add('buy_now_button');
+
+    // הרכבה
+    wishlistImageLink.appendChild(wishlistImage);
+    wishlistImageBox.appendChild(wishlistImageLink);
+
+    wishlistOriginalPriceBox.appendChild(wishlistOriginalPrice);
+    wishlistOriginalPriceBox.appendChild(wishlistDiscount);
+    wishlistPriceBox.appendChild(wishlistOriginalPriceBox);
+    wishlistPriceBox.appendChild(wishlistFinalPrice);
+
+    wishlistTitleBox.appendChild(wishlistProductName);
+    wishlistTitleBox.appendChild(wishlistDescription);
+
+    wishlistButtonsBox.appendChild(wishlistAddToCartButton);
+    wishlistBuyNowButtonLink.appendChild(wishlistBuyNowButton);
+    wishlistButtonsBox.appendChild(wishlistBuyNowButtonLink);
+
+    wishlistContentBox.appendChild(wishlistPriceBox);
+    wishlistContentBox.appendChild(wishlistTitleBox);
+    wishlistContentBox.appendChild(wishlistButtonsBox);
+
+    wishlistProductWrapper.appendChild(wishlistDeleteIcon);
+    wishlistProductWrapper.appendChild(wishlistImageBox);
+    wishlistProductWrapper.appendChild(wishlistContentBox);
+
+    wishlistListItem.appendChild(wishlistProductWrapper);
+
+    document.querySelector('#wish_chosen_products_list_ul').appendChild(wishlistListItem);
+}
+
+//TODO: לאחר יצירת כל פריט במועדפים פונקציה שמוסיפה אירוע למחיקת פריטים
+function addDeleteEventListeners() {
+    const deleteButtons = document.querySelectorAll('.wish_delete');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', handleDeleteWishlistItem);
+    });
+}
+
+//TODO: הפונקציה שמוחקת את הפריט מהדום הזיכרון (והקטלוג כבר נשען על הזיכרון)
+function handleDeleteWishlistItem(event) {
+    // האלמנט שנלחץ
+    const deleteBtn = event.currentTarget;
+
+    // האלמנט של רשימת הפריט (הורה ל-wishlistListItem)
+    const listItem = deleteBtn.closest('li');
+
+    if (!listItem) return;
+
+    // מזהה הפריט מתוך data-id
+    const productId = listItem.getAttribute('data-id');
+
+    // 1. הסרה מה-DOM
+    listItem.remove();
+
+    // 2. הסרה מ-localStorage
+    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    wishlist = wishlist.filter(item => item.id !== productId);
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+
+        // מעדכן את הטקסט בכותרת אחרי שינוי
+    const headerParagraph = document.querySelector('.wish_header p');
+    if (headerParagraph) {
+        headerParagraph.textContent = 'You have: ' + wishlist.length + ' items in your wishlist.';
+    }
+}
+
 //TODO: פונקציה ששומרת בזיכרון את פרטי המוצר הנבחר למועדפים וצובעת באדום את העגלה
 function saveToCart(event){
     // שינוי מצב הלב בקטלוג של הוספה והסרה של המוצר
@@ -405,104 +554,18 @@ function saveToCart(event){
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-//TODO: פונקציה ליצירת כרטיסיות מוצר למועדפים
-function createWishlistItemElement(event) {
-    // יצירת פריט רשימה
-    const wishlistListItem = document.createElement('li');
-
-    // יצירת קופסה כוללת לפריט wishlist
-    const wishlistProductWrapper = document.createElement('div');
-    wishlistProductWrapper.classList.add('wish_chosen_product_list');
-
-    // יצירת אייקון לב להסרת פריט מה־wishlist
-    const wishlistDeleteIcon = document.createElement('i');
-    wishlistDeleteIcon.classList.add('wish_delete', 'fa-solid', 'fa-heart');
-
-    // קופסה לתמונה
-    const wishlistImageBox = document.createElement('div');
-    wishlistImageBox.classList.add('wish_chosen_product_img_box');
-
-    // קישור לתמונה
-    const wishlistImageLink = document.createElement('a');
-    wishlistImageLink.href = '../motorcycle catalog/motorcycles.html#6';
-
-    // יצירת התמונה
-    const wishlistImage = document.createElement('img');
-    wishlistImage.src = '../images/product/kawasaki product/h2 sx.png';
-    wishlistImage.alt = '';
-
-    // קופסה למידע על המוצר
-    const wishlistContentBox = document.createElement('article');
-    wishlistContentBox.classList.add('wish_chosen_product_content_box');
-
-    // קופסה למחיר
-    const wishlistPriceBox = document.createElement('div');
-    wishlistPriceBox.classList.add('wish_chosen_product_price');
-
-    // קופסה למחיר המקורי וההנחה
-    const wishlistOriginalPriceBox = document.createElement('div');
-    wishlistOriginalPriceBox.classList.add('original_price_box');
-    const wishlistOriginalPrice = document.createElement('h4');
-    wishlistOriginalPrice.classList.add('original_price');
-    wishlistOriginalPrice.textContent = '29,642.47 $';
-    const wishlistDiscount = document.createElement('p');
-    wishlistDiscount.classList.add('discount');
-    wishlistDiscount.textContent = '-10%';
-    const wishlistFinalPrice = document.createElement('h2');
-    wishlistFinalPrice.textContent = '26,678.22 $';
-
-    // קופסה לשם ותיאור המוצר
-    const wishlistTitleBox = document.createElement('div');
-    wishlistTitleBox.classList.add('wish_product_title');
-    const wishlistProductName = document.createElement('h3');
-    wishlistProductName.classList.add('wish_product_name');
-    wishlistProductName.textContent = 'Ninja h2 sx';
-    const wishlistDescription = document.createElement('p');
-    wishlistDescription.classList.add('wish_describe');
-    wishlistDescription.textContent = 'A high-performance sport bike from Kawasaki, featuring a 998cc supercharged engine that';
-
-    // קופסה לכפתורים
-    const wishlistButtonsBox = document.createElement('div');
-    wishlistButtonsBox.classList.add('wish_product_buttons');
-    const wishlistAddToCartButton = document.createElement('button');
-    wishlistAddToCartButton.textContent = 'Add to cart';
-    const wishlistBuyNowButton = document.createElement('button');
-    wishlistBuyNowButton.textContent = 'Buy now';
-
-    // הרכבת התמונה
-    wishlistImageLink.appendChild(wishlistImage);
-    wishlistImageBox.appendChild(wishlistImageLink);
-
-    // הרכבת תיבת המחיר
-    wishlistOriginalPriceBox.appendChild(wishlistOriginalPrice);
-    wishlistOriginalPriceBox.appendChild(wishlistDiscount);
-    wishlistPriceBox.appendChild(wishlistOriginalPriceBox);
-    wishlistPriceBox.appendChild(wishlistFinalPrice);
-
-    // הרכבת תיבת הכותרת
-    wishlistTitleBox.appendChild(wishlistProductName);
-    wishlistTitleBox.appendChild(wishlistDescription);
-
-    // הרכבת כפתורים
-    wishlistButtonsBox.appendChild(wishlistAddToCartButton);
-    wishlistButtonsBox.appendChild(wishlistBuyNowButton);
-
-    // הרכבת תיבת התוכן
-    wishlistContentBox.appendChild(wishlistPriceBox);
-    wishlistContentBox.appendChild(wishlistTitleBox);
-    wishlistContentBox.appendChild(wishlistButtonsBox);
-
-    // הרכבת הכל לתוך הקופסה הראשית
-    wishlistProductWrapper.appendChild(wishlistDeleteIcon);
-    wishlistProductWrapper.appendChild(wishlistImageBox);
-    wishlistProductWrapper.appendChild(wishlistContentBox);
-
-    // הכנסת הכל ל־li
-    wishlistListItem.appendChild(wishlistProductWrapper);
-
-    // הכנסת כרטיס מועדפים לתוך הדום
-
-     
+//TODO: עדכון צבע העגלות לאחר יצירת הכרטיסים בהתאם ללוקאל סטורג
+function updatecarts() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  cart.forEach(savedItem => {
+    const productBox = document.getElementById(savedItem.id);
+    if (productBox) {
+      const cart = productBox.querySelector('.add_to_cart');
+      if (cart) {
+        cart.classList.add('add_to_cart_click');
+      }
+    }
+  });
 }
 
 //TODO: פונקציה לבניית פריט עגלה חדש
