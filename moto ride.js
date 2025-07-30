@@ -118,6 +118,7 @@ function createProductCardItemElement(product){
         const productSuperBox = document.createElement('div');
         productSuperBox.classList.add('product_super_box');
         productSuperBox.id = product.id;
+        productSuperBox.setAttribute('data-stock', product.stock || 1);
         if (product.status) {
             productSuperBox.style.setProperty(`--${product.status}`, 'true');
         }
@@ -284,12 +285,13 @@ function saveToWishlist(event){
     const originalPrice = productBox.querySelector('.original_price')?.textContent.trim();
     const discount = productBox.querySelector('.discount')?.textContent.trim();
     const finalPrice = productBox.querySelector('h2')?.textContent.trim();
+    const stock = parseInt(productBox.dataset.stock) || 1;
     const buyLink = productBox.querySelector('.a_button')?.href;
 
     if (!productId || !name) return;
 
     // מבנה הנתונים לשמירה
-    const productData = {
+    const wishlistProductData = {
         id: productId,
         name,
         description,
@@ -298,6 +300,7 @@ function saveToWishlist(event){
         originalPrice,
         discount,
         finalPrice,
+        stock,
         buyLink
     };
 
@@ -307,7 +310,7 @@ function saveToWishlist(event){
 
     if (heartIconClick.classList.contains('add_to_wishlist_click')) {
         if (existingIndex === -1) {
-            wishlist.push(productData);
+            wishlist.push(wishlistProductData);
         }
     } 
     
@@ -320,7 +323,7 @@ function saveToWishlist(event){
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
 }
 
-//TODO: עדכון צבע הלבבות לאחר יצירת הכרטיסים בהתאם ללוקאל סטורג
+//TODO: עדכון צבע הלבבות לאחר יצירת הכרטיסים בהתאם ללוקאל סטורג לאחר רענון
 function updateWishlistHearts() {
   const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
   wishlist.forEach(savedItem => {
@@ -334,11 +337,13 @@ function updateWishlistHearts() {
   });
 }
 
+//?: טעינה חדשה של המוצרים מהלוקאלסטוראג' בעת רענון או טעינת הדף מועדפים
 document.addEventListener('DOMContentLoaded', () => {
     loadWishlistFromLocalStorage();
+    loadCartFromLocalStorage();
 });
 
-//TODO: פונקציה ששולפת מהזיכרון את הנתונים של המוצרים ומזמנת פונקציה שבונה אותם
+//TODO: פונקציה ששולפת מהזיכרון את הנתונים של המוצרים ומזמנת פונקציה שבונה אותם במועדפים
 function loadWishlistFromLocalStorage() {
     const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
     const container = document.querySelector('#wish_chosen_products_list_ul');
@@ -347,7 +352,7 @@ function loadWishlistFromLocalStorage() {
         return; // יוצא מהפונקציה כדי לא לגרום לשגיאה
     }
     
-    container.innerHTML = ''; // מנקה את הרשימה לפני טעינה
+    container.innerHTML = ''; // מנקה את הרשימה לפני טעינה למניעת שכפוליות
 
     if (wishlist.length === 0) {
         return;
@@ -358,7 +363,7 @@ function loadWishlistFromLocalStorage() {
     });
 
     //TODO: קריאה לפונקציה שנותנת לכולם לאחר השליפה מהזיכרון איבנט למחיקת מוצר
-    addDeleteEventListeners();
+    addWishlistDeleteEventListeners();
 
     // מעדכן את הטקסט בכותרת אחרי שינוי
     const headerParagraph = document.querySelector('.wish_header p');
@@ -368,9 +373,9 @@ function loadWishlistFromLocalStorage() {
 }
 
 //TODO: פונקציה ליצירת כרטיסיות מוצר למועדפים
-function createWishlistItemElement(productData) {
+function createWishlistItemElement(wishlistProductData) {
     const wishlistListItem = document.createElement('li');
-    wishlistListItem.setAttribute('data-id', productData.id); // להוספה אם תצטרך בעתיד
+    wishlistListItem.setAttribute('data-id', wishlistProductData.id); // להוספה אם תצטרך בעתיד
 
     const wishlistProductWrapper = document.createElement('div');
     wishlistProductWrapper.classList.add('wish_chosen_product_list');
@@ -382,11 +387,11 @@ function createWishlistItemElement(productData) {
     wishlistImageBox.classList.add('wish_chosen_product_img_box');
 
     const wishlistImageLink = document.createElement('a');
-    wishlistImageLink.href = `../motorcycle catalog/motorcycles.html#${productData.id}`;
+    wishlistImageLink.href = `../motorcycle catalog/motorcycles.html#${wishlistProductData.id}`;
 
     const wishlistImage = document.createElement('img');
-    wishlistImage.src = productData.image;
-    wishlistImage.alt = productData.name;
+    wishlistImage.src = wishlistProductData.image;
+    wishlistImage.alt = wishlistProductData.name;
 
     const wishlistContentBox = document.createElement('article');
     wishlistContentBox.classList.add('wish_chosen_product_content_box');
@@ -399,25 +404,25 @@ function createWishlistItemElement(productData) {
 
     const wishlistOriginalPrice = document.createElement('h4');
     wishlistOriginalPrice.classList.add('original_price');
-    wishlistOriginalPrice.textContent = productData.originalPrice;
+    wishlistOriginalPrice.textContent = wishlistProductData.originalPrice;
 
     const wishlistDiscount = document.createElement('p');
     wishlistDiscount.classList.add('discount');
-    wishlistDiscount.textContent = productData.discount;
+    wishlistDiscount.textContent = wishlistProductData.discount;
 
     const wishlistFinalPrice = document.createElement('h2');
-    wishlistFinalPrice.textContent = productData.finalPrice;
+    wishlistFinalPrice.textContent = wishlistProductData.finalPrice;
 
     const wishlistTitleBox = document.createElement('div');
     wishlistTitleBox.classList.add('wish_product_title');
 
     const wishlistProductName = document.createElement('h3');
     wishlistProductName.classList.add('wish_product_name');
-    wishlistProductName.textContent = productData.name;
+    wishlistProductName.textContent = wishlistProductData.name;
 
     const wishlistDescription = document.createElement('p');
     wishlistDescription.classList.add('wish_describe');
-    wishlistDescription.textContent = productData.description;
+    wishlistDescription.textContent = wishlistProductData.description;
 
     const wishlistButtonsBox = document.createElement('div');
     wishlistButtonsBox.classList.add('wish_product_buttons');
@@ -427,7 +432,7 @@ function createWishlistItemElement(productData) {
 
     const wishlistBuyNowButtonLink = document.createElement('a');
     const wishlistBuyNowButton = document.createElement('button');
-    wishlistBuyNowButtonLink.href = productData.buyLink;
+    wishlistBuyNowButtonLink.href = wishlistProductData.buyLink;
     wishlistBuyNowButton.textContent = 'Buy now';
     wishlistBuyNowButton.classList.add('buy_now_button');
 
@@ -461,14 +466,14 @@ function createWishlistItemElement(productData) {
 }
 
 //TODO: לאחר יצירת כל פריט במועדפים פונקציה שמוסיפה אירוע למחיקת פריטים
-function addDeleteEventListeners() {
+function addWishlistDeleteEventListeners() {
     const deleteButtons = document.querySelectorAll('.wish_delete');
     deleteButtons.forEach(button => {
         button.addEventListener('click', handleDeleteWishlistItem);
     });
 }
 
-//TODO: הפונקציה שמוחקת את הפריט מהדום הזיכרון (והקטלוג כבר נשען על הזיכרון)
+//TODO: הפונקציה שמוחקת את הפריט במועדפים מהדום הזיכרון (והקטלוג כבר נשען על הזיכרון)
 function handleDeleteWishlistItem(event) {
     // האלמנט שנלחץ
     const deleteBtn = event.currentTarget;
@@ -518,12 +523,13 @@ function saveToCart(event){
     const originalPrice = productBox.querySelector('.original_price')?.textContent.trim();
     const discount = productBox.querySelector('.discount')?.textContent.trim();
     const finalPrice = productBox.querySelector('h2')?.textContent.trim();
+    const stock = parseInt(productBox.dataset.stock) || 1;
     const buyLink = productBox.querySelector('.a_button')?.href;
 
     if (!productId || !name) return;
 
     // מבנה הנתונים לשמירה
-    const productData = {
+    const cartProductData = {
         id: productId,
         name,
         description,
@@ -532,6 +538,7 @@ function saveToCart(event){
         originalPrice,
         discount,
         finalPrice,
+        stock,
         buyLink
     };
 
@@ -541,7 +548,7 @@ function saveToCart(event){
 
     if (cartIconClick.classList.contains('add_to_cart_click')) {
         if (existingIndex === -1) {
-            cart.push(productData);
+            cart.push(cartProductData);
         }
     } 
     
@@ -568,10 +575,40 @@ function updatecarts() {
   });
 }
 
+//TODO: פונקציה ששולפת מהזיכרון את הנתונים של המוצרים ומזמנת פונקציה שבונה אותם בעגלה
+function loadCartFromLocalStorage() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const container = document.querySelector('#chosen_products_list_ul');
+    if (!container) {
+        console.warn('Container for cart not found!');
+        return; // יוצא מהפונקציה כדי לא לגרום לשגיאה
+    }
+    
+    container.innerHTML = ''; // מנקה את הרשימה לפני טעינה למניעת שכפוליות
+
+    if (cart.length === 0) {
+        return;
+    }
+
+    cart.forEach(product => {
+        createCartItemElement(product);
+    });
+
+    //TODO: קריאה לפונקציה שנותנת לכולם לאחר השליפה מהזיכרון איבנט למחיקת מוצר
+    addCartDeleteEventListeners();
+
+    // מעדכן את הטקסט בכותרת אחרי שינוי
+    const headerParagraph = document.querySelector('.cart_header p');
+    if (headerParagraph) {
+        headerParagraph.textContent = 'You have: ' + cart.length + ' items in your wishlist.';
+    }
+}
+
 //TODO: פונקציה לבניית פריט עגלה חדש
-function createCartItemElement(product) {
+function createCartItemElement(cartProductData) {
     // יצירת תיבת <li> שתכיל את המוצר
     const listItem = document.createElement('li');
+    listItem.setAttribute('data-id', cartProductData.id); // להוספה אם תצטרך בעתיד
 
     // יצירת תיבת המוצר הכללית בעגלה
     const cartProductBox = document.createElement('div');
@@ -579,7 +616,7 @@ function createCartItemElement(product) {
 
     // יצירת כפתור מחיקת מוצר מהעגלה
     const deleteIcon = document.createElement('i');
-    deleteIcon.classList.add('delete_product', 'fa-solid', 'fa-xmark');
+    deleteIcon.classList.add('cart_delete', 'fa-solid', 'fa-xmark');
 
     // יצירת תיבת תמונת המוצר
     const imageBox = document.createElement('div');
@@ -587,12 +624,12 @@ function createCartItemElement(product) {
 
     // יצירת קישור לדף רכישה או מידע נוסף
     const productLink = document.createElement('a');
-    productLink.href = product.buyLink || '#'; // במידה ואין קישור, מונע שבירה
+    productLink.href = `../motorcycle catalog/motorcycles.html#${cartProductData.id}`; // במידה ואין קישור, מונע שבירה
 
     // יצירת תמונת המוצר
     const productImage = document.createElement('img');
-    productImage.src = product.image;
-    productImage.alt = product.name;
+    productImage.src = cartProductData.image;
+    productImage.alt = '';
 
     // חיבור התמונה לקישור והתיבה
     productLink.appendChild(productImage);
@@ -603,25 +640,25 @@ function createCartItemElement(product) {
 
     // שם המוצר
     const nameItem = document.createElement('li');
-    nameItem.textContent = product.name;
+    nameItem.textContent = cartProductData.name;
 
     // מחיר ליחידה
     const pricePerItem = document.createElement('li');
-    pricePerItem.textContent = `${product.finalPrice} $`;
+    pricePerItem.textContent = `${cartProductData.finalPrice}`;
 
     // תיבת כמות לבחירת מספר יחידות
     const quantityItem = document.createElement('li');
     const quantityInput = document.createElement('input');
     quantityInput.type = 'number';
-    quantityInput.value = product.quantity || 1; // אם אין כמות, שים 1 כברירת מחדל
+    quantityInput.value = 1; // אם אין כמות, שים 1 כברירת מחדל
     quantityInput.min = 1;
     quantityInput.classList.add('chosen_product_input');
     quantityItem.appendChild(quantityInput);
 
     // מחיר כולל (מחיר ליחידה * כמות)
     const totalItem = document.createElement('li');
-    const totalPrice = (parseFloat(product.finalPrice) * (product.quantity || 1)).toFixed(2);
-    totalItem.textContent = `${totalPrice} $`;
+    const totalPrice = cartProductData.finalPrice;
+    totalItem.textContent = `${totalPrice}`;
 
     // חיבור כל שורות המידע לרשימה
     detailsList.appendChild(nameItem);
@@ -637,7 +674,41 @@ function createCartItemElement(product) {
     // הוספת הקופסה ל־<li>
     listItem.appendChild(cartProductBox);
 
+    document.querySelector('#chosen_products_list_ul').appendChild(listItem);
 }
 
+//TODO: לאחר יצירת כל פריט בעגלה פונקציה שמוסיפה אירוע למחיקת פריטים
+function addCartDeleteEventListeners() {
+    const deleteButtons = document.querySelectorAll('.cart_delete');
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', handleDeleteCartItem);
+    });
+}
 
+//TODO: הפונקציה שמוחקת את הפריט בעגלה מהדום הזיכרון (והקטלוג כבר נשען על הזיכרון)
+function handleDeleteCartItem(event) {
+    // האלמנט שנלחץ
+    const deleteBtn = event.currentTarget;
 
+    // האלמנט של רשימת הפריט (הורה ל-wishlistListItem)
+    const listItem = deleteBtn.closest('li');
+
+    if (!listItem) return;
+
+    // מזהה הפריט מתוך data-id
+    const productId = listItem.getAttribute('data-id');
+
+    // 1. הסרה מה-DOM
+    listItem.remove();
+
+    // 2. הסרה מ-localStorage
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart = cart.filter(item => item.id !== productId);
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+        // מעדכן את הטקסט בכותרת אחרי שינוי
+    const headerParagraph = document.querySelector('.cart_header p');
+    if (headerParagraph) {
+        headerParagraph.textContent = 'You have: ' + cart.length + ' items in your wishlist.';
+    }
+}

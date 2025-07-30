@@ -2591,7 +2591,7 @@ i {
     position: relative;
 }
 
-.delete_product {
+.cart_delete {
     cursor: pointer;
     position: absolute;
     left: 0%;
