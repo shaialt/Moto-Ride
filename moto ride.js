@@ -80,7 +80,7 @@ function changeCatalogMenueFunction(event) {
     }
 }
 
-// הכנסת מוצרים מתוך ג'ייסון לקטלוג אופנועים
+//?: הכנסת מוצרים מתוך ג'ייסון לקטלוג אופנועים
 fetch('../assets/products.json')
   .then(response => response.json())
   .then(products => {
@@ -337,7 +337,7 @@ function updateWishlistHearts() {
   });
 }
 
-//?: טעינה חדשה של המוצרים מהלוקאלסטוראג' בעת רענון או טעינת הדף מועדפים
+//?: טעינה חדשה של המוצרים מהלוקאלסטוראג' בעת רענון או טעינת הדף
 document.addEventListener('DOMContentLoaded', () => {
     loadWishlistFromLocalStorage();
     loadCartFromLocalStorage();
@@ -522,8 +522,12 @@ function saveToCart(event){
     const logo = productBox.querySelector('.product_logo_img')?.src;
     const originalPrice = productBox.querySelector('.original_price')?.textContent.trim();
     const discount = productBox.querySelector('.discount')?.textContent.trim();
-    const finalPrice = productBox.querySelector('h2')?.textContent.trim();
+    const finalPriceText = productBox.querySelector('h2')?.textContent.trim() || '0';
+
+    const finalPrice = parsePriceToNumber(finalPriceText);
+
     const stock = parseInt(productBox.dataset.stock) || 1;
+    const quantity = 1;
     const buyLink = productBox.querySelector('.a_button')?.href;
 
     if (!productId || !name) return;
@@ -539,6 +543,7 @@ function saveToCart(event){
         discount,
         finalPrice,
         stock,
+        quantity,
         buyLink
     };
 
@@ -594,8 +599,9 @@ function loadCartFromLocalStorage() {
         createCartItemElement(product);
     });
 
-    //TODO: קריאה לפונקציה שנותנת לכולם לאחר השליפה מהזיכרון איבנט למחיקת מוצר
+    //TODO: הוספת מאזינים אחרי יצירת האלמנטים
     addCartDeleteEventListeners();
+    addCartQuantityEventListeners();
 
     // מעדכן את הטקסט בכותרת אחרי שינוי
     const headerParagraph = document.querySelector('.cart_header p');
@@ -607,12 +613,15 @@ function loadCartFromLocalStorage() {
 //TODO: פונקציה לבניית פריט עגלה חדש
 function createCartItemElement(cartProductData) {
     // יצירת תיבת <li> שתכיל את המוצר
-    const listItem = document.createElement('li');
-    listItem.setAttribute('data-id', cartProductData.id); // להוספה אם תצטרך בעתיד
+    const cartListItem = document.createElement('li');
+    cartListItem.setAttribute('data-id', cartProductData.id); // להוספה אם תצטרך בעתיד
 
     // יצירת תיבת המוצר הכללית בעגלה
     const cartProductBox = document.createElement('div');
     cartProductBox.classList.add('chosen_product_list');
+
+    // הוספת data-price עם המחיר ליחידה (מספר)
+    cartProductBox.dataset.price = cartProductData.finalPrice;
 
     // יצירת כפתור מחיקת מוצר מהעגלה
     const deleteIcon = document.createElement('i');
@@ -644,22 +653,22 @@ function createCartItemElement(cartProductData) {
 
     // מחיר ליחידה
     const pricePerItem = document.createElement('li');
-    pricePerItem.textContent = `${cartProductData.finalPrice}`;
-
+    pricePerItem.classList.add('cart_price_per_item')
+    pricePerItem.textContent = `${cartProductData.finalPrice.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} $`;
     // תיבת כמות לבחירת מספר יחידות
     const quantityItem = document.createElement('li');
     const quantityInput = document.createElement('input');
     quantityInput.type = 'number';
-    quantityInput.value = 1; // אם אין כמות, שים 1 כברירת מחדל
+    quantityInput.value = cartProductData.quantity || 1;
     quantityInput.min = 1;
     quantityInput.classList.add('chosen_product_input');
     quantityItem.appendChild(quantityInput);
 
     // מחיר כולל (מחיר ליחידה * כמות)
     const totalItem = document.createElement('li');
+    totalItem.classList.add('cart_item_total_price');
     const totalPrice = cartProductData.finalPrice;
-    totalItem.textContent = `${totalPrice}`;
-
+    totalItem.textContent = `${(cartProductData.finalPrice * cartProductData.quantity).toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} $`;
     // חיבור כל שורות המידע לרשימה
     detailsList.appendChild(nameItem);
     detailsList.appendChild(pricePerItem);
@@ -672,9 +681,9 @@ function createCartItemElement(cartProductData) {
     cartProductBox.appendChild(detailsList);
 
     // הוספת הקופסה ל־<li>
-    listItem.appendChild(cartProductBox);
+    cartListItem.appendChild(cartProductBox);
 
-    document.querySelector('#chosen_products_list_ul').appendChild(listItem);
+    document.querySelector('#chosen_products_list_ul').appendChild(cartListItem);
 }
 
 //TODO: לאחר יצירת כל פריט בעגלה פונקציה שמוסיפה אירוע למחיקת פריטים
@@ -712,3 +721,65 @@ function handleDeleteCartItem(event) {
         headerParagraph.textContent = 'You have: ' + cart.length + ' items in your wishlist.';
     }
 }
+
+//TODO: השמה של איבנט על הכמות שהמשתמש רוצה
+function addCartQuantityEventListeners() {
+    const quantityInputs = document.querySelectorAll('.chosen_product_input');
+    quantityInputs.forEach(input => {
+        input.addEventListener('input', cartQuantity);
+    });
+}
+
+//TODO: פונקציה שמשנה את המחיר של המוצר בעגלה
+function cartQuantity(event) {
+    const quantityInput = event.currentTarget;
+    const quantityValue = Number(quantityInput.value);
+    const productBox = quantityInput.closest('.chosen_product_list');
+
+    if (!productBox) return;
+
+    // קריאת המחיר מה-data-price
+    const pricePerItem = Number(productBox.dataset.price);
+    const totalPricePerItemElement = productBox.querySelector('.cart_item_total_price');
+
+    if (!isNaN(pricePerItem) && totalPricePerItemElement) {
+        const total = quantityValue * pricePerItem;
+    totalPricePerItemElement.textContent = `${total.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} $`;
+    }
+
+    // עדכון localStorage
+    const listItem = quantityInput.closest('li[data-id]');
+    if (!listItem) return;
+    const productId = listItem.getAttribute('data-id');
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const productIndex = cart.findIndex(item => item.id === productId);
+    if (productIndex !== -1) {
+        cart[productIndex].quantity = quantityValue;
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+}
+
+function parsePriceToNumber(priceString) {
+    if (!priceString) return 0;
+
+    // הסרת תווים שאינם ספרות, נקודה או פסיק
+    let cleaned = priceString.replace(/[^\d.,]/g, '');
+
+    if (cleaned.includes('.') && cleaned.includes(','))
+    {
+        // אם יש גם נקודה וגם פסיק, הפסיק הוא אלפים - נסיר אותו
+        cleaned = cleaned.replace(/,/g, '');
+    } 
+    
+    else 
+        if (cleaned.includes(',') && !cleaned.includes('.')) {
+            // אם יש רק פסיקים ונקודה לא קיימת, נחליף פסיקים בנקודות (למקרה של עשרוני עם פסיק)
+            cleaned = cleaned.replace(/,/g, '.');
+        }
+
+    const number = parseFloat(cleaned);
+
+    return isNaN(number) ? 0 : number;
+}
+
