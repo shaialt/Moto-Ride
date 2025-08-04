@@ -655,20 +655,35 @@ function createCartItemElement(cartProductData) {
     const pricePerItem = document.createElement('li');
     pricePerItem.classList.add('cart_price_per_item')
     pricePerItem.textContent = `${cartProductData.finalPrice.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} $`;
+   
     // תיבת כמות לבחירת מספר יחידות
     const quantityItem = document.createElement('li');
+    let quantity = parseInt(cartProductData.quantity);
+    if (!quantity || quantity < 1) quantity = 1; // תיקון כמות לא חוקית
+
+    // שמירה חוזרת לאובייקט
+    cartProductData.quantity = quantity;
+
     const quantityInput = document.createElement('input');
     quantityInput.type = 'number';
-    quantityInput.value = cartProductData.quantity || 1;
+    quantityInput.value = quantity;
     quantityInput.min = 1;
     quantityInput.classList.add('chosen_product_input');
+
+    //TODO: מונע הכנסת תווים לא חוקיים (מקלדת בטלפון/דפדפן)
+    quantityInput.addEventListener('keydown', function (e) {
+        if (e.key === '-' || e.key === '.' || e.key === 'e') {
+            e.preventDefault();
+        }
+    });
+
     quantityItem.appendChild(quantityInput);
 
     // מחיר כולל (מחיר ליחידה * כמות)
     const totalItem = document.createElement('li');
     totalItem.classList.add('cart_item_total_price');
     const totalPrice = cartProductData.finalPrice;
-    totalItem.textContent = `${(cartProductData.finalPrice * cartProductData.quantity).toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} $`;
+    totalItem.textContent = `${(cartProductData.finalPrice * quantity).toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} $`;
     // חיבור כל שורות המידע לרשימה
     detailsList.appendChild(nameItem);
     detailsList.appendChild(pricePerItem);
@@ -734,6 +749,13 @@ function addCartQuantityEventListeners() {
 function cartQuantity(event) {
     const quantityInput = event.currentTarget;
     const quantityValue = Number(quantityInput.value);
+
+    // תיקון ערך לא חוקי - אם ריק, אפס, או פחות מ-1, נקבע ל-1
+    if (!quantityValue || quantityValue < 1) {
+        quantityValue = 1;
+        quantityInput.value = quantityValue; // מחזיר את השדה לערך חוקי
+    }
+
     const productBox = quantityInput.closest('.chosen_product_list');
 
     if (!productBox) return;
