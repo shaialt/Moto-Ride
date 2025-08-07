@@ -1080,9 +1080,10 @@ header {
 /*Top products animation block*/
 .top_product_title_box {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   margin-bottom: 30px;
   margin-top: 30px;
+  align-items: center;
 }
 
 .top_product_title {
@@ -1099,7 +1100,7 @@ header {
   position: relative;
   text-align: center;
   align-content: center;
-  margin-top: 20px;
+  margin-left: 50px;
 }
 
 @property --angle {
@@ -1136,6 +1137,12 @@ header {
 .top_product_title::before {
   filter: blur(1.5rem);
   opacity: 0.5;
+}
+
+.total_products {
+  color: white;
+  font-size: 12px;
+  margin-left: 15px;
 }
 
 /*Top product block*/
@@ -1330,6 +1337,7 @@ header {
   font-weight: bold;
   margin-bottom: 5px;
   margin-right: 20px;
+  cursor: pointer;
 }
 
 .button:hover {
@@ -2421,7 +2429,7 @@ svg {
   }
 }
 
-/*!Motorcycle catalog*/
+/*!catalog*/
 .category_header {
   position: sticky;
   top: 0;

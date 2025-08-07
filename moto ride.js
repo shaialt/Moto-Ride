@@ -84,17 +84,52 @@ function changeCatalogMenueFunction(event) {
 fetch('../assets/products.json')
   .then(response => response.json())
   .then(products => {
-    products.forEach(product => {
-      //?: קריאה לפונקציה ראשית לאחר קבלת התשובה מהשרת
-      creator(product);
+    // בדיקת כמות מוצרים באתר
+    let productsNumbersTotal = 0;
+    const productsNumbers = products.forEach(product => productsNumbersTotal++);
+    const total_products = document.querySelector('.total_products');
+    if (total_products)
+        total_products.textContent = `Discover ${productsNumbersTotal} exlusive motorcyles`;
+
+    // סינון המוצרים לפי הפופולריות הגבוהה ביותר
+    const topPopularProducts = products
+      .sort((a, b) => b.popularity - a.popularity) // מיון מהגבוה לנמוך
+      .slice(0, 4); // לקיחת רק 4 ראשונים
+
+    // בניית כרטיסים רק עבור הפופולריים
+    topPopularProducts.forEach(product => {
+      createProductCardItemElement(product); // זו הפונקציה שלך שיוצרת את הכרטיס
     });
+
+    // בודק אם זה דף מוצר לפי כתובת URL
+    if (window.location.href.includes('product%20page.html')) {
+      const urlId = window.location.href.split('=')[2].split('&')[0];
+      const product = products.find(productId => productId.id === urlId);
+      if (product) {
+        createProductPage(product);
+      } else {
+        console.warn('Not found product with id:', urlId);
+      }
+    }
+
+    // אם זה לא דף מוצר – יוצרים את כל כרטיסי הקטלוג
+    else {
+      products.forEach(product => {
+        creator(product);
+      });
+    }
   })
   .catch(error => console.error('Error loading JSON:', error));
 
 //TODO: פונקציה ראשית של כל מה שפועל אחרי קבלת הנתונים
 function creator (product){
-    //!: קריאה לפונקציה שיוצרת את המוצר
-    createProductCardItemElement(product);
+    const currentPath = window.location.pathname;
+
+    // אם אנחנו בדף הקטלוג
+    if (currentPath.includes('catalog.html')) {
+        //!: קריאה לפונקציה שיוצרת את המוצר בקטלוג
+        createCatalogProductCardItemElement(product);
+    }
 
     //!: השמה של איבנט על האייקונים שבתוך המוצר להוספה למועדפים
     const allProducts = document.querySelectorAll('.product_super_box').forEach( product => {
@@ -112,8 +147,139 @@ function creator (product){
     updatecarts();
 }
 
-//TODO: פונקציה ליצירת כרטיסיות מוצר
+//TODO: פונקציה ליצירת כרטיסיות מוצר בדף בית
 function createProductCardItemElement(product){
+    //TOP PRODUCT SUPER BOX (MAIN DIV)
+    const topProductSuperBox = document.createElement('div');
+    topProductSuperBox.classList.add('top_product_super_box');
+    topProductSuperBox.id = product.id;
+    topProductSuperBox.setAttribute('data-stock', product.stock || 1);
+    if (product.status) {
+        topProductSuperBox.style.setProperty(`--${product.status}`, 'true');
+    }
+
+    //BOX DIV
+    const box = document.createElement('div');
+    box.classList.add('box');
+    const boxText = document.createElement('p');
+    boxText.textContent = 'Moto & Ride 🏍️';
+    box.appendChild(boxText);
+
+    //PRODUCT BOX DIV
+    const productBox = document.createElement('div');
+    productBox.classList.add('product_box');
+
+    //PRODUCT IMG DIV
+    const productImgBox = document.createElement('div');
+    productImgBox.classList.add('product_img_box');
+    const productImg = document.createElement('img');
+    productImg.src = product.image;
+    productImg.classList.add('product_img');
+    productImgBox.appendChild(productImg);
+
+    //PRODUCT LOGO DIV
+    const productLogoBox = document.createElement('div');
+    productLogoBox.classList.add('product_logo_box');
+    const productLogoImg = document.createElement('img');
+    productLogoImg.src = product.logo;
+    productLogoImg.classList.add('product_logo_img');
+
+    //ICONS DIV OF PRODUCT LOGO DIV
+    const iconsDiv = document.createElement('div');
+    const heartIcon = document.createElement('i');
+    heartIcon.classList.add('fa-solid', 'fa-heart', 'add_to_wishlist');
+    const cartIcon = document.createElement('i');
+    cartIcon.classList.add('fa-solid', 'fa-cart-shopping', 'add_to_cart');
+    iconsDiv.appendChild(heartIcon);
+    iconsDiv.appendChild(cartIcon);
+
+    productLogoBox.appendChild(productLogoImg);
+    productLogoBox.appendChild(iconsDiv);
+
+    //CENTER DIV
+    const center = document.createElement('div');
+    center.classList.add('center');
+
+    //PRODUCT NAME BOX ARTICLE OF CENTER DIV
+    const productNameBox = document.createElement('article');
+    productNameBox.classList.add('product_name_box');
+    const productName = document.createElement('h3');
+    productName.classList.add('product_name');
+    productName.textContent = product.name;
+    productNameBox.appendChild(productName);
+
+    //DESCRIBE BOX ARTICLE OF CENTER DIV
+    const describeBox = document.createElement('article');
+    describeBox.classList.add('describe_box');
+    const describe = document.createElement('p');
+    describe.classList.add('describe');
+    describe.textContent = product.description;
+    describeBox.appendChild(describe);
+
+    //BUY BOX ARTICLE OF CENTER DIV
+    const buyBox = document.createElement('article');
+    buyBox.classList.add('buy_box');
+    const priceContainer = document.createElement('div');
+    const originalPriceBox = document.createElement('div');
+    originalPriceBox.classList.add('original_price_box');
+    const originalPrice = document.createElement('h4');
+    originalPrice.classList.add('original_price');
+    originalPrice.textContent = product.originalPrice;
+    const discount = document.createElement('p');
+    discount.classList.add('discount');
+    discount.textContent = product.discount;
+    originalPriceBox.appendChild(originalPrice);
+    originalPriceBox.appendChild(discount);
+    const finalPrice = document.createElement('h2');
+    finalPrice.textContent = product.finalPrice;
+    priceContainer.appendChild(originalPriceBox);
+    priceContainer.appendChild(finalPrice);
+
+    //BUTTON OF BUY BOX ARTICLE OF CENTER DIV
+    const productBuyButtonLink = document.createElement('a');
+    productBuyButtonLink.href = `../products/product page.html?category=${encodeURIComponent(product.category)}&id=${product.id}&name=${encodeURIComponent(product.name)}`;
+    productBuyButtonLink.classList.add('a_button');
+    const productBuyButton = document.createElement('button');
+    productBuyButton.classList.add('button');
+    const bagIcon = document.createElement('i');
+    bagIcon.classList.add('fa-solid', 'fa-bag-shopping');
+    productBuyButton.appendChild(bagIcon);
+    productBuyButtonLink.appendChild(productBuyButton);
+
+
+    buyBox.appendChild(priceContainer);
+    buyBox.appendChild(productBuyButtonLink);
+
+    //CENTER DIV BUILD
+    center.appendChild(productNameBox);
+    center.appendChild(describeBox);
+    center.appendChild(buyBox);
+
+    //NEW POPULAR DIV + CURVE DIV
+    const newPopular = document.createElement('div');
+    newPopular.classList.add('new_popular');
+    const curve = document.createElement('div');
+    curve.classList.add('curve');
+
+    //PRODUCT BOX DIV BUILD
+    productBox.appendChild(productImgBox);
+    productBox.appendChild(productLogoBox);
+    productBox.appendChild(center);
+    productBox.appendChild(newPopular);
+    productBox.appendChild(curve);
+
+    //TOP PRODUCT SUPER BOX BUILD
+    topProductSuperBox.appendChild(box);
+    topProductSuperBox.appendChild(productBox);
+
+    //BUILD ON HOME PAGE
+    const container = document.querySelector('#top_products');
+    if (container)
+        container.appendChild(topProductSuperBox);
+}
+
+//TODO: פונקציה ליצירת כרטיסיות מוצר בקטלוג
+function createCatalogProductCardItemElement(product){
         //PRODUCT SUPER BOX (MAIN DIV)
         const productSuperBox = document.createElement('div');
         productSuperBox.classList.add('product_super_box');
@@ -201,19 +367,19 @@ function createProductCardItemElement(product){
         priceContainer.appendChild(finalPrice);
 
         //BUTTON OF BUY BOX ARTICLE OF CENTER DIV
+        const productBuyButtonLink = document.createElement('a');
+        productBuyButtonLink.href = `../products/product page.html?category=${encodeURIComponent(product.category)}&id=${product.id}&name=${encodeURIComponent(product.name)}`;
+        productBuyButtonLink.classList.add('a_button');
         const productBuyButton = document.createElement('button');
         productBuyButton.classList.add('button');
-        const productBuyButtonLink = document.createElement('a');
-        productBuyButtonLink.href = product.buyLink;
-        productBuyButtonLink.classList.add('a_button');
         const bagIcon = document.createElement('i');
         bagIcon.classList.add('fa-solid', 'fa-bag-shopping');
-        productBuyButtonLink.appendChild(bagIcon);
-        productBuyButton.appendChild(productBuyButtonLink);
+        productBuyButton.appendChild(bagIcon);
+        productBuyButtonLink.appendChild(productBuyButton);
 
 
         buyBox.appendChild(priceContainer);
-        buyBox.appendChild(productBuyButton);
+        buyBox.appendChild(productBuyButtonLink);
 
         //CENTER DIV BUILD
         center.appendChild(productNameBox);
@@ -237,30 +403,16 @@ function createProductCardItemElement(product){
         productSuperBox.appendChild(box);
         productSuperBox.appendChild(productBox);
 
-        if (product.category == 'motorcycles'){
-            const container = document.querySelector('#motorcycles_catalog');
-            if(container)
-                container.appendChild(productSuperBox);
-        }
-
-    
-        if (product.category == 'gear & protection'){
-            const container = document.querySelector('#gear_&_protection');
-            if(container)
-                container.appendChild(productSuperBox);
-        }
-
-        if (product.category == 'parts & accessories'){
-            const container = document.querySelector('#parts_&_accessories');
-            if(container)
-                container.appendChild(productSuperBox);
-        }
-
-        if (product.category == 'upgrades'){
-            const container = document.querySelector('#upgrades');
-            if(container)
-                container.appendChild(productSuperBox);
-        }
+        if (window.location.href.includes('catalog.html')){
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlCategory = urlParams.get('category'); // שולף את הקטגוריה מה-URL
+            
+            if (product.category === urlCategory){
+                const container = document.querySelector('#catalog');
+                if(container)
+                    container.appendChild(productSuperBox);
+                }
+            }
 }
 
 //TODO: פונקציה ששומרת בזיכרון את פרטי המוצר הנבחר לעגלה וצובעת באדום את הלב
@@ -337,10 +489,16 @@ function updateWishlistHearts() {
   });
 }
 
-//?: טעינה חדשה של המוצרים מהלוקאלסטוראג' בעת רענון או טעינת הדף
+//?: השמה של אירוע שמרענן את הדפים
 document.addEventListener('DOMContentLoaded', () => {
     loadWishlistFromLocalStorage();
     loadCartFromLocalStorage();
+
+    //TODO: בדיקת כתובת וקריאה לפונקציה לבניית דף מוצר
+    if (window.location.href.includes('product%20page.html')) {
+        const urlId = window.location.href.split('=')[2].split('&')[0];
+        createProductPage(product);
+    }
 });
 
 //TODO: פונקציה ששולפת מהזיכרון את הנתונים של המוצרים ומזמנת פונקציה שבונה אותם במועדפים
@@ -387,7 +545,7 @@ function createWishlistItemElement(wishlistProductData) {
     wishlistImageBox.classList.add('wish_chosen_product_img_box');
 
     const wishlistImageLink = document.createElement('a');
-    wishlistImageLink.href = `../motorcycle catalog/motorcycles.html#${wishlistProductData.id}`;
+    wishlistImageLink.href = `../catalog/catalog.html#${wishlistProductData.id}`;
 
     const wishlistImage = document.createElement('img');
     wishlistImage.src = wishlistProductData.image;
@@ -603,11 +761,14 @@ function loadCartFromLocalStorage() {
     addCartDeleteEventListeners();
     addCartQuantityEventListeners();
 
-    // מעדכן את הטקסט בכותרת אחרי שינוי
+    //TODO: מעדכן את הכמות מוצרים בכותרת
     const headerParagraph = document.querySelector('.cart_header p');
     if (headerParagraph) {
         headerParagraph.textContent = 'You have: ' + cart.length + ' items in your wishlist.';
     }
+
+    //TODO: מעדכן את המחיר הסופי לפני משלוח
+    updateCartSubtotalAndTotal()
 }
 
 //TODO: פונקציה לבניית פריט עגלה חדש
@@ -633,7 +794,7 @@ function createCartItemElement(cartProductData) {
 
     // יצירת קישור לדף רכישה או מידע נוסף
     const productLink = document.createElement('a');
-    productLink.href = `../motorcycle catalog/motorcycles.html#${cartProductData.id}`; // במידה ואין קישור, מונע שבירה
+    productLink.href = `../catalog/catalog.html#${cartProductData.id}`; // במידה ואין קישור, מונע שבירה
 
     // יצירת תמונת המוצר
     const productImage = document.createElement('img');
@@ -730,11 +891,14 @@ function handleDeleteCartItem(event) {
     cart = cart.filter(item => item.id !== productId);
     localStorage.setItem('cart', JSON.stringify(cart));
 
-        // מעדכן את הטקסט בכותרת אחרי שינוי
+    //TODO: מעדכן את הכמות מוצרים לאחר מחיקת מוצרים
     const headerParagraph = document.querySelector('.cart_header p');
     if (headerParagraph) {
         headerParagraph.textContent = 'You have: ' + cart.length + ' items in your wishlist.';
     }
+
+    //TODO: מעדכן את המחיר הסופי לפני משלוח במחיקת מוצרים
+    updateCartSubtotalAndTotal()
 }
 
 //TODO: השמה של איבנט על הכמות שהמשתמש רוצה
@@ -780,8 +944,12 @@ function cartQuantity(event) {
         cart[productIndex].quantity = quantityValue;
         localStorage.setItem('cart', JSON.stringify(cart));
     }
+
+    //TODO: מעדכן את המחיר הסופי לפני משלוח בשינוי כמות
+    updateCartSubtotalAndTotal()
 }
 
+//TODO: פונקציה שממירה את המחיר עם פסיקים ונקודות וסימן דולר
 function parsePriceToNumber(priceString) {
     if (!priceString) return 0;
 
@@ -805,3 +973,71 @@ function parsePriceToNumber(priceString) {
     return isNaN(number) ? 0 : number;
 }
 
+//TODO: פונקציה שמטפלת במחיר כולל
+function updateCartSubtotalAndTotal() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let subtotal = 0;
+
+    cart.forEach(item => {
+        const quantity = parseInt(item.quantity) || 1;
+        const price = parseFloat(item.finalPrice) || 0;
+        subtotal += quantity * price;
+    });
+
+    const subtotalElement = document.querySelector('.subtotal');
+    if (subtotalElement) {
+        subtotalElement.textContent = `${subtotal.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} $`;
+    }
+
+    const totalElement = document.querySelector('.total');
+    totalElement.textContent =  subtotalElement.textContent;
+}
+
+//TODO: פונקציה לבניית דף מוצר – מחוץ לפטש
+function createProductPage(product) {
+    // תמונה ראשית בדף מוצר
+    const mainImage = document.createElement('img');
+    mainImage.classList.add('main_image');
+    mainImage.src = product.image;
+    document.querySelector('#product_page_main_img').appendChild(mainImage);
+    
+    // תמונה ראשונה בדף מוצר
+    const firstImage = document.createElement('img');
+    firstImage.classList.add('product_page_first_img');
+    firstImage.src = product.images[0];
+    document.querySelector('#product_page_first_second_img_box').appendChild(firstImage);
+
+    // תמונה שניה בדף מוצר
+    const secondImage = document.createElement('img');
+    secondImage.classList.add('product_page_second_img');
+    secondImage.src = product.images[1];
+    document.querySelector('#product_page_second_second_img_box').appendChild(secondImage);
+
+    // תמונה שלשית בדף מוצר
+    const thirdImage = document.createElement('img');
+    thirdImage.classList.add('product_page_third_img');
+    thirdImage.src = product.images[2];
+    document.querySelector('#product_page_third_second_img_box').appendChild(thirdImage);
+
+    // תמונה רביעית בדף מוצר
+    const fourthImage = document.createElement('img');
+    fourthImage.classList.add('product_page_fourth_img');
+    fourthImage.src = product.images[3];
+    document.querySelector('#product_page_fourth_second_img_box').appendChild(fourthImage);
+
+    // שם מוצר
+    const productName = document.querySelector('#product_page_name');
+    productName.textContent = product.name;
+
+    // מחיר מוצר
+    const productOriginalPrice = document.querySelector('#original_price');
+    productOriginalPrice.textContent = product.originalPrice;
+    const productDiscount = document.querySelector('#discount');
+    productDiscount.textContent = product.discount;
+    const productFinalPrice = document.querySelector('#final_price');
+    productFinalPrice.textContent = product.finalPrice;
+
+    // תיאור מוצר
+    const productDescription = document.querySelector('#product_page_describe');
+    productDescription.textContent = product.description;
+}
