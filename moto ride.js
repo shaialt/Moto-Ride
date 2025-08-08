@@ -80,46 +80,52 @@ function changeCatalogMenueFunction(event) {
     }
 }
 
-//?: הכנסת מוצרים מתוך ג'ייסון לקטלוג אופנועים
-fetch('../assets/products.json')
-  .then(response => response.json())
-  .then(products => {
-    // בדיקת כמות מוצרים באתר
-    let productsNumbersTotal = 0;
-    const productsNumbers = products.forEach(product => productsNumbersTotal++);
-    const total_products = document.querySelector('.total_products');
-    if (total_products)
-        total_products.textContent = `Discover ${productsNumbersTotal} exlusive motorcyles`;
+//?: השמה של אירוע שמרענן את הדפים
+document.addEventListener('DOMContentLoaded', () => {
+    //?: הכנסת מוצרים מתוך ג'ייסון לקטלוג אופנועים
+    fetch('../assets/products.json')
+    .then(response => response.json())
+    .then(products => {
+        // בדיקת כמות מוצרים באתר
+        let productsNumbersTotal = 0;
+        products.forEach(() => productsNumbersTotal++);
+        const total_products = document.querySelector('.total_products');
+        if (total_products)
+            total_products.textContent = `Discover ${productsNumbersTotal} exlusive motorcyles`;
 
-    // סינון המוצרים לפי הפופולריות הגבוהה ביותר
-    const topPopularProducts = products
-      .sort((a, b) => b.popularity - a.popularity) // מיון מהגבוה לנמוך
-      .slice(0, 4); // לקיחת רק 4 ראשונים
+        // סינון המוצרים לפי הפופולריות הגבוהה ביותר
+        const topPopularProducts = products
+            .sort((a, b) => b.popularity - a.popularity) // מיון מהגבוה לנמוך
+            .slice(0, 4); // לקיחת רק 4 ראשונים
 
-    // בניית כרטיסים רק עבור הפופולריים
-    topPopularProducts.forEach(product => {
-      createProductCardItemElement(product); // זו הפונקציה שלך שיוצרת את הכרטיס
-    });
+        // בניית כרטיסים רק עבור הפופולריים (לדף הבית)
+        topPopularProducts.forEach(product => {
+            createProductCardItemElement(product); // זו הפונקציה שלך שיוצרת את הכרטיס
+        });
 
-    // בודק אם זה דף מוצר לפי כתובת URL
-    if (window.location.href.includes('product%20page.html')) {
-      const urlId = window.location.href.split('=')[2].split('&')[0];
-      const product = products.find(productId => productId.id === urlId);
-      if (product) {
-        createProductPage(product);
-      } else {
-        console.warn('Not found product with id:', urlId);
-      }
-    }
+        // בודק אם זה דף מוצר לפי כתובת URL
+        if (window.location.href.includes('product%20page.html')) {
+            const urlId = window.location.href.split('=')[2].split('&')[0];
+            const product = products.find(p => p.id === urlId);
+            if (product) {
+                createProductPage(product);
+            } else {
+                console.warn('Not found product with id:', urlId);
+            }
+        } 
+        // אם זה לא דף מוצר – יוצרים את כל כרטיסי הקטלוג (לדף קטלוג)
+        else if (window.location.href.includes('catalog.html')) {
+            products.forEach(product => {
+                creator(product);
+            });
+        }
+    })
+    .catch(error => console.error('Error loading JSON:', error));
 
-    // אם זה לא דף מוצר – יוצרים את כל כרטיסי הקטלוג
-    else {
-      products.forEach(product => {
-        creator(product);
-      });
-    }
-  })
-  .catch(error => console.error('Error loading JSON:', error));
+    // טעינת מועדפים ועגלה מהלוקאל סטורג' בכל דף
+    loadWishlistFromLocalStorage();
+    loadCartFromLocalStorage();
+});
 
 //TODO: פונקציה ראשית של כל מה שפועל אחרי קבלת הנתונים
 function creator (product){
@@ -488,18 +494,6 @@ function updateWishlistHearts() {
     }
   });
 }
-
-//?: השמה של אירוע שמרענן את הדפים
-document.addEventListener('DOMContentLoaded', () => {
-    loadWishlistFromLocalStorage();
-    loadCartFromLocalStorage();
-
-    //TODO: בדיקת כתובת וקריאה לפונקציה לבניית דף מוצר
-    if (window.location.href.includes('product%20page.html')) {
-        const urlId = window.location.href.split('=')[2].split('&')[0];
-        createProductPage(product);
-    }
-});
 
 //TODO: פונקציה ששולפת מהזיכרון את הנתונים של המוצרים ומזמנת פונקציה שבונה אותם במועדפים
 function loadWishlistFromLocalStorage() {
