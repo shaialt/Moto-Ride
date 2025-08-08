@@ -82,8 +82,20 @@ function changeCatalogMenueFunction(event) {
 
 //?: השמה של אירוע שמרענן את הדפים
 document.addEventListener('DOMContentLoaded', () => {
+    // החלף ל־username ו־repo שלך
+    const githubUsername = 'shaialt';
+    const githubRepo = 'Moto-Ride';
+
+    // בודק אם אנחנו ב־GitHub Pages לפי ה-hostname (אפשר להתאים לפי הצורך)
+    const isGitHubPages = window.location.hostname === `${githubUsername}.github.io`;
+
+    // מגדיר את בסיס הנתיב לפי הסביבה:
+    // אם GitHub Pages: /repo-name/
+    // אחרת (לייב סרבר מקומי או סביבה אחרת): ../
+    const basePath = isGitHubPages ? `/${githubRepo}/` : '../';
+
     //?: הכנסת מוצרים מתוך ג'ייסון לקטלוג אופנועים
-    fetch('../assets/products.json')
+    fetch(basePath + 'assets/products.json')
     .then(response => response.json())
     .then(products => {
         // בדיקת כמות מוצרים באתר
