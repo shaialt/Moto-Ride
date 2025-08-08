@@ -11,7 +11,7 @@
         "discount": "-10%",
         "finalPrice": "26,678.22 $",
         "stock": 1,
-        "images": ["images/product/kawasaki product/h2 sx.png","images/product/ninja more images/8904fe61-0b9f-42a9-90c6-fdd83ac3f848.png","images/product/ninja more images/meter-removebg-preview.png","images/product/ninja more images/removebg-preview.png"],
+        "images": ["../images/product/kawasaki product/h2 sx.png","../images/product/ninja more images/8904fe61-0b9f-42a9-90c6-fdd83ac3f848.png","../images/product/ninja more images/meter-removebg-preview.png","../images/product/ninja more images/removebg-preview.png"],
         "popularity":2
     },
     {
@@ -26,7 +26,7 @@
         "discount": "",
         "finalPrice": "27,960.40 $",
         "stock": 1,
-        "images": ["images/product/coming_soon.PNG","images/product/coming_soon.PNG","images/product/coming_soon.PNG","images/product/coming_soon.PNG"],
+        "images": ["../images/product/coming_soon.PNG","../images/product/coming_soon.PNG","../images/product/coming_soon.PNG","../images/product/coming_soon.PNG"],
         "popularity":2
     },
     {
@@ -41,7 +41,7 @@
         "discount": "",
         "finalPrice": "6,399.70 $",
         "stock": 1,
-        "images": ["images/product/coming_soon.PNG","images/product/coming_soon.PNG","images/product/coming_soon.PNG","images/product/coming_soon.PNG"],
+        "images": ["../images/product/coming_soon.PNG","../images/product/coming_soon.PNG","../images/product/coming_soon.PNG","../images/product/coming_soon.PNG"],
         "popularity":1
     },
     {
@@ -56,7 +56,7 @@
         "discount": "-5%",
         "finalPrice": "10,033.85 $",
         "stock": 1,
-        "images": ["images/product/coming_soon.PNG","images/product/coming_soon.PNG","images/product/coming_soon.PNG","images/product/coming_soon.PNG"],
+        "images": ["../images/product/coming_soon.PNG","../images/product/coming_soon.PNG","../images/product/coming_soon.PNG","../images/product/coming_soon.PNG"],
         "popularity":1
     },
     {
@@ -71,7 +71,7 @@
         "discount": "",
         "finalPrice": "23,769.91 $",
         "stock": 1,
-        "images": ["images/product/coming_soon.PNG","images/product/coming_soon.PNG","images/product/coming_soon.PNG","images/product/coming_soon.PNG"],
+        "images": ["../images/product/coming_soon.PNG","../images/product/coming_soon.PNG","../images/product/coming_soon.PNG","../images/product/coming_soon.PNG"],
         "popularity":2
     },
     {
@@ -86,7 +86,7 @@
         "discount": "",
         "finalPrice": "41,499.46 $",
         "stock": 1,
-        "images": ["images/product/coming_soon.PNG","images/product/coming_soon.PNG","images/product/coming_soon.PNG","images/product/coming_soon.PNG"],
+        "images": ["../images/product/coming_soon.PNG","../images/product/coming_soon.PNG","../images/product/coming_soon.PNG","../images/product/coming_soon.PNG"],
         "popularity":2
     },
     {
@@ -101,7 +101,7 @@
         "discount": "",
         "finalPrice": "59,284.95 $",
         "stock": 1,
-        "images": ["images/product/coming_soon.PNG","images/product/coming_soon.PNG","images/product/coming_soon.PNG","images/product/coming_soon.PNG"],
+        "images": ["../images/product/coming_soon.PNG","../images/product/coming_soon.PNG","../images/product/coming_soon.PNG","../images/product/coming_soon.PNG"],
         "popularity":1    
     },
     {
@@ -116,7 +116,7 @@
         "discount": "",
         "finalPrice": "8,389.38 $",
         "stock": 1,
-        "images": ["images/product/coming_soon.PNG","images/product/coming_soon.PNG","images/product/coming_soon.PNG","images/product/coming_soon.PNG"],
+        "images": ["../images/product/coming_soon.PNG","../images/product/coming_soon.PNG","../images/product/coming_soon.PNG","../images/product/coming_soon.PNG"],
         "popularity":1
     },
     {
@@ -131,7 +131,7 @@
         "discount": "",
         "finalPrice": "7,830.09 $",
         "stock": 1,
-        "images": ["images/product/coming_soon.PNG","images/product/coming_soon.PNG","images/product/coming_soon.PNG","images/product/coming_soon.PNG"],
+        "images": ["../images/product/coming_soon.PNG","../images/product/coming_soon.PNG","../images/product/coming_soon.PNG","../images/product/coming_soon.PNG"],
         "popularity":1    
     },
     {
@@ -146,7 +146,7 @@
         "discount": "-7%",
         "finalPrice": "43,431.818 $",
         "stock": 1,
-        "images": ["images/product/coming_soon.PNG","images/product/coming_soon.PNG","images/product/coming_soon.PNG","images/product/coming_soon.PNG"],
+        "images": ["../images/product/coming_soon.PNG","../images/product/coming_soon.PNG","../images/product/coming_soon.PNG","../images/product/coming_soon.PNG"],
         "popularity":1
     },
     {
@@ -161,7 +161,7 @@
         "discount": "",
         "finalPrice": "41,667.25 $",
         "stock": 1,
-        "images": ["images/product/coming_soon.PNG","images/product/coming_soon.PNG","images/product/coming_soon.PNG","images/product/coming_soon.PNG"],
+        "images": ["../images/product/coming_soon.PNG","../images/product/coming_soon.PNG","../images/product/coming_soon.PNG","../images/product/coming_soon.PNG"],
         "popularity":1    
     },
     {
@@ -176,7 +176,7 @@
         "discount": "",
         "finalPrice": "8,586.53 $",
         "stock": 1,
-        "images": ["images/product/coming_soon.PNG","images/product/coming_soon.PNG","images/product/coming_soon.PNG","images/product/coming_soon.PNG"],
+        "images": ["../images/product/coming_soon.PNG","../images/product/coming_soon.PNG","../images/product/coming_soon.PNG","../images/product/coming_soon.PNG"],
         "popularity":1
     }    
 ]

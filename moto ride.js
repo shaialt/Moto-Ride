@@ -81,7 +81,7 @@ function changeCatalogMenueFunction(event) {
 }
 
 //?: הכנסת מוצרים מתוך ג'ייסון לקטלוג אופנועים
-fetch('/assets/products.json')
+fetch('../assets/products.json')
   .then(response => response.json())
   .then(products => {
     // בדיקת כמות מוצרים באתר
