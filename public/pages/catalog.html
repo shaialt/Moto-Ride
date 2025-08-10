@@ -4,17 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moto & Ride</title>
-    <link rel="icon" type="image/png" href="../images/logos/2-removebg-preview.png">
-    <link rel="stylesheet" href="../moto ride.css">
+    <link rel="icon" type="image/png" href="../assets/images/logos/2-removebg-preview.png">
+    <link rel="stylesheet" href="../../src/moto ride.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Exile&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /></head>
 <body class="waves">
-    <header>
+    <header id="category_header">
         <nav class="nav">
         <div class="left_nav_block">
             <div class="welcome_animation_box">
@@ -23,7 +22,7 @@
             <input id="welcome_animation_input" class="welcome_animation_input" type="text" placeholder="Welcome to our store">
             </form>
             </div>
-            <img class="logo" src="../images/logos/logo preview.png" width="106px" height="60px">
+            <img class="logo" src="../assets/images/logos/logo preview.png" width="106px" height="60px">
             <p class="logo_text1">Moto <span class="logo_text_span"> & Ride</span></p>
         </div>
 
@@ -32,9 +31,9 @@
                 <div class="right_nav_block_ul_icon">
                     <ul class="ul_nav">
                     <li class="li_nav"><a href="../index.html" class="a_nav">Home</a></li>
-                    <li class="li_nav"><a href="../contact/contact.html" class="a_nav">Contact</a></li>
-                    <li class="li_nav"><a href="../log in/log in.html" class="a_nav">Log in</a></li>
-                    <li class="li_nav"><a href="../wishlist/wishlist.html" class="a_nav">Wishlist</a></li>
+                    <li class="li_nav"><a href="contact.html" class="a_nav">Contact</a></li>
+                    <li class="li_nav"><a href="log in.html" class="a_nav">Log in</a></li>
+                    <li class="li_nav"><a href="wishlist.html" class="a_nav">Wishlist</a></li>
                     <li class="li_nav"><a href="cart.html" class="a_nav">Cart</a></li>
                     </ul>
                     <i class="fa-solid fa-bars"></i>
@@ -44,87 +43,127 @@
     </header>
 
     <main>
-        <section class="cart_box">
-            <div class="chosen_products_box">
-                <div class="cart_header">
-                    <h2>Shopping Cart</h2>
-                    <p>You have: 0 items in your cart.</p>
-                </div>
+        <section class="display-flex margin-0">
+            <section class="filter_sidebar display-flex justifyContent-center color-white margin-0">
+                <form action="catalog.html" method="get" class="display-flex flexDirection-column">
+                    <div><br>
+                        <h3>price</h3>
+                        <div class="display-flex justifyContent-spaceBetween alignItems-center">
+                            <input type="number" class="price_input" placeholder="Min">
+                            <p>-</p>
+                            <input type="number" class="price_input" placeholder="Max">
+                        </div><br>
+                        <input type="range" class="range_input">
+                        <br><br>
+                        <button class="Filter_by_price_button">Filter by price</button>
+                    </div><br>
 
-                <div class="cart_filter">
-                    <ul>
-                        <li>Product</li>
-                        <li>Price</li>
-                        <li>Quantity</li>
-                        <li>Subtotal</li>
-                    </ul>
-                </div>
+                    <div class="display-flex justifyContent-spaceBetween">
+                        <button class="reset_button">Reset</button>
+                        <button class="share_button"><i class="fa-solid fa-arrow-up-from-bracket"></i>share</button>
+                    </div><br>
 
-                <div class="chosen_products_list">
-                    <ul id="chosen_products_list_ul">
-                        
-                    </ul>
+                    <div>
+                        <h3>Manufacturer</h3>
+                        <input type="checkbox" id="suzuki"><label for="suzuki">Suzuki</label><br>
+                        <input type="checkbox" id="Kawasaki"><label for="Kawasaki">Kawasaki</label><br>
+                        <input type="checkbox" id="Ducati"><label for="Ducati">Ducati</label><br>
+                        <input type="checkbox" id="Yamaha"><label for="Yamaha">Yamaha</label><br>
+                        <input type="checkbox" id="Honda"><label for="Honda">Honda</label><br>
+                        <input type="checkbox" id="Harly Davidson"><label for="Harly Davidson">Harly Davidson</label><br>
+                        <input type="checkbox" id="B.M.W"><label for="B.M.W">B.M.W</label>
+                    </div><br>
 
-                    <form action="cart.html" method="get">
-                        <div class="cart_actions">
-                            <div class="coupns_code_box">
-                                <input class="coupns_code_box_input" type="text" placeholder="Coupon code">
-                                <input class="coupns_code_box_submit" type="submit" value="Apply coupon">
-                            </div>
-
-                            <button class="update_cart_button"><i class="fa-solid fa-rotate"></i>Update cart</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-    
-            <div class="checkout_box">
-                <form action="cart.html" method="get">
-                    <h2>Cart totals</h2>
-
-                    <div class="checkout_box_subtotal">
-                        <p>Subtotal</p>
-                        <p class="subtotal">0 $</p>
-                    </div>
-
-                    <div class="checkout_box_shipping">
-                        <p>Shipping</p>
-
-                        <div class="checkout_box_shipping_content">
-                            <div class="checkout_box_shipping_input">
-                                <input type="radio" name="shipping_input" checked>
-                                <label>.Free shipping: (14 - 30 days)</label>
-                            </div>
-
-                            <div class="checkout_box_shipping_input">
-                                <input type="radio" name="shipping_input">
-                                <label>$ .Fast shipping: (3 - 7 days) 10.00</label>
-                            </div>
-
-                            <div class="checkout_box_shipping_input">
-                                <input type="radio" name="shipping_input">
-                                <label>Local pickup: Free</label>
-                            </div>
-
-                            <p class="checkout_box_shipping_content_message">.Shipping options will be updated during checkout</p>
-
-                            <p class="calculate">Calculate shipping</p>
-                        </div>
-                    </div>
-
-                    <div class="checkout_box_total">
-                        <p>Total</p>
-                        <p class="total">0 $</p>
-                    </div>
-
-                    <button class="checkout_button">Proceed to checkout</button>
-
-                    <p class="checkout_box_message"><b>You're Almost There!</b> Before you complete your purchase, take a moment to review your order details, including the selected models, quantities, and prices, to ensure everything is correct.</p>
+                    <div>
+                        <h3>Motorcycle type</h3>
+                        <input type="checkbox" id="Road"><label for="Road">Road</label><br>
+                        <input type="checkbox" id="Off-road"><label for="Off-road">Off-road</label><br>
+                        <input type="checkbox" id="Dual purpose"><label for="Dual purpose">Dual purpose</label><br>
+                        <input type="checkbox" id="Scooter"><label for="Scooter">Scooter</label><br> 
+                        <input type="checkbox" id="Moped"><label for="Moped">Moped</label>
+                    </div><br>
+                    
+                    <div>
+                        <h3>Filter by</h3>
+                        <input type="checkbox" id="Normal"><label for="Normal">Normal</label><br>
+                        <input type="checkbox" id="On sales"><label for="On sales">On sales</label><br>
+                        <input type="checkbox" id="Popular"><label for="Popular">Popular</label><br>
+                        <input type="checkbox" id="New"><label for="New">New</label><br>
+                        <input type="checkbox" id="Recomended"><label for="Recomended">Recomended</label>
+                    </div><br>
                 </form>
-            </div>
-        </section>
-    </main>
+            </section>
 
+            <section class="products_list_box margin-0">
+                <div id="filter_box" class="filter_box">
+                    <ul>
+                        <li class="quick_menu_filter display-flex"><i class="fa-solid fa-list"></i><p>Filter</p></li>
+                        <li class="display-flex"><i class="fa-solid fa-arrow-up-from-bracket"></i><p>Share</p></li>
+                    </ul>
+
+                    <section class="catalog_menu">
+                        <div class="catalog_menu_overflow">
+                            <section class="filter_sidebar_responsive">
+                                <form action="catalog.html" method="get" class="display-flex flexDirection-column">
+                                    <div><br>
+                                        <h3>price</h3>
+                                        <div class="display-flex justifyContent-spaceBetween alignItems-center">
+                                            <input type="number" class="price_input" placeholder="Min">
+                                            <p>-</p>
+                                            <input type="number" class="price_input" placeholder="Max">
+                                        </div><br>
+                                        <input type="range" class="range_input">
+                                        <br><br>
+                                        <button class="Filter_by_price_button">Filter by price</button>
+                                    </div><br>
+
+                                    <div class="display-flex justifyContent-spaceBetween">
+                                        <button class="reset_button">Reset</button>
+                                        <button class="share_button"><i class="fa-solid fa-arrow-up-from-bracket"></i>share</button>
+                                    </div><br>
+
+                                    <div>
+                                        <h3>Manufacturer</h3>
+                                        <input type="checkbox" id="suzuki"><label for="suzuki">Suzuki</label><br>
+                                        <input type="checkbox" id="Kawasaki"><label for="Kawasaki">Kawasaki</label><br>
+                                        <input type="checkbox" id="Ducati"><label for="Ducati">Ducati</label><br>
+                                        <input type="checkbox" id="Yamaha"><label for="Yamaha">Yamaha</label><br>
+                                        <input type="checkbox" id="Honda"><label for="Honda">Honda</label><br>
+                                        <input type="checkbox" id="Harly Davidson"><label for="Harly Davidson">Harly Davidson</label><br>
+                                        <input type="checkbox" id="B.M.W"><label for="B.M.W">B.M.W</label>
+                                    </div><br>
+
+                                    <div>
+                                        <h3>Motorcycle type</h3>
+                                        <input type="checkbox" id="Road"><label for="Road">Road</label><br>
+                                        <input type="checkbox" id="Off-road"><label for="Off-road">Off-road</label><br>
+                                        <input type="checkbox" id="Dual purpose"><label for="Dual purpose">Dual purpose</label><br>
+                                        <input type="checkbox" id="Scooter"><label for="Scooter">Scooter</label><br> 
+                                        <input type="checkbox" id="Moped"><label for="Moped">Moped</label>
+                                    </div><br>
+                                    
+                                    <div>
+                                        <h3>Filter by</h3>
+                                        <input type="checkbox" id="Normal"><label for="Normal">Normal</label><br>
+                                        <input type="checkbox" id="On sales"><label for="On sales">On sales</label><br>
+                                        <input type="checkbox" id="Popular"><label for="Popular">Popular</label><br>
+                                        <input type="checkbox" id="New"><label for="New">New</label><br>
+                                        <input type="checkbox" id="Recomended"><label for="Recomended">Recomended</label>
+                                    </div><br>
+                                </form>
+                            </section>
+                        </div>
+                    </section>
+
+                    <section class="catalog_overlay"></section>
+                </div>
+
+                <div id="catalog" class="products_list display-flex flexWrap-wrap">
+                    
+                </div>
+            </section>
+    </section>
+    </main>
     <footer>
         <div class="footer_links_box">
         <div class="li_footer_box">
@@ -140,7 +179,7 @@
             <li class="li_footer"><a href="#" class="li_footer_links">Discounts & Promotions</a></li>
             <li class="li_footer"><a href="#" class="li_footer_links">Photo gallery</a></li>
         </ul>
-
+    
         <ul class="ul_footer">
             <li class="li_footer"><a href="#" class="li_footer_links">Test Ride Booking</a></li>
             <li class="li_footer"><a href="#" class="li_footer_links">Customer Testimonials</a></li>
@@ -153,7 +192,7 @@
             <li class="li_footer"><a href="#" class="li_footer_links">Advanced Riding Courses</a></li>
             <li class="li_footer"><a href="#" class="li_footer_links">Motorcycle Maintenance Guides</a></li>
         </ul>
-
+    
         <ul class="ul_footer">
             <li class="li_footer"><a href="#" class="li_footer_links">Financing Options</a></li>
             <li class="li_footer"><a href="#" class="li_footer_links">Model Comparissons</a></li>
@@ -168,7 +207,7 @@
         </ul>
         </div>
         </div>
-
+    
         <div class="footer_icon_text_box">
             <p class="footer_icons_text">we work with:</p>
             <div class="footer_icon_box">
@@ -213,7 +252,7 @@
             </li>
 
             <li>
-                <a href="../contact/contact.html">
+                <a href="contact.html">
                     <div class="top_navigation_menu_section">
                         <i class="fa-solid fa-comments"></i>
                         <h4>Contact With Our Team</h4>  
@@ -222,7 +261,7 @@
             </li>
 
             <li>
-                <a href="../log in/log in.html">
+                <a href="log in.html">
                     <div class="top_navigation_menu_section">
                         <i class="fa-solid fa-right-to-bracket"></i>
                         <h4>Log In / Sign In</h4>
@@ -231,7 +270,7 @@
             </li>
 
             <li>
-                <a href="../wishlist/wishlist.html">
+                <a href="wishlist.html">
                     <div class="top_navigation_menu_section">
                         <i class="fa-solid fa-heart"></i>
                         <h4>My Wishlist</h4>
@@ -302,7 +341,7 @@
                 </a>
             </li>
         </ul>
-    </section>
-    <script src="../moto ride.js"></script>
+    </section>    
+    <script src="../../src/moto ride.js"></script>
 </body>
 </html>

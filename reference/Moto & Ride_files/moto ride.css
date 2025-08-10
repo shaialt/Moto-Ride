@@ -594,7 +594,7 @@ header {
 }
 
 .front_1 {
-    background-image: url(images/categories/motorcycle\ catalog.jpg);
+    background-image: url('/assets/images/categories/motorcycle catalog.jpg');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -655,7 +655,7 @@ header {
 }
 
 .front_2 {
-    background-image: url(images/categories/gear\ and\ protection.webp);
+    background-image: url("/assets/images/categories/gear\ and\ protection.webp");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -716,7 +716,7 @@ header {
 }
 
 .front_3 {
-    background-image: url(images/categories/c.webp);
+    background-image: url("/assets/images/categories/c.webp");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -777,7 +777,7 @@ header {
 }
 
 .front_4 {
-    background-image: url(images/categories/technology.png);
+    background-image: url("/assets/images/categories/technology.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -905,7 +905,7 @@ header {
     height: 200px;
     background-color: white;
     clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
-    background-image: url(images/other/slider-motorcycle-25-02-v2.png);
+    background-image: url(../public/images/other/slider-motorcycle-25-02-v2.webp);
     background-size: cover;
     background-position: -150px center;
     background-repeat: no-repeat;

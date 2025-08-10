@@ -82,22 +82,11 @@ function changeCatalogMenueFunction(event) {
 
 //?: השמה של אירוע שמרענן את הדפים
 document.addEventListener('DOMContentLoaded', () => {
-    // החלף ל־username ו־repo שלך
-    const githubUsername = 'shaialt';
-    const githubRepo = 'Moto-Ride';
-
-    // בודק אם אנחנו ב־GitHub Pages לפי ה-hostname (אפשר להתאים לפי הצורך)
-    const isGitHubPages = window.location.hostname === `${githubUsername}.github.io`;
-
-    // מגדיר את בסיס הנתיב לפי הסביבה:
-    // אם GitHub Pages: /repo-name/
-    // אחרת (לייב סרבר מקומי או סביבה אחרת): ../
-    const basePath = isGitHubPages ? `/${githubRepo}/` : '../';
-
     //?: הכנסת מוצרים מתוך ג'ייסון לקטלוג אופנועים
-    fetch(basePath + 'assets/products.json')
+    fetch('/public/data/products.json')
     .then(response => response.json())
     .then(products => {
+
         // בדיקת כמות מוצרים באתר
         let productsNumbersTotal = 0;
         products.forEach(() => productsNumbersTotal++);
@@ -116,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // בודק אם זה דף מוצר לפי כתובת URL
-        if (window.location.href.includes('product%20page.html')) {
+        if (window.location.href.includes('product.html')) {
             const urlId = window.location.href.split('=')[2].split('&')[0];
             const product = products.find(p => p.id === urlId);
             if (product) {
@@ -255,7 +244,7 @@ function createProductCardItemElement(product){
 
     //BUTTON OF BUY BOX ARTICLE OF CENTER DIV
     const productBuyButtonLink = document.createElement('a');
-    productBuyButtonLink.href = `../products/product page.html?category=${encodeURIComponent(product.category)}&id=${product.id}&name=${encodeURIComponent(product.name)}`;
+    productBuyButtonLink.href = `product.html?category=${encodeURIComponent(product.category)}&id=${product.id}&name=${encodeURIComponent(product.name)}`;
     productBuyButtonLink.classList.add('a_button');
     const productBuyButton = document.createElement('button');
     productBuyButton.classList.add('button');
@@ -386,7 +375,7 @@ function createCatalogProductCardItemElement(product){
 
         //BUTTON OF BUY BOX ARTICLE OF CENTER DIV
         const productBuyButtonLink = document.createElement('a');
-        productBuyButtonLink.href = `../products/product page.html?category=${encodeURIComponent(product.category)}&id=${product.id}&name=${encodeURIComponent(product.name)}`;
+        productBuyButtonLink.href = `product.html?category=${encodeURIComponent(product.category)}&id=${product.id}&name=${encodeURIComponent(product.name)}`;
         productBuyButtonLink.classList.add('a_button');
         const productBuyButton = document.createElement('button');
         productBuyButton.classList.add('button');
@@ -551,7 +540,7 @@ function createWishlistItemElement(wishlistProductData) {
     wishlistImageBox.classList.add('wish_chosen_product_img_box');
 
     const wishlistImageLink = document.createElement('a');
-    wishlistImageLink.href = `../catalog/catalog.html#${wishlistProductData.id}`;
+    wishlistImageLink.href = `catalog.html#${wishlistProductData.id}`;
 
     const wishlistImage = document.createElement('img');
     wishlistImage.src = wishlistProductData.image;
@@ -800,7 +789,7 @@ function createCartItemElement(cartProductData) {
 
     // יצירת קישור לדף רכישה או מידע נוסף
     const productLink = document.createElement('a');
-    productLink.href = `../catalog/catalog.html#${cartProductData.id}`; // במידה ואין קישור, מונע שבירה
+    productLink.href = `catalog.html#${cartProductData.id}`; // במידה ואין קישור, מונע שבירה
 
     // יצירת תמונת המוצר
     const productImage = document.createElement('img');

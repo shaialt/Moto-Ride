@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moto & Ride</title>
-    <link rel="icon" type="image/png" href="../images/logos/2-removebg-preview.png">
-    <link rel="stylesheet" href="../moto ride.css">
+    <link rel="icon" type="image/png" href="../assets/images/logos/2-removebg-preview.png">
+    <link rel="stylesheet" href="../../src/moto ride.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
@@ -23,7 +23,7 @@
             <input id="welcome_animation_input" class="welcome_animation_input" type="text" placeholder="Welcome to our store">
             </form>
             </div>
-            <img class="logo" src="../images/logos/logo preview.png" width="106px" height="60px">
+            <img class="logo" src="../assets/images/logos/logo preview.png" width="106px" height="60px">
             <p class="logo_text1">Moto <span class="logo_text_span"> & Ride</span></p>
         </div>
 
@@ -33,9 +33,9 @@
                     <ul class="ul_nav">
                     <li class="li_nav"><a href="../index.html" class="a_nav">Home</a></li>
                     <li class="li_nav"><a href="contact.html" class="a_nav">Contact</a></li>
-                    <li class="li_nav"><a href="../log in/log in.html" class="a_nav">Log in</a></li>
-                    <li class="li_nav"><a href="../wishlist/wishlist.html" class="a_nav">Wishlist</a></li>
-                    <li class="li_nav"><a href="../cart/cart.html" class="a_nav">Cart</a></li>
+                    <li class="li_nav"><a href="log in.html" class="a_nav">Log in</a></li>
+                    <li class="li_nav"><a href="wishlist.html" class="a_nav">Wishlist</a></li>
+                    <li class="li_nav"><a href="cart.html" class="a_nav">Cart</a></li>
                     </ul>
                     <i class="fa-solid fa-bars"></i>
                 </div>
@@ -44,49 +44,29 @@
     </header>
 
     <main>
-        <section class="contact_box">
-            <div class="contact_img">
-                <img src="../images/other/stylish-young-woman-motorcycle-rider-black-protective-gear-full-face-helmet-near-her-bike_141188-5481.avif" alt="">
-            </div>
+        <section class="wish_box">
+            <div class="wish_chosen_products_box">
+                <div class="wish_header">
+                    <h2>Wishlist</h2>
+                    <p>You have: 0 items in your wishlist.</p>
+                </div>
 
-            
-            <div class="contact_form">
-                <h1>Contact Us</h1>
+                <div class="wish_chosen_products_list">
+                    <ul id="wish_chosen_products_list_ul">
 
-                <form action="contact.html" method="get">
-                    <div class="contact_input_box">
-                        <label for="full_name">Full Name</label>
-                        <input type="text" id="full_name">
-                    </div>
-
-                    <div class="contact_input_box">
-                        <label for="E-mail">E-mail</label>
-                        <input type="email" id="E-mail">
-                    </div>
-
-                    <div class="contact_input_box">
-                        <label for="message">Message</label>
-                        <input type="text" id="message">
-                    </div>
-
-                    <button>Contact Us</button>
-                </form>
-
-                <article class="contact_info">
-                    <h2>Contact Us Moto & Ride</h2>
-
-                    <p>Welcome to the Contact Us page of Moto & Ride! We're here to assist you with any questions, requests, or advice regarding purchasing motorcycles, accessories, and riding gear.</p>
-                
-                    <p>Ways to Contact Us: 📌</p>
-
-                    <ul>
-                        <li>Email: Moto&Ride@gmail.com ✉️</li>
-                        <li>Phone: 052-9735-977 📞</li>
-                        <li>Visit Us: Kfar Saba 📍</li>
                     </ul>
 
-                    <p>Your satisfaction is our priority—reach out to us anytime!</p>
-                </article>
+                    <form action="wishlist.html" method="get">
+                        <div class="wish_actions">
+                            <div class="wish_actions_left_block">
+                                <button class="add_all_to_cart">Add all to cart</button>
+                                <button class="wish_share">Share list</button>
+                            </div>
+
+                            <button class="update_wish_button"><i class="fa-solid fa-rotate"></i>Update all</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </section>
     </main>
@@ -188,7 +168,7 @@
             </li>
 
             <li>
-                <a href="../log in/log in.html">
+                <a href="log in.html">
                     <div class="top_navigation_menu_section">
                         <i class="fa-solid fa-right-to-bracket"></i>
                         <h4>Log In / Sign In</h4>
@@ -197,7 +177,7 @@
             </li>
 
             <li>
-                <a href="../wishlist/wishlist.html">
+                <a href="wishlist.html">
                     <div class="top_navigation_menu_section">
                         <i class="fa-solid fa-heart"></i>
                         <h4>My Wishlist</h4>
@@ -206,7 +186,7 @@
             </li>
 
             <li>
-                <a href="../cart/cart.html">
+                <a href="cart.html">
                     <div class="top_navigation_menu_section">
                         <i class="fa-solid fa-cart-shopping"></i>
                         <h4>View Shopping Cart</h4>
@@ -269,6 +249,6 @@
             </li>
         </ul>
     </section>
-    <script src="../moto ride.js"></script>
+    <script src="../../src/moto ride.js"></script>
 </body>
 </html>

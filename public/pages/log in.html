@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moto & Ride</title>
     <link rel="icon" type="image/png" href="../images/logos/2-removebg-preview.png">
-    <link rel="stylesheet" href="../moto ride.css">
+    <link rel="stylesheet" href="../../src/moto ride.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
@@ -23,7 +23,7 @@
             <input id="welcome_animation_input" class="welcome_animation_input" type="text" placeholder="Welcome to our store">
             </form>
             </div>
-            <img class="logo" src="../images/logos/logo preview.png" width="106px" height="60px">
+            <img class="logo" src="../assets/images/logos/logo preview.png" width="106px" height="60px">
             <p class="logo_text1">Moto <span class="logo_text_span"> & Ride</span></p>
         </div>
 
@@ -32,10 +32,10 @@
                 <div class="right_nav_block_ul_icon">
                     <ul class="ul_nav">
                     <li class="li_nav"><a href="../index.html" class="a_nav">Home</a></li>
-                    <li class="li_nav"><a href="../contact/contact.html" class="a_nav">Contact</a></li>
-                    <li class="li_nav"><a href="../log in/log in.html" class="a_nav">Log in</a></li>
-                    <li class="li_nav"><a href="../wishlist/wishlist.html" class="a_nav">Wishlist</a></li>
-                    <li class="li_nav"><a href="../cart/cart.html" class="a_nav">Cart</a></li>
+                    <li class="li_nav"><a href="contact.html" class="a_nav">Contact</a></li>
+                    <li class="li_nav"><a href="log in.html" class="a_nav">Log in</a></li>
+                    <li class="li_nav"><a href="wishlist.html" class="a_nav">Wishlist</a></li>
+                    <li class="li_nav"><a href="cart.html" class="a_nav">Cart</a></li>
                     </ul>
                     <i class="fa-solid fa-bars"></i>
                 </div>
@@ -44,143 +44,92 @@
     </header>
 
     <main>
-        <section class="product_page_box">
-            <div class="product_page_imgs_box">
-                <div class="product_page_img_box">
-                    <div class="product_page_seconds_img_box">
-                        <ul>
-                            <li><div id="product_page_first_second_img_box" class="product_page_second_img_box"></div></li>
-                            <li><div id="product_page_second_second_img_box" class="product_page_second_img_box"></div></li>
-                            <li><div id="product_page_third_second_img_box" class="product_page_second_img_box"></div></li>
-                            <li><div id="product_page_fourth_second_img_box" class="product_page_second_img_box"></div></li>
-                        </ul>
-                    </div>
+        <section class="log_in_box_wallpaper">
+            <div class="log_in_glass_box">
+                <div class="log_in_box">
+                    <form action="log in.html" method="post">
+                        <div class="log_in">
+                            <h1>Sign in</h1>
 
-                    <div id="product_page_main_img" class="product_page_main_img"></div>
-                </div>
+                            <div class="log_in_icons_box">
+                                <ul>
+                                    <li><a href="#"><i class="fa-brands fa-square-google-plus"></i></a></li>
+                                    <li><a href="#"><i class="fa-brands fa-square-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa-brands fa-github"></i></a></li>
+                                    <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
+                                </ul>
+                            </div>
 
-                <form action="product page.html" method="get">
-                    <div class="cart_actions">
-                        <div class="coupns_code_box">
-                            <input class="coupns_code_box_input" type="text" placeholder="Coupon code">
-                            <input class="coupns_code_box_submit" type="submit" value="Apply coupon">
+                            <p>Or use your email for password</p>
+
+                            <div class="log_in_input_box">
+                                <input id="email" type="email" required><br>
+                                <label for="email">Email</label>
+                            </div>
+
+                            <div class="log_in_input_box">
+                                <input id="password" type="password" required><br>
+                                <label for="password">Password</label>
+                            </div>
+
+                            <a class="password_forgot" href="#">Forgot your password?</a>
+
+                            <button>Log in</button>
                         </div>
+                    </form>
 
-                        <button class="update_cart_button"><i class="fa-solid fa-rotate"></i>Update cart</button>
-                    </div>
-                </form>
-            </div>
+                    <form action="log in.html" method="post">
+                        <div class="sign_up">
+                            <h1>Create Account</h1>
 
-            <div class="product_page_info_box">
-                <h1 id="product_page_name">Kawasaki ninja h2 sx</h1>
+                            <div class="log_in_icons_box">
+                                <ul>
+                                    <li><a href="#"><i class="fa-brands fa-square-google-plus"></i></a></li>
+                                    <li><a href="#"><i class="fa-brands fa-square-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa-brands fa-github"></i></a></li>
+                                    <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
+                                </ul>
+                            </div>
 
-                <div class="wish_chosen_product_price">
-                    <div class="original_price_box">
-                        <h4 id="original_price" class="original_price"></h4>
-                        <p id="discount" class="discount"></p>
-                    </div>
-                    <h2 id="final_price"></h2>
-                </div>
-                
-                <p class="product_color_text">Color: black</p>
-                <div class="product_color">
-                    <div class="black"></div>
-                    <div class="white"></div>
-                    <div class="red"></div>
-                    <div class="green"></div>
-                </div>
-                
-                <div class="engine_volume_box">
-                   <p>Engine volume:</p>
-                   <div class="engine_volume_size">
-                    <ul>
-                        <li><p class="lowest_engine_volume">125cc</p></li>
-                        <li><p>300cc</p></li>
-                        <li><p>500cc</p></li>
-                        <li><p>650cc</p></li>
-                        <li><p>1000cc</p></li>
-                        <li><p>1800cc</p></li>
-                    </ul>
-                   </div>
-                </div>
+                            <p>Or use your email for registration</p>
 
-                <div class="quantity_box">
-                    <i class="remove_item fa-solid fa-minus"></i>
-                    <p>1</p>
-                    <i class="add_item fa-solid fa-plus"></i>
-                </div>
+                            <div class="log_in_input_box">
+                                <input id="name" type="text" required><br>
+                                <label for="name">Username</label>
+                            </div>
 
-                <div class="product_page_buttons">
-                    <button class="product_page_buy">BUY PRODUCT</button>
-                    <button class="product_page_add_cart">ADD TO CART</button>
-                    <i class="product_page_add_wish fa-solid fa-heart"></i>
-                </div>
+                            <div class="log_in_input_box">
+                                <input id="email" type="email" required><br>
+                                <label for="email">Email</label>
+                            </div>
 
-                <p id="product_page_describe" class="product_page_describe">A high-performance sport bike from Kawasaki, featuring a 998cc supercharged engine that</p>
-                
-                <a href="#"><h3 class="more_information">MORE INFORMATION</h3><i class="fa-solid fa-up-right-from-square"></i></a>
-            
-                <div class="acordion">
-                    <div class="quastion">
-                        <h3>What types of motorcycles do you sell?</h3>
-                        <div class="plus_to_minus">
-                            <i class="plus fa-solid fa-minus"></i>
-                            <i class="minus fa-solid fa-minus"></i>
+                            <div class="log_in_input_box">
+                                <input id="password" type="password" required><br>
+                                <label for="password">Password</label>
+                            </div>
+
+                            <button>Sign in</button>
+                        </div>
+                    </form>
+
+                    <div class="log_in_hello_box">
+                        <div class="welcome_back_box">
+                            <h1>Welcome Back!</h1>
+                            <p>Enter your personal details to use all of site features</p>
+                            <button>sign up</button>
+                        </div>
+                        
+                        <div class="hello_friend_box">
+                            <h1>Hello, Friend!</h1>
+                            <p>register with your personal details to use all of site features</p>
+                            <button>sign in</button>
                         </div>
                     </div>
-                    
-                    <div class="answer">
-                        <p>We offer a wide selection of motorcycles, including sport bikes, cruisers, touring, and off-road models. Whether you’re looking for speed, comfort, or adventure, we’ve got you covered with top brands and models suited for every rider’s needs.</p>
-                    </div>
-
-                    <div class="quastion">
-                        <h3>Can I finance my motorcycle?</h3>
-                        <div class="plus_to_minus">
-                            <i class="plus fa-solid fa-minus"></i>
-                            <i class="minus fa-solid fa-minus"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="answer">
-                        <p>Yes! We offer flexible financing plans with competitive rates. Our team will assist you in choosing the best option, so you can start riding without breaking the bank. The process is simple, and approval is quick, making it easier than ever to own your dream bike.</p>
-                    </div>
-
-                    <div class="quastion">
-                        <h3>What kind of riding gear do you sell?</h3>
-                        <div class="plus_to_minus">
-                            <i class="plus fa-solid fa-minus"></i>
-                            <i class="minus fa-solid fa-minus"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="answer">
-                        <p>We provide high-quality riding gear, including helmets, jackets, gloves, boots, and full-body protection. Whether you're a city rider, a track racer, or an off-road explorer, we have the right equipment to keep you safe, comfortable, and looking great on the road.</p>
-                    </div>
-
-                    <div class="quastion">
-                        <h3>Do you offer shipping for motorcycles and gear?</h3>
-                        <div class="plus_to_minus">
-                            <i class="plus fa-solid fa-minus"></i>
-                            <i class="minus fa-solid fa-minus"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="answer">
-                        <p>Absolutely! We ship riding gear quickly through trusted couriers, while motorcycles require special handling. Shipping costs and delivery times depend on your location, but we ensure secure and reliable transportation for every order. Contact us for a quote and estimated delivery time.</p>
-                    </div>
-
-                    <div class="quastion">
-                        <h3>What is your return policy?</h3>
-                        <div class="plus_to_minus">
-                            <i class="plus fa-solid fa-minus"></i>
-                            <i class="minus fa-solid fa-minus"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="answer">
-                        <p>Riding gear can be returned within 30 days, as long as it’s unused and in original packaging. Motorcycles, however, are non-returnable due to registration and ownership laws. If you’re unsure about a purchase, our team is happy to help with any questions before you finalize your order.</p>
-                    </div>
                 </div>
+
+                <div class="glass_box_1"></div>
+                <div class="glass_box_2"></div>
+                <div class="glass_box_3"></div>
             </div>
         </section>
     </main>
@@ -273,7 +222,7 @@
             </li>
 
             <li>
-                <a href="../contact/contact.html">
+                <a href="contact.html">
                     <div class="top_navigation_menu_section">
                         <i class="fa-solid fa-comments"></i>
                         <h4>Contact With Our Team</h4>  
@@ -282,7 +231,7 @@
             </li>
 
             <li>
-                <a href="../log in/log in.html">
+                <a href="log in.html">
                     <div class="top_navigation_menu_section">
                         <i class="fa-solid fa-right-to-bracket"></i>
                         <h4>Log In / Sign In</h4>
@@ -291,7 +240,7 @@
             </li>
 
             <li>
-                <a href="../wishlist/wishlist.html">
+                <a href="wishlist.html">
                     <div class="top_navigation_menu_section">
                         <i class="fa-solid fa-heart"></i>
                         <h4>My Wishlist</h4>
@@ -300,7 +249,7 @@
             </li>
 
             <li>
-                <a href="../cart/cart.html">
+                <a href="cart.html">
                     <div class="top_navigation_menu_section">
                         <i class="fa-solid fa-cart-shopping"></i>
                         <h4>View Shopping Cart</h4>
@@ -363,6 +312,6 @@
             </li>
         </ul>
     </section>
-    <script src="../moto ride.js"></script>
+    <script src="../../src/moto ride.js"></script>
 </body>
 </html>
