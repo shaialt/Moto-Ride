@@ -99,20 +99,29 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(response => response.json())
     .then(products => {
 
-        // מתקן נתיבים של תמונות בכל מוצר
-        products.forEach(product => {
-            // כאן מנקים את הנתיב היחסי "../" ומוסיפים את basePath
-            // שים לב שצריך להתאים את הנתיב כך שיתאים לתיקיית images במערכת שלך
-            if (product.image) {
-                product.image = product.image.replace(/^(\.\.\/)+/, basePath);
-            }
-            if (product.logo) {
-                product.logo = product.logo.replace(/^(\.\.\/)+/, basePath);
-            }
-            if (Array.isArray(product.images)) {
-                product.images = product.images.map(imgPath => imgPath.replace(/^(\.\.\/)+/, basePath));
-            }
-        });
+    products.forEach(product => {
+        // תיקון נתיב לתמונה ולוגו לפי הסביבה
+        const githubRepo = 'Moto-Ride';
+        const isGitHubPages = window.location.hostname === 'shaialt.github.io';
+        const basePath = isGitHubPages ? `/${githubRepo}` : '';
+
+        function fixPath(path) {
+            // מסיר /public מהנתיב ומוסיף basePath אם צריך
+            if (!path) return '';
+            let cleanPath = path.replace(/^\/public/, '');
+            return basePath + cleanPath;
+        }
+
+        if (product.image) {
+            product.image = fixPath(product.image);
+        }
+        if (product.logo) {
+            product.logo = fixPath(product.logo);
+        }
+        if (Array.isArray(product.images)) {
+            product.images = product.images.map(fixPath);
+        }
+    });
 
         // בדיקת כמות מוצרים באתר
         let productsNumbersTotal = 0;
