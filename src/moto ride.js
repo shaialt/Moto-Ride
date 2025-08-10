@@ -82,10 +82,37 @@ function changeCatalogMenueFunction(event) {
 
 //?: השמה של אירוע שמרענן את הדפים
 document.addEventListener('DOMContentLoaded', () => {
+    // החלף ל־username ו־repo שלך
+    const githubUsername = 'shaialt';
+    const githubRepo = 'Moto-Ride';
+
+    // בודק אם אנחנו ב־GitHub Pages לפי ה-hostname (אפשר להתאים לפי הצורך)
+    const isGitHubPages = window.location.hostname === `${githubUsername}.github.io`;
+
+    // מגדיר את בסיס הנתיב לפי הסביבה:
+    // אם GitHub Pages: /repo-name/
+    // אחרת (לייב סרבר מקומי או סביבה אחרת): ../
+    const basePath = isGitHubPages ? `/${githubRepo}/` : '/';
+
     //?: הכנסת מוצרים מתוך ג'ייסון לקטלוג אופנועים
-    fetch('/public/data/products.json')
+    fetch(`${basePath}public/data/products.json`)
     .then(response => response.json())
     .then(products => {
+
+        // מתקן נתיבים של תמונות בכל מוצר
+        products.forEach(product => {
+            // כאן מנקים את הנתיב היחסי "../" ומוסיפים את basePath
+            // שים לב שצריך להתאים את הנתיב כך שיתאים לתיקיית images במערכת שלך
+            if (product.image) {
+                product.image = product.image.replace(/^(\.\.\/)+/, basePath);
+            }
+            if (product.logo) {
+                product.logo = product.logo.replace(/^(\.\.\/)+/, basePath);
+            }
+            if (Array.isArray(product.images)) {
+                product.images = product.images.map(imgPath => imgPath.replace(/^(\.\.\/)+/, basePath));
+            }
+        });
 
         // בדיקת כמות מוצרים באתר
         let productsNumbersTotal = 0;
