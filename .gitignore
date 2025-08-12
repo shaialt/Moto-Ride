@@ -1,1 +1,50 @@
-fonts/
+
+# תלותיות Node.js - תמיד להחריג
+node_modules/
+
+# תיקיות וארגזי build/פלט - תיקיות שנוצרות ע"י build או קומפילציה
+dist/
+build/
+client/dist/
+client/build/
+server/dist/
+server/build/
+
+# קבצי משתני סביבה עם סודות
+.env
+
+# קבצי לוג
+*.log
+logs/
+
+# קבצי מערכת הפעלה
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# הגדרות ויזואל סטודיו קוד (אם לא רוצים לשתף)
+.vscode/
+
+# קבצי debug של npm
+npm-debug.log*
+
+# פונטים - אם לא רוצים להעלות אותם ל-GitHub
+client/public/assets/fonts/
+# או להחריג כל תיקיית fonts בכל מקום בפרויקט
+# **/fonts/
+
+# קבצים זמניים ואשפה נוספים
+.cache/
+tmp/
+temp/
+
+# קבצים של IDE נוספים (אם יש צורך)
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# אם יש דוקר - אפשר להחריג קבצי לוג או output שלהם
+docker-compose.override.yml

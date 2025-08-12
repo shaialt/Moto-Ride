@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moto & Ride</title>
-    <link rel="icon" type="image/png" href="assets/images/logos/2-removebg-preview.png">
-    <link rel="stylesheet" href="../src/moto ride.css">
+    <link rel="icon" type="image/png" href="../public/favicon.ico">
+    <link rel="stylesheet" href="../src/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
@@ -23,7 +23,7 @@
             <input id="welcome_animation_input" class="welcome_animation_input" type="text" placeholder="Welcome to our store">
             </form>
             </div>
-            <img class="logo" src="assets/images/logos/logo preview.png" width="106px" height="60px">
+            <img class="logo" src="/client/public/assets/images/logos/logo preview.png" width="106px" height="60px">
             <p class="logo_text1">Moto <span class="logo_text_span"> & Ride</span></p>
         </div>
 
@@ -31,188 +31,160 @@
                 <p class="logo_text2">Moto <span class="logo_text_span"> & Ride</span></p>
                 <div class="right_nav_block_ul_icon">
                     <ul class="ul_nav">
-                    <li class="li_nav"><a href="index.html" class="a_nav">Home</a></li>
-                    <li class="li_nav"><a href="pages/contact.html" class="a_nav">Contact</a></li>
-                    <li class="li_nav"><a href="pages/log in.html" class="a_nav">Log in</a></li>
-                    <li class="li_nav"><a href="pages/wishlist.html" class="a_nav">Wishlist</a></li>
-                    <li class="li_nav"><a href="pages/cart.html" class="a_nav">Cart</a></li>
+                    <li class="li_nav"><a href="../index.html" class="a_nav">Home</a></li>
+                    <li class="li_nav"><a href="contact.html" class="a_nav">Contact</a></li>
+                    <li class="li_nav"><a href="login.html" class="a_nav">Log in</a></li>
+                    <li class="li_nav"><a href="wishlist.html" class="a_nav">Wishlist</a></li>
+                    <li class="li_nav"><a href="cart.html" class="a_nav">Cart</a></li>
                     </ul>
                     <i class="fa-solid fa-bars"></i>
                 </div>
             </div>
         </nav>
     </header>
-    
-    <main>
-        <section class="header_img_super_box">
-            <div class="header_img_box">
 
-                <div class="image_slider_box">
-                    <div class="slider_wrapper">
-                        <div class="slider">
-                            <img class="image_slider_box_images_1" id="slide_1" src="assets/images/images slader/sss.png">
-                            <h2>Bold, beautiful, and dangerously fast - <span>just the way you like it</span></h2>
-                            <img class="image_slider_box_images_2" id="slide_2" src="assets/images/images slader/AdobeStock_593542805.jpg">
-                            <img class="image_slider_box_images_3" id="slide_3" src="assets/images/images slader/man-is-riding.png">
+    <main>
+        <section class="product_page_box">
+            <div class="product_page_imgs_box">
+                <div class="product_page_img_box">
+                    <div class="product_page_seconds_img_box">
+                        <ul>
+                            <li><div id="product_page_first_second_img_box" class="product_page_second_img_box"></div></li>
+                            <li><div id="product_page_second_second_img_box" class="product_page_second_img_box"></div></li>
+                            <li><div id="product_page_third_second_img_box" class="product_page_second_img_box"></div></li>
+                            <li><div id="product_page_fourth_second_img_box" class="product_page_second_img_box"></div></li>
+                        </ul>
+                    </div>
+
+                    <div id="product_page_main_img" class="product_page_main_img"></div>
+                </div>
+
+                <form action="product page.html" method="get">
+                    <div class="cart_actions">
+                        <div class="coupns_code_box">
+                            <input class="coupns_code_box_input" type="text" placeholder="Coupon code">
+                            <input class="coupns_code_box_submit" type="submit" value="Apply coupon">
                         </div>
 
-                        <div class="slider_nav">
-                            <a href="#slide_1"></a>
-                            <a href="#slide_2"></a>
-                            <a href="#slide_3"></a>
+                        <button class="update_cart_button"><i class="fa-solid fa-rotate"></i>Update cart</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="product_page_info_box">
+                <h1 id="product_page_name">Kawasaki ninja h2 sx</h1>
+
+                <div class="wish_chosen_product_price">
+                    <div class="original_price_box">
+                        <h4 id="original_price" class="original_price"></h4>
+                        <p id="discount" class="discount"></p>
+                    </div>
+                    <h2 id="final_price"></h2>
+                </div>
+                
+                <p class="product_color_text">Color: black</p>
+                <div class="product_color">
+                    <div class="black"></div>
+                    <div class="white"></div>
+                    <div class="red"></div>
+                    <div class="green"></div>
+                </div>
+                
+                <div class="engine_volume_box">
+                   <p>Engine volume:</p>
+                   <div class="engine_volume_size">
+                    <ul>
+                        <li><p class="lowest_engine_volume">125cc</p></li>
+                        <li><p>300cc</p></li>
+                        <li><p>500cc</p></li>
+                        <li><p>650cc</p></li>
+                        <li><p>1000cc</p></li>
+                        <li><p>1800cc</p></li>
+                    </ul>
+                   </div>
+                </div>
+
+                <div class="quantity_box">
+                    <i class="remove_item fa-solid fa-minus"></i>
+                    <p>1</p>
+                    <i class="add_item fa-solid fa-plus"></i>
+                </div>
+
+                <div class="product_page_buttons">
+                    <button class="product_page_buy">BUY PRODUCT</button>
+                    <button class="product_page_add_cart">ADD TO CART</button>
+                    <i class="product_page_add_wish fa-solid fa-heart"></i>
+                </div>
+
+                <p id="product_page_describe" class="product_page_describe">A high-performance sport bike from Kawasaki, featuring a 998cc supercharged engine that</p>
+                
+                <a href="#"><h3 class="more_information">MORE INFORMATION</h3><i class="fa-solid fa-up-right-from-square"></i></a>
+            
+                <div class="acordion">
+                    <div class="quastion">
+                        <h3>What types of motorcycles do you sell?</h3>
+                        <div class="plus_to_minus">
+                            <i class="plus fa-solid fa-minus"></i>
+                            <i class="minus fa-solid fa-minus"></i>
                         </div>
                     </div>
-                </div>
+                    
+                    <div class="answer">
+                        <p>We offer a wide selection of motorcycles, including sport bikes, cruisers, touring, and off-road models. Whether you’re looking for speed, comfort, or adventure, we’ve got you covered with top brands and models suited for every rider’s needs.</p>
+                    </div>
 
-                <div class="left_arrow_box"><i class="fa-solid fa-arrow-left left_arrow"></i></div>
-                <div class="right_arrow_box"><i class="fa-solid fa-arrow-right right_arrow"></i></div>
-            </div>
-        </section>
+                    <div class="quastion">
+                        <h3>Can I finance my motorcycle?</h3>
+                        <div class="plus_to_minus">
+                            <i class="plus fa-solid fa-minus"></i>
+                            <i class="minus fa-solid fa-minus"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="answer">
+                        <p>Yes! We offer flexible financing plans with competitive rates. Our team will assist you in choosing the best option, so you can start riding without breaking the bank. The process is simple, and approval is quick, making it easier than ever to own your dream bike.</p>
+                    </div>
 
-        <section class="catalogs">
-            <div class="catalogs_box_1">
-                <div class="catalogs_box_card_1">
-                <div class="front_1">
-                    <h3 class="catalogs_box_heading">Motorcycles</h3>
-                    <p class="catalogs_box_text"></p>
-                </div>
-                <div class="back_1">
-                    <p class="catalogs_box_text">Your riding journey starts here! We offer a wide selection of motorcycles from top global brands, ranging from high-speed sport bikes to comfortable cruisers. Each motorcycle is carefully chosen to provide the perfect blend of power, performance, and design.</p>
-                    <a href="pages/catalog.html?category=motorcycles" class="catalog_link_1"><button class="catalog_button">See More</button></a>
-                </div>
-                </div>
-            </div>
+                    <div class="quastion">
+                        <h3>What kind of riding gear do you sell?</h3>
+                        <div class="plus_to_minus">
+                            <i class="plus fa-solid fa-minus"></i>
+                            <i class="minus fa-solid fa-minus"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="answer">
+                        <p>We provide high-quality riding gear, including helmets, jackets, gloves, boots, and full-body protection. Whether you're a city rider, a track racer, or an off-road explorer, we have the right equipment to keep you safe, comfortable, and looking great on the road.</p>
+                    </div>
 
-            <div class="catalogs_box_2">
-                <div class="catalogs_box_card_2">
-                <div class="front_2">
-                    <h3 class="catalogs_box_heading">Gear & Protections</h3>
-                    <p class="catalogs_box_text"></p>
-                </div>
-                <div class="back_2">
-                    <p class="catalogs_box_text">Your safety is our priority! In the Gear Protection category, you’ll find premium helmets, gloves, body armor, and advanced riding jackets. Designed for maximum protection, comfort, and style, our gear ensures a safe, enjoyable, and confident riding experience every time.</p>
-                    <a href="pages/catalog.html?category=gear" class="catalog_link_2"><button class="catalog_button">See More</button></a>
-                </div>
-                </div>
-            </div> 
-            
-            <div class="catalogs_box_3">
-                <div class="catalogs_box_card_3">
-                <div class="front_3">
-                    <h3 class="catalogs_box_heading">Parts & Accessories</h3>
-                    <p class="catalogs_box_text"></p>
-                </div>
-                <div class="back_3">
-                    <p class="catalogs_box_text">Keep your motorcycle in top shape! Discover a wide range of high-quality spare parts, accessories, and upgrades for all types of motorcycles. All parts meet the highest standards to maintain your bike’s performance for the long haul.</p>
-                    <a href="pages/catalog.html?category=parts" class="catalog_link_3"><button class="catalog_button">See More</button></a>
-                </div>
-                </div>
-            </div>
-            
-            <div class="catalogs_box_4">
-                <div class="catalogs_box_card_4">
-                <div class="front_4">
-                    <h3 class="catalogs_box_heading">Upgrades</h3>
-                    <p class="catalogs_box_text"></p>
-                </div>
-                <div class="back_4">
-                    <p class="catalogs_box_text">Take your ride to the next level! Explore cutting-edge technology to enhance performance, information, and comfort while riding. Smart gadgets, navigation systems, advanced sensors, and more - all designed to make your riding experience smarter and more exciting.</p>
-                    <a href="pages/catalog.html?category=upgrades" class="catalog_link_4"><button class="catalog_button">See More</button></a>
-                </div>
-                </div>
-            </div>
-        </section>
+                    <div class="quastion">
+                        <h3>Do you offer shipping for motorcycles and gear?</h3>
+                        <div class="plus_to_minus">
+                            <i class="plus fa-solid fa-minus"></i>
+                            <i class="minus fa-solid fa-minus"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="answer">
+                        <p>Absolutely! We ship riding gear quickly through trusted couriers, while motorcycles require special handling. Shipping costs and delivery times depend on your location, but we ensure secure and reliable transportation for every order. Contact us for a quote and estimated delivery time.</p>
+                    </div>
 
-        <section class="intro_box">
-            <div class="intro">
-                <h2>Your Next Motorcycle Starts Here - Exceptional Selection, Service, and Quality</h2>
-                <p>Welcome to the premier destination for motorcycle enthusiasts - a platform dedicated to delivering an unparalleled shopping experience for everything two-wheeled. We specialize in connecting passion with expertise, offering a seamless journey toward finding the perfect motorcycle for your needs.</p>
-                <p>On our site, you’ll discover:</p>
-                <ul>
-                    <li><b>A vast selection of new and pre-owned motorcycles</b> from the world’s leading brands, catering to every rider, from beginners to seasoned professionals.</li>
-                    <li><b>Flexible purchasing options and advanced financing services</b> to help make your dream ride a reality.</li>
-                    <li><b>Reliable and professional insights</b>, including reviews, comparisons, and expert advice to guide you toward the best choice.</li>
-                    <li><b>A wide range of accessories and parts</b>, designed to enhance and customize your riding experience.</li>
-                    <li><b>Dedicated and experienced customer support</b>, here to assist you every step of the way—from your first inquiry to your first ride.</li>
-                </ul>
-                <p>Our vision is to make buying a motorcycle simple, convenient, and enjoyable. We understand that riding is not just about transportation—it’s a lifestyle.
-                    Join countless satisfied riders who have trusted us to help them on their journey. Let us guide you toward the motorcycle that perfectly suits your style and aspirations.</p>
-                <p class="intro_center_text"><b>Begin your journey with us today — because your next adventure awaits.</b></p>
-            </div>
-        </section>
-
-        <section class="rider_choice">
-            <div class="text_shape_box">
-                <div class="rider_choice_text_box_1">
-                    <h2>The Choice of Discerning Riders</h2>
-                    <p>Choosing the right motorcycle isn’t just about the ride <br> - it’s about the journey, the experience, and the legacy. <br> At our core, we redefine what it means to deliver <br> excellence, offering more than just motorcycles; we <br> offer unmatched value and unwavering commitment <br> to those who demand the best.</p>
-                </div>
-
-                <div class="polygon">
-                <div class="polygon_1"></div>
-                <div class="polygon_2"></div>
-                <div class="polygon_3"></div>
-                </div>
-            </div>
-            <div class="rider_choice_text_box_2_box">
-            <div class="rider_choice_text_box_2">
-                <b><p>Here’s why riders like you choose us:</p></b>
-                <ul>
-                    <li><b>Excellence in Craftsmanship:</b> Every motorcycle we offer embodies precision, innovation, and uncompromising quality.</li>
-                    <li><b>Tailored Ownership Experience:</b> From personalized consultations to expert aftercare, we ensure a seamless journey from dream to reality.</li>
-                    <li><b>Transparent Elegance:</b> A refined purchasing process, built on trust and clarity, where every detail is designed with you in mind.</li>
-                    <li><b>Beyond the Ride:</b> Become part of an exclusive network of riders who share your passion for sophistication, adventure, and freedom.</li>
-                    <li><b>Timeless Value:</b> Our offerings are curated to represent not only performance but also lasting investment and satisfaction.</li>
-                </ul>
-                <p>For those who seek more than the ordinary, we are here to elevate every aspect of your motorcycle journey. This is where your pursuit of perfection begins.</p>
-                <p><b>Step into a world of distinction — choose us.</b></p>
-            </div>
-            </div>
-        </section>
-
-        <section>
-            <div class="top_product_title_box">
-                <h2 class="top_product_title">Our top models</h2>
-                <p class="total_products">Discover 0 exlusive motorcyles</p>
-            </div>
-
-            <div id="top_products" class="top_products"></div>
-        </section>
-
-        <section class="subcategory_super_box">
-            <div class="subcategory_wrapper_box">
-                <div class="subcategory_3d_box">
-                    <div class="subcategory"><img src="assets/images/categories/motorcycle catalog.jpg" alt=""><a href="#" class="subcategory_button">See more</a></div>
-                    <div class="subcategory"><img src="assets/images/categories/motorcycle catalog.jpg" alt=""><a href="#" class="subcategory_button">See more</a></div>
-                    <div class="subcategory"><img src="assets/images/categories/motorcycle catalog.jpg" alt=""><a href="#" class="subcategory_button">See more</a></div>
-                    <div class="subcategory"><img src="assets/images/categories/motorcycle catalog.jpg" alt=""><a href="#" class="subcategory_button">See more</a></div>
-                    <div class="subcategory"><img src="assets/images/categories/motorcycle catalog.jpg" alt=""><a href="#" class="subcategory_button">See more</a></div>
-                    <div class="subcategory"><img src="assets/images/categories/motorcycle catalog.jpg" alt=""><a href="#" class="subcategory_button">See more</a></div>
-                    <div class="subcategory"><img src="assets/images/categories/motorcycle catalog.jpg" alt=""><a href="#" class="subcategory_button">See more</a></div>
-                    <div class="subcategory"><img src="assets/images/categories/motorcycle catalog.jpg" alt=""><a href="#" class="subcategory_button">See more</a></div>
-                    <div class="subcategory"><img src="assets/images/categories/motorcycle catalog.jpg" alt=""><a href="#" class="subcategory_button">See more</a></div>
-                    <div class="subcategory"><img src="assets/images/categories/motorcycle catalog.jpg" alt=""><a href="#" class="subcategory_button">See more</a></div>
-                </div>
-            </div>
-
-            <i class="fa-solid fa-angle-left left_angle"></i>
-            <i class="fa-solid fa-angle-right right_angle"></i>
-        </section>
-
-        <section class="section_padding">
-            <div class="grid">
-                <div class="grid_boxes">
-                    <div class="grid_box_1"></div>
-                    <div class="grid_box_2"></div>
-                    <div class="grid_box_3"></div>
-                    <div class="grid_box_4"></div>
-                    <div class="grid_box_5"></div>
-                    <div class="grid_box_6"></div>
-                    <div class="grid_box_7"></div>
+                    <div class="quastion">
+                        <h3>What is your return policy?</h3>
+                        <div class="plus_to_minus">
+                            <i class="plus fa-solid fa-minus"></i>
+                            <i class="minus fa-solid fa-minus"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="answer">
+                        <p>Riding gear can be returned within 30 days, as long as it’s unused and in original packaging. Motorcycles, however, are non-returnable due to registration and ownership laws. If you’re unsure about a purchase, our team is happy to help with any questions before you finalize your order.</p>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
+
     <footer>
         <div class="footer_links_box">
         <div class="li_footer_box">
@@ -283,7 +255,7 @@
 
         <ul>
             <li>
-                <a href="index.html">
+                <a href="../index.html">
                     <div class="top_navigation_menu_section">
                         <i class="fa-solid fa-house house_icon_menue"></i>
                         <h4>Home</h4>
@@ -301,7 +273,7 @@
             </li>
 
             <li>
-                <a href="pages/contact.html">
+                <a href="contact.html">
                     <div class="top_navigation_menu_section">
                         <i class="fa-solid fa-comments"></i>
                         <h4>Contact With Our Team</h4>  
@@ -310,7 +282,7 @@
             </li>
 
             <li>
-                <a href="pages/log in.html">
+                <a href="login.html">
                     <div class="top_navigation_menu_section">
                         <i class="fa-solid fa-right-to-bracket"></i>
                         <h4>Log In / Sign In</h4>
@@ -319,7 +291,7 @@
             </li>
 
             <li>
-                <a href="pages/wishlist.html">
+                <a href="wishlist.html">
                     <div class="top_navigation_menu_section">
                         <i class="fa-solid fa-heart"></i>
                         <h4>My Wishlist</h4>
@@ -328,7 +300,7 @@
             </li>
 
             <li>
-                <a href="pages/cart.html">
+                <a href="cart.html">
                     <div class="top_navigation_menu_section">
                         <i class="fa-solid fa-cart-shopping"></i>
                         <h4>View Shopping Cart</h4>
@@ -391,6 +363,6 @@
             </li>
         </ul>
     </section>
-    <script src="../src/moto ride.js"></script>
+    <script type="module" src="../src/main.js"></script>
 </body>
 </html>

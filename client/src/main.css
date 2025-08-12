@@ -707,7 +707,7 @@ header {
 }
 
 .front_1 {
-  background-image: url(../public/assets/images/categories/motorcycle%20catalog.jpg);
+  background-image: url(../public/assets/images/categories/motorcycle-catalog.jpg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -769,7 +769,7 @@ header {
 }
 
 .front_2 {
-  background-image: url(../public/assets/images/categories/gear\ and\ protection.webp);
+  background-image: url(../public/assets/images/categories/gear-and-protection.webp);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -1526,7 +1526,7 @@ span {
 .grid_box_1 {
   grid-area: grid_box_1;
   border-radius: 10px 0px 0px 0px;
-  background-image: url(../public/assets/images/grid\ images/motorbike_with_red_neon_by_askatori_dem64ej-pre.jpg);
+  background-image: url(../public/assets/images/grid-images/a.jpg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1535,7 +1535,7 @@ span {
 .grid_box_2 {
   grid-area: grid_box_2;
   border-radius: 0px 10px 0px 0px;
-  background-image: url(../public/assets/images/grid\ images/360_F_977400802_KDfXY4ZAt3urSaVue8xlekXMEpULJz6u.jpg);
+  background-image: url(../public/assets/images/grid-images/b.jpg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1543,7 +1543,7 @@ span {
 
 .grid_box_3 {
   grid-area: grid_box_3;
-  background-image: url(../public/assets/images/grid\ images/hd-expensive-red-motorcycles-hsktjw542hiro361-hsktjw542hiro361.jpg);
+  background-image: url(../public/assets/images/grid-images/e.jpg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1552,7 +1552,7 @@ span {
 .grid_box_4 {
   grid-area: grid_box_4;
   border-radius: 0px 0px 10px 0px;
-  background-image: url(../public/assets/images/grid\ images/AdvSingleColor_Red_Install_Moto_1__61819.jpg);
+  background-image: url(../public/assets/images/grid-images/g.jpg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1561,7 +1561,7 @@ span {
 .grid_box_5 {
   grid-area: grid_box_5;
   border-radius: 0px 0px 0px 10px;
-  background-image: url(../public/assets/images/grid\ images/2020Motocycles___Honda_Bikes_Honda_Fireblade_motorcycle_on_a_red_background_145280_.jpg);
+  background-image: url(../public/assets/images/grid-images/f.jpg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1569,7 +1569,7 @@ span {
 
 .grid_box_6 {
   grid-area: grid_box_6;
-  background-image: url(../public/assets/images/grid\ images/e74e2fa32ac46cb09eb9d3c29d795d5c.jpg);
+  background-image: url(../public/assets/images/grid-images/c.jpg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1578,7 +1578,7 @@ span {
 .grid_box_7 {
   grid-area: grid_box_7;
   border-radius: 10px;
-  background-image: url(../public/assets/images/grid\ images/139082-car-night-darkness-light-red-2500x1562.jpg);
+  background-image: url(../public/assets/images/grid-images/d.jpg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

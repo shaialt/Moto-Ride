@@ -4,17 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moto & Ride</title>
-    <link rel="icon" type="image/png" href="../assets/images/logos/2-removebg-preview.png">
-    <link rel="stylesheet" href="../../src/moto ride.css">
+    <link rel="icon" type="image/png" href="../public/favicon.ico">
+    <link rel="stylesheet" href="../src/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Exile&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /></head>
 <body class="waves">
-    <header>
+    <header id="category_header">
         <nav class="nav">
         <div class="left_nav_block">
             <div class="welcome_animation_box">
@@ -23,7 +22,7 @@
             <input id="welcome_animation_input" class="welcome_animation_input" type="text" placeholder="Welcome to our store">
             </form>
             </div>
-            <img class="logo" src="../assets/images/logos/logo preview.png" width="106px" height="60px">
+            <img class="logo" src="/client/public/assets/images/logos/logo preview.png" width="106px" height="60px">
             <p class="logo_text1">Moto <span class="logo_text_span"> & Ride</span></p>
         </div>
 
@@ -33,7 +32,7 @@
                     <ul class="ul_nav">
                     <li class="li_nav"><a href="../index.html" class="a_nav">Home</a></li>
                     <li class="li_nav"><a href="contact.html" class="a_nav">Contact</a></li>
-                    <li class="li_nav"><a href="log in.html" class="a_nav">Log in</a></li>
+                    <li class="li_nav"><a href="login.html" class="a_nav">Log in</a></li>
                     <li class="li_nav"><a href="wishlist.html" class="a_nav">Wishlist</a></li>
                     <li class="li_nav"><a href="cart.html" class="a_nav">Cart</a></li>
                     </ul>
@@ -44,147 +43,127 @@
     </header>
 
     <main>
-        <section class="product_page_box">
-            <div class="product_page_imgs_box">
-                <div class="product_page_img_box">
-                    <div class="product_page_seconds_img_box">
-                        <ul>
-                            <li><div id="product_page_first_second_img_box" class="product_page_second_img_box"></div></li>
-                            <li><div id="product_page_second_second_img_box" class="product_page_second_img_box"></div></li>
-                            <li><div id="product_page_third_second_img_box" class="product_page_second_img_box"></div></li>
-                            <li><div id="product_page_fourth_second_img_box" class="product_page_second_img_box"></div></li>
-                        </ul>
-                    </div>
+        <section class="display-flex margin-0">
+            <section class="filter_sidebar display-flex justifyContent-center color-white margin-0">
+                <form action="catalog.html" method="get" class="display-flex flexDirection-column">
+                    <div><br>
+                        <h3>price</h3>
+                        <div class="display-flex justifyContent-spaceBetween alignItems-center">
+                            <input type="number" class="price_input" placeholder="Min">
+                            <p>-</p>
+                            <input type="number" class="price_input" placeholder="Max">
+                        </div><br>
+                        <input type="range" class="range_input">
+                        <br><br>
+                        <button class="Filter_by_price_button">Filter by price</button>
+                    </div><br>
 
-                    <div id="product_page_main_img" class="product_page_main_img"></div>
-                </div>
+                    <div class="display-flex justifyContent-spaceBetween">
+                        <button class="reset_button">Reset</button>
+                        <button class="share_button"><i class="fa-solid fa-arrow-up-from-bracket"></i>share</button>
+                    </div><br>
 
-                <form action="product page.html" method="get">
-                    <div class="cart_actions">
-                        <div class="coupns_code_box">
-                            <input class="coupns_code_box_input" type="text" placeholder="Coupon code">
-                            <input class="coupns_code_box_submit" type="submit" value="Apply coupon">
-                        </div>
+                    <div>
+                        <h3>Manufacturer</h3>
+                        <input type="checkbox" id="suzuki"><label for="suzuki">Suzuki</label><br>
+                        <input type="checkbox" id="Kawasaki"><label for="Kawasaki">Kawasaki</label><br>
+                        <input type="checkbox" id="Ducati"><label for="Ducati">Ducati</label><br>
+                        <input type="checkbox" id="Yamaha"><label for="Yamaha">Yamaha</label><br>
+                        <input type="checkbox" id="Honda"><label for="Honda">Honda</label><br>
+                        <input type="checkbox" id="Harly Davidson"><label for="Harly Davidson">Harly Davidson</label><br>
+                        <input type="checkbox" id="B.M.W"><label for="B.M.W">B.M.W</label>
+                    </div><br>
 
-                        <button class="update_cart_button"><i class="fa-solid fa-rotate"></i>Update cart</button>
-                    </div>
+                    <div>
+                        <h3>Motorcycle type</h3>
+                        <input type="checkbox" id="Road"><label for="Road">Road</label><br>
+                        <input type="checkbox" id="Off-road"><label for="Off-road">Off-road</label><br>
+                        <input type="checkbox" id="Dual purpose"><label for="Dual purpose">Dual purpose</label><br>
+                        <input type="checkbox" id="Scooter"><label for="Scooter">Scooter</label><br> 
+                        <input type="checkbox" id="Moped"><label for="Moped">Moped</label>
+                    </div><br>
+                    
+                    <div>
+                        <h3>Filter by</h3>
+                        <input type="checkbox" id="Normal"><label for="Normal">Normal</label><br>
+                        <input type="checkbox" id="On sales"><label for="On sales">On sales</label><br>
+                        <input type="checkbox" id="Popular"><label for="Popular">Popular</label><br>
+                        <input type="checkbox" id="New"><label for="New">New</label><br>
+                        <input type="checkbox" id="Recomended"><label for="Recomended">Recomended</label>
+                    </div><br>
                 </form>
-            </div>
+            </section>
 
-            <div class="product_page_info_box">
-                <h1 id="product_page_name">Kawasaki ninja h2 sx</h1>
-
-                <div class="wish_chosen_product_price">
-                    <div class="original_price_box">
-                        <h4 id="original_price" class="original_price"></h4>
-                        <p id="discount" class="discount"></p>
-                    </div>
-                    <h2 id="final_price"></h2>
-                </div>
-                
-                <p class="product_color_text">Color: black</p>
-                <div class="product_color">
-                    <div class="black"></div>
-                    <div class="white"></div>
-                    <div class="red"></div>
-                    <div class="green"></div>
-                </div>
-                
-                <div class="engine_volume_box">
-                   <p>Engine volume:</p>
-                   <div class="engine_volume_size">
+            <section class="products_list_box margin-0">
+                <div id="filter_box" class="filter_box">
                     <ul>
-                        <li><p class="lowest_engine_volume">125cc</p></li>
-                        <li><p>300cc</p></li>
-                        <li><p>500cc</p></li>
-                        <li><p>650cc</p></li>
-                        <li><p>1000cc</p></li>
-                        <li><p>1800cc</p></li>
+                        <li class="quick_menu_filter display-flex"><i class="fa-solid fa-list"></i><p>Filter</p></li>
+                        <li class="display-flex"><i class="fa-solid fa-arrow-up-from-bracket"></i><p>Share</p></li>
                     </ul>
-                   </div>
+
+                    <section class="catalog_menu">
+                        <div class="catalog_menu_overflow">
+                            <section class="filter_sidebar_responsive">
+                                <form action="catalog.html" method="get" class="display-flex flexDirection-column">
+                                    <div><br>
+                                        <h3>price</h3>
+                                        <div class="display-flex justifyContent-spaceBetween alignItems-center">
+                                            <input type="number" class="price_input" placeholder="Min">
+                                            <p>-</p>
+                                            <input type="number" class="price_input" placeholder="Max">
+                                        </div><br>
+                                        <input type="range" class="range_input">
+                                        <br><br>
+                                        <button class="Filter_by_price_button">Filter by price</button>
+                                    </div><br>
+
+                                    <div class="display-flex justifyContent-spaceBetween">
+                                        <button class="reset_button">Reset</button>
+                                        <button class="share_button"><i class="fa-solid fa-arrow-up-from-bracket"></i>share</button>
+                                    </div><br>
+
+                                    <div>
+                                        <h3>Manufacturer</h3>
+                                        <input type="checkbox" id="suzuki"><label for="suzuki">Suzuki</label><br>
+                                        <input type="checkbox" id="Kawasaki"><label for="Kawasaki">Kawasaki</label><br>
+                                        <input type="checkbox" id="Ducati"><label for="Ducati">Ducati</label><br>
+                                        <input type="checkbox" id="Yamaha"><label for="Yamaha">Yamaha</label><br>
+                                        <input type="checkbox" id="Honda"><label for="Honda">Honda</label><br>
+                                        <input type="checkbox" id="Harly Davidson"><label for="Harly Davidson">Harly Davidson</label><br>
+                                        <input type="checkbox" id="B.M.W"><label for="B.M.W">B.M.W</label>
+                                    </div><br>
+
+                                    <div>
+                                        <h3>Motorcycle type</h3>
+                                        <input type="checkbox" id="Road"><label for="Road">Road</label><br>
+                                        <input type="checkbox" id="Off-road"><label for="Off-road">Off-road</label><br>
+                                        <input type="checkbox" id="Dual purpose"><label for="Dual purpose">Dual purpose</label><br>
+                                        <input type="checkbox" id="Scooter"><label for="Scooter">Scooter</label><br> 
+                                        <input type="checkbox" id="Moped"><label for="Moped">Moped</label>
+                                    </div><br>
+                                    
+                                    <div>
+                                        <h3>Filter by</h3>
+                                        <input type="checkbox" id="Normal"><label for="Normal">Normal</label><br>
+                                        <input type="checkbox" id="On sales"><label for="On sales">On sales</label><br>
+                                        <input type="checkbox" id="Popular"><label for="Popular">Popular</label><br>
+                                        <input type="checkbox" id="New"><label for="New">New</label><br>
+                                        <input type="checkbox" id="Recomended"><label for="Recomended">Recomended</label>
+                                    </div><br>
+                                </form>
+                            </section>
+                        </div>
+                    </section>
+
+                    <section class="catalog_overlay"></section>
                 </div>
 
-                <div class="quantity_box">
-                    <i class="remove_item fa-solid fa-minus"></i>
-                    <p>1</p>
-                    <i class="add_item fa-solid fa-plus"></i>
+                <div id="catalog" class="products_list display-flex flexWrap-wrap">
+                    
                 </div>
-
-                <div class="product_page_buttons">
-                    <button class="product_page_buy">BUY PRODUCT</button>
-                    <button class="product_page_add_cart">ADD TO CART</button>
-                    <i class="product_page_add_wish fa-solid fa-heart"></i>
-                </div>
-
-                <p id="product_page_describe" class="product_page_describe">A high-performance sport bike from Kawasaki, featuring a 998cc supercharged engine that</p>
-                
-                <a href="#"><h3 class="more_information">MORE INFORMATION</h3><i class="fa-solid fa-up-right-from-square"></i></a>
-            
-                <div class="acordion">
-                    <div class="quastion">
-                        <h3>What types of motorcycles do you sell?</h3>
-                        <div class="plus_to_minus">
-                            <i class="plus fa-solid fa-minus"></i>
-                            <i class="minus fa-solid fa-minus"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="answer">
-                        <p>We offer a wide selection of motorcycles, including sport bikes, cruisers, touring, and off-road models. Whether you’re looking for speed, comfort, or adventure, we’ve got you covered with top brands and models suited for every rider’s needs.</p>
-                    </div>
-
-                    <div class="quastion">
-                        <h3>Can I finance my motorcycle?</h3>
-                        <div class="plus_to_minus">
-                            <i class="plus fa-solid fa-minus"></i>
-                            <i class="minus fa-solid fa-minus"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="answer">
-                        <p>Yes! We offer flexible financing plans with competitive rates. Our team will assist you in choosing the best option, so you can start riding without breaking the bank. The process is simple, and approval is quick, making it easier than ever to own your dream bike.</p>
-                    </div>
-
-                    <div class="quastion">
-                        <h3>What kind of riding gear do you sell?</h3>
-                        <div class="plus_to_minus">
-                            <i class="plus fa-solid fa-minus"></i>
-                            <i class="minus fa-solid fa-minus"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="answer">
-                        <p>We provide high-quality riding gear, including helmets, jackets, gloves, boots, and full-body protection. Whether you're a city rider, a track racer, or an off-road explorer, we have the right equipment to keep you safe, comfortable, and looking great on the road.</p>
-                    </div>
-
-                    <div class="quastion">
-                        <h3>Do you offer shipping for motorcycles and gear?</h3>
-                        <div class="plus_to_minus">
-                            <i class="plus fa-solid fa-minus"></i>
-                            <i class="minus fa-solid fa-minus"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="answer">
-                        <p>Absolutely! We ship riding gear quickly through trusted couriers, while motorcycles require special handling. Shipping costs and delivery times depend on your location, but we ensure secure and reliable transportation for every order. Contact us for a quote and estimated delivery time.</p>
-                    </div>
-
-                    <div class="quastion">
-                        <h3>What is your return policy?</h3>
-                        <div class="plus_to_minus">
-                            <i class="plus fa-solid fa-minus"></i>
-                            <i class="minus fa-solid fa-minus"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="answer">
-                        <p>Riding gear can be returned within 30 days, as long as it’s unused and in original packaging. Motorcycles, however, are non-returnable due to registration and ownership laws. If you’re unsure about a purchase, our team is happy to help with any questions before you finalize your order.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
+    </section>
     </main>
-
     <footer>
         <div class="footer_links_box">
         <div class="li_footer_box">
@@ -200,7 +179,7 @@
             <li class="li_footer"><a href="#" class="li_footer_links">Discounts & Promotions</a></li>
             <li class="li_footer"><a href="#" class="li_footer_links">Photo gallery</a></li>
         </ul>
-
+    
         <ul class="ul_footer">
             <li class="li_footer"><a href="#" class="li_footer_links">Test Ride Booking</a></li>
             <li class="li_footer"><a href="#" class="li_footer_links">Customer Testimonials</a></li>
@@ -213,7 +192,7 @@
             <li class="li_footer"><a href="#" class="li_footer_links">Advanced Riding Courses</a></li>
             <li class="li_footer"><a href="#" class="li_footer_links">Motorcycle Maintenance Guides</a></li>
         </ul>
-
+    
         <ul class="ul_footer">
             <li class="li_footer"><a href="#" class="li_footer_links">Financing Options</a></li>
             <li class="li_footer"><a href="#" class="li_footer_links">Model Comparissons</a></li>
@@ -228,7 +207,7 @@
         </ul>
         </div>
         </div>
-
+    
         <div class="footer_icon_text_box">
             <p class="footer_icons_text">we work with:</p>
             <div class="footer_icon_box">
@@ -282,7 +261,7 @@
             </li>
 
             <li>
-                <a href="log in.html">
+                <a href="login.html">
                     <div class="top_navigation_menu_section">
                         <i class="fa-solid fa-right-to-bracket"></i>
                         <h4>Log In / Sign In</h4>
@@ -362,7 +341,7 @@
                 </a>
             </li>
         </ul>
-    </section>
-    <script src="../../src/moto ride.js"></script>
+    </section>    
+    <script type="module" src="../src/main.js"></script>
 </body>
 </html>
