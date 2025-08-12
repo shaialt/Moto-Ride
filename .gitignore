@@ -3,10 +3,6 @@
 node_modules/
 
 # תיקיות וארגזי build/פלט - תיקיות שנוצרות ע"י build או קומפילציה
-dist/
-build/
-client/dist/
-client/build/
 server/dist/
 server/build/
 
