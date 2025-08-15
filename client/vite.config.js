@@ -3,7 +3,7 @@ import { defineConfig } from 'vite';
 // מגדירים את הקונפיגורציה של Vite
 export default defineConfig({
   root: '.', // ספריית השורש של הפרויקט שלך (נקודת ההתחלה של Vite)
-  base: './', // בסיס כל הנתיבים בקבצים שנוצרים – חשוב כשמעלים ל-GitHub Pages
+  base: '/Moto-Ride/', // בסיס כל הנתיבים בקבצים שנוצרים – חשוב כשמעלים ל-GitHub Pages
   publicDir: 'public', // ספריית הקבצים הסטטיים שלא עוברים עיבוד, כמו תמונות או קבצי JSON
 
   build: {
