@@ -2,29 +2,34 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main  # או הענף שבו אתה עובד
+    branches: [ main ] # ירוץ רק כשדוחפים ל-main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      # שלב 1: משיכת הקוד מהמאגר
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
+      # שלב 2: התקנת Node.js 20
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: 20
 
+      # שלב 3: התקנת כל התלויות
       - name: Install dependencies
-        run: npm install
+        run: npm ci
         working-directory: ./client
 
+      # שלב 4: בניית הפרויקט עם Vite
       - name: Build project
         run: npm run build
         working-directory: ./client
 
+      # שלב 5: פריסה ל-GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
