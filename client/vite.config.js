@@ -1,27 +1,30 @@
 import { defineConfig } from 'vite';
+import { createHtmlPlugin } from 'vite-plugin-html';
+import path from 'path';
 
-// מגדירים את הקונפיגורציה של Vite
 export default defineConfig({
-  root: '.', // ספריית השורש של הפרויקט שלך (נקודת ההתחלה של Vite)
-  base: './', // בסיס כל הנתיבים בקבצים שנוצרים – חשוב כשמעלים ל-GitHub Pages
-  publicDir: 'public', // ספריית הקבצים הסטטיים שלא עוברים עיבוד, כמו תמונות או קבצי JSON
-
+  root: '.',
+  base: './', // חשוב כדי שהנתיבים יהיו יחסיים גם בבילד
+  publicDir: 'public', // כל התמונות נשמרות במבנה המקורי
+  plugins: [
+    createHtmlPlugin({
+      minify: true
+    })
+  ],
   build: {
-    outDir: 'build', // הספרייה הסופית שבה יישמרו כל הקבצים לאחר ה-build
-    emptyOutDir: true, // מנקה את הספרייה לפני הבנייה כדי למנוע קבצים ישנים
-    assetsDir: 'assets', // תיקיית משנה ב-build שבה יישמרו קבצי נכסים כמו תמונות, CSS, JS
-
+    outDir: 'build',
+    emptyOutDir: true,
+    assetsDir: 'assets',
     rollupOptions: {
       input: {
-        // כאן מגדירים את כל הדפים הפרויקטיים ש-Vite צריך להכין
-        main: 'index.html',          // דף הבית
-        catalog: 'pages/catalog.html', // דף קטלוג
-        contact: 'pages/contact.html', // דף צור קשר
-        cart: 'pages/cart.html',       // דף עגלה
-        wishlist: 'pages/wishlist.html', // דף מועדפים
-        login: 'pages/login.html',       // דף התחברות
-        product: 'pages/product.html'    // דף מוצר
-      },
-    },
-  },
+        main: path.resolve(__dirname, 'index.html'),
+        catalog: path.resolve(__dirname, 'pages/catalog.html'),
+        contact: path.resolve(__dirname, 'pages/contact.html'),
+        cart: path.resolve(__dirname, 'pages/cart.html'),
+        wishlist: path.resolve(__dirname, 'pages/wishlist.html'),
+        login: path.resolve(__dirname, 'pages/login.html'),
+        product: path.resolve(__dirname, 'pages/product.html')
+      }
+    }
+  }
 });
