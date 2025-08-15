@@ -84,7 +84,7 @@ function changeCatalogMenueFunction(event) {
 document.addEventListener('DOMContentLoaded', () => {
     // החלף ל־username ו־repo שלך
     const githubUsername = 'shaialt';
-    const githubRepo = 'Moto-Ride';
+    const githubRepo = 'moto & ride';
 
     // בודק אם אנחנו ב־GitHub Pages לפי ה-hostname (אפשר להתאים לפי הצורך)
     const isGitHubPages = window.location.hostname === `${githubUsername}.github.io`;

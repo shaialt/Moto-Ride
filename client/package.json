@@ -1,7 +1,7 @@
 {
   "name": "moto-ride",
   "version": "1.0.0",
-  "description": "🏍️ Moto & Ride – Your Digital Motorcycle Hub A sleek and powerful web interface for motorcycle enthusiasts and dealers. Browse, filter, and showcase bikes with ease. Responsive design, smart filtering, and a seamless shopping experience — where performance meets style.",
+  "description": "🏍️ moto-ride – Your Digital Motorcycle Hub A sleek and powerful web interface for motorcycle enthusiasts and dealers. Browse, filter, and showcase bikes with ease. Responsive design, smart filtering, and a seamless shopping experience — where performance meets style.",
   "main": "index.js",
   "scripts": {
     "dev": "vite",
@@ -11,11 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@ssh.github.com:443/shaialt/Moto-Ride.git"
+    "url": "ssh://git@ssh.github.com:443/shaialt/moto-ride.git"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "vite": "^7.1.1"
+    "vite": "^7.1.2",
+    "vite-plugin-html": "^3.2.2"
   }
 }
