@@ -84,7 +84,7 @@ function changeCatalogMenueFunction(event) {
 document.addEventListener('DOMContentLoaded', () => {
     // החלף ל־username ו־repo שלך
     const githubUsername = 'shaialt';
-    const githubRepo = 'moto-ride';
+    const githubRepo = 'Moto-Ride';
 
     // בודק אם אנחנו ב־GitHub Pages לפי ה-hostname (אפשר להתאים לפי הצורך)
     const isGitHubPages = window.location.hostname === `${githubUsername}.github.io`;
@@ -182,7 +182,7 @@ function createProductCardItemElement(product){
     const box = document.createElement('div');
     box.classList.add('box');
     const boxText = document.createElement('p');
-    boxText.textContent = 'moto-ride 🏍️';
+    boxText.textContent = 'Moto-Ride 🏍️';
     box.appendChild(boxText);
 
     //PRODUCT BOX DIV
@@ -313,7 +313,7 @@ function createCatalogProductCardItemElement(product){
         const box = document.createElement('div');
         box.classList.add('box');
         const boxText = document.createElement('p');
-        boxText.textContent = 'moto-ride 🏍️';
+        boxText.textContent = 'Moto-Ride 🏍️';
         box.appendChild(boxText);
 
         //PRODUCT BOX DIV
