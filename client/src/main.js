@@ -92,10 +92,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // מגדיר את בסיס הנתיב לפי הסביבה:
     // אם GitHub Pages: /repo-name/
     // אחרת (לייב סרבר מקומי או סביבה אחרת): ../
-    const basePath = isGitHubPages ? `/${githubRepo}/` : '/client/';
+    const basePath = isGitHubPages ? `/${githubRepo}/` : '';
 
     //?: הכנסת מוצרים מתוך ג'ייסון לקטלוג אופנועים
-    fetch(`${basePath}public/data/data.json`)
+    fetch(`${basePath}/data/data.json`)
     .then(response => response.json())
     .then(products => {
 
@@ -693,7 +693,7 @@ function saveToCart(event){
     const finalPrice = parsePriceToNumber(finalPriceText);
 
     const stock = parseInt(productBox.dataset.stock) || 1;
-    const quantity = 1;
+    let quantity = 1;
     const buyLink = productBox.querySelector('.a_button')?.href;
 
     if (!productId || !name) return;
