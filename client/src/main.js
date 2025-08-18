@@ -92,10 +92,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // מגדיר את בסיס הנתיב לפי הסביבה:
     // אם GitHub Pages: /repo-name/
     // אחרת (לייב סרבר מקומי או סביבה אחרת): ../
-    const basePath = isGitHubPages ? `/${githubRepo}/` : '';
+    const basePath = isGitHubPages ? `/${githubRepo}/` : '/';
 
     //?: הכנסת מוצרים מתוך ג'ייסון לקטלוג אופנועים
-    fetch(`${basePath}/data/data.json`)
+    fetch(`${basePath}data/data.json`)
     .then(response => response.json())
     .then(products => {
 
