@@ -94,12 +94,36 @@ document.addEventListener('DOMContentLoaded', () => {
     // אחרת (לייב סרבר מקומי או סביבה אחרת): ../
     const basePath = isGitHubPages ? `/${githubRepo}/` : '/';
 
+    function fixPath(path, repo) {
+    if (path && path.startsWith('/')) {
+        return `/${repo}${path}`;
+    }
+    return path;
+    }
+
     //?: הכנסת מוצרים מתוך ג'ייסון לקטלוג אופנועים
     fetch(`${basePath}data/data.json`)
     .then(response => response.json())
+    .then(data => {
+        if (isGitHubPages) {
+            data = data.map(item => {
+            // תיקון תמונה ראשית
+            item.image = fixPath(item.image, githubRepo);
+
+            // תיקון לוגו
+            item.logo = fixPath(item.logo, githubRepo);
+
+            // תיקון כל התמונות במערך
+            if (Array.isArray(item.images)) {
+                item.images = item.images.map(img => fixPath(img, githubRepo));
+            }
+
+            return item;
+        });
+        }
+        return data;
+    })
     .then(products => {
-
-
         // בדיקת כמות מוצרים באתר
         let productsNumbersTotal = 0;
         products.forEach(() => productsNumbersTotal++);
