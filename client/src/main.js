@@ -19,6 +19,67 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+// קרוסלה לדף הבית
+const nextBtn = document.querySelector('.next'),
+      prevBtn = document.querySelector('.prev'),
+      carousel = document.querySelector('.carousel'),
+      list = carousel.querySelector('.list'),
+      item = carousel.querySelectorAll('.item'),
+      runningTime = carousel.querySelector('.time_running');
+
+let timeRunning = 3000;
+let timeAutoNext = 7000;
+
+nextBtn.addEventListener('click', () => {
+  showSlider('next');
+});
+
+prevBtn.addEventListener('click', () => {
+  showSlider('prev');
+});
+
+let runTimeOut;
+
+let runNextAuto = setTimeout(() => {
+    nextBtn.click();
+}, timeAutoNext);
+
+function resetTimeAnimation(){
+    runningTime.style.animation = 'none';
+    runningTime.offsetHeight; // trigger reflow
+    runningTime.style.animation = null;
+    runningTime.style.animation = 'runningTime 7s linear 1 forwards';
+}
+
+function showSlider(type) {
+    let sliderItemsDom = list.querySelectorAll('.carousel .list .item');
+    if (type === 'next') {
+        list.appendChild(sliderItemsDom[0]);
+        carousel.classList.add('next');
+    }
+    else if (type === 'prev') {
+        list.prepend(sliderItemsDom[sliderItemsDom.length - 1]);
+        carousel.classList.add('prev');
+    }
+
+    clearTimeout(runTimeOut);
+
+    runTimeOut = setTimeout(() => {
+        carousel.classList.remove('next');
+        carousel.classList.remove('prev');
+    }, timeRunning);
+
+    clearTimeout(runNextAuto);
+    runNextAuto = setTimeout(() => {
+        nextBtn.click();
+    }, timeAutoNext);
+
+    resetTimeAnimation(); // איפוס האנימציה של פס הזמן
+}
+
+// הפעלת האנימציה של פס הזמן
+resetTimeAnimation();
+
 // פתיחת תפריט ניווט ראשי
 let openMenue = document.querySelector('.right_nav_block .fa-solid');
 openMenue.addEventListener('click', openMenueFunction);
@@ -117,7 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (Array.isArray(item.images)) {
                 item.images = item.images.map(img => fixPath(img, githubRepo));
             }
-
             return item;
         });
         }
@@ -157,6 +217,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 creator(product);
             });
         }
+
+        // סינון מוצרים לפי חיפוש
+        const serch = document.querySelector('#welcome_animation_input');
+        serch.addEventListener('input', function() {
+            const searchTerm = serch.value.toLowerCase();
+            if (searchTerm.length >= 2) {
+                const filteredProducts = products.filter(product => {
+                    return product.manufacturer.toLowerCase().includes(searchTerm) || product.name.toLowerCase().includes(searchTerm) || product.description.toLowerCase().includes(searchTerm);
+                })
+            
+                // נחזיר רק את השם של המוצרים לא את האובייקטים שלהם
+                const filteredProductsNames = filteredProducts.map(product => product.name);
+                console.log('Filtered products:',filteredProductsNames);
+            }
+        }); 
     })
     .catch(error => console.error('Error loading JSON:', error));
 
