@@ -741,6 +741,10 @@ header {
   .carousel {
     margin-top: -140px;
   }
+
+  .carousel .time_running {
+    top: 0;
+  }
 }
 
 @media screen and (max-width: 690px) {
