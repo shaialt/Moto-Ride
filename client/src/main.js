@@ -254,9 +254,9 @@ document.addEventListener('DOMContentLoaded', () => {
             let filteredProducts = []; // הגדרה בחוץ
 
             // טיפול בלחיצה על Enter
-            search.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
+            search.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
                     if (filteredProducts.length > 0) {
                         // שמירת תוצאות החיפוש ב-localStorage
                         localStorage.setItem('searchResults', JSON.stringify(filteredProducts));
@@ -278,8 +278,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Filtered products:', filteredProductsNames);
             }
 
+            // יצירת תיבת הצעות
             if (filteredProducts.length > 0) {
-                let suggestionsBox = document.createElement('div');
+                const suggestionsBox = document.createElement('div');
                 suggestionsBox.classList.add('suggestions_box');
                 suggestionsBox.style.width = '100%';
                 suggestionsBox.style.height = 'auto';
@@ -290,54 +291,57 @@ document.addEventListener('DOMContentLoaded', () => {
                 suggestionsBox.style.left = '0';
                 suggestionsBox.style.zIndex = '997';
                 suggestionsBox.style.border = '1px solid #601E1E';
-                suggestionsBox.style.borderTop = '3px solid white';
+                suggestionsBox.style.borderTop = '1px solid white';
                 suggestionsBox.style.borderBottomLeftRadius = '6px';
                 suggestionsBox.style.borderBottomRightRadius = '6px';
                 suggestionsBox.style.overflowY = 'auto';
                 suggestionsBox.style.opacity = '0'; // Start hidden
                 suggestionsBox.style.transform = 'translateY(-10px)'; // Start slightly above
+                suggestionsBox.style.scrollbarWidth = 'thin';
 
                 // Add transition for smooth animation
                 suggestionsBox.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
                 
                 // הוספת התוצאות לתיבה
-            filteredProducts.forEach(product => {
-                const suggestion = document.createElement('div');
-                suggestion.style.padding = '10px';
-                suggestion.style.borderBottom = '1px solid #eee';
-                suggestion.style.cursor = 'pointer';
-                suggestion.style.display = 'flex';
-                suggestion.style.alignItems = 'center';
-                suggestion.style.justifyContent = 'space-between';
+                filteredProducts.forEach(product => {
+                    const suggestion = document.createElement('div');
+                    suggestion.style.padding = '10px';
+                    suggestion.style.borderBottom = '1px solid #eee';
+                    suggestion.style.cursor = 'pointer';
+                    suggestion.style.display = 'flex';
+                    suggestion.style.alignItems = 'center';
+                    suggestion.style.justifyContent = 'space-between';
 
-                // יצירת תיבה לטקסט
-                const textDiv = document.createElement('div');
-                textDiv.textContent = product.name;
-                textDiv.style.flex = '1';
+                    // הוספת שם המוצר
+                    const textDiv = document.createElement('div');
+                    textDiv.textContent = product.name;
+                    textDiv.style.flex = '1';
 
-                // יצירת תמונה ממוזערת
-                const thumbnailImg = document.createElement('img');
-                thumbnailImg.src = product.image;
-                thumbnailImg.style.width = '40px';
-                thumbnailImg.style.height = '40px';
-                thumbnailImg.style.objectFit = 'cover';
-                thumbnailImg.style.marginLeft = '10px';
-                thumbnailImg.style.borderRadius = '4px';
+                    // יצירת תמונה ממוזערת
+                    const thumbnailImg = document.createElement('img');
+                    thumbnailImg.src = product.image;
+                    thumbnailImg.alt = product.name;
+                    thumbnailImg.style.width = '40px';
+                    thumbnailImg.style.height = '40px';
+                    thumbnailImg.style.objectFit = 'cover';
+                    thumbnailImg.style.marginLeft = '10px';
+                    thumbnailImg.style.borderRadius = '4px';
 
-                // הוספת אירוע לחיצה לכל הצעה
-                suggestion.addEventListener('click', () => {
-                    const urlParams = new URLSearchParams();
-                    urlParams.append('category', product.category);
-                    urlParams.append('id', product.id);
-                    urlParams.append('name', product.name);
-                    window.location.href = `pages/product.html?${urlParams.toString()}`;
+                    // הוספת אירוע לחיצה לכל הצעה
+                    suggestion.addEventListener('click', () => {
+                        const urlParams = new URLSearchParams();
+                        urlParams.append('category', product.category);
+                        urlParams.append('id', product.id);
+                        urlParams.append('name', product.name);
+                        window.location.href = `pages/product.html?${urlParams.toString()}`;
+                    });
+
+                    suggestion.appendChild(textDiv);
+                    suggestion.appendChild(thumbnailImg);
+                    suggestionsBox.appendChild(suggestion);
                 });
 
-                suggestion.appendChild(textDiv);
-                suggestion.appendChild(thumbnailImg);
-                suggestionsBox.appendChild(suggestion);
-            });
-
+                // הוספת תיבת ההצעות למיכל החיפוש
                 const container = document.querySelector('.welcome_animation_box');
                 if (container) {
                     container.style.position = 'relative';
@@ -348,9 +352,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         suggestionsBox.style.transform = 'translateY(0)'; // Move down to original position
                     });
                 }
-
-                document.querySelector('.welcome_animation_box').style.borderBottomLeftRadius = '0px !important';
-                document.querySelector('.welcome_animation_box').style.borderBottomRightRadius = '0px !important';
             }
         });
     })

@@ -430,7 +430,8 @@ header {
 }
 
 .a_nav {
-  color: white;
+  color: goldenrod;
+  text-shadow: #000 1px 2px 2px;
   text-decoration: none;
   font-weight: bold;
 }
