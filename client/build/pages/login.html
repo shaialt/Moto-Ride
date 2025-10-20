@@ -11,8 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Exile&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script type="module" crossorigin src="../assets/main-Da5FH1cw.js"></script>
-  <link rel="stylesheet" crossorigin href="../assets/main-2Z3T9mtJ.css">
+  <script type="module" crossorigin src="../assets/main-CR3NHmcZ.js"></script>
+  <link rel="stylesheet" crossorigin href="../assets/main-BBR4KLYG.css">
 </head>
 <body class="waves">
     <header>
@@ -48,7 +48,7 @@
         <section class="log_in_box_wallpaper">
             <div class="log_in_glass_box">
                 <div class="log_in_box">
-                    <form action="login.html" method="post">
+                    <form action="login.html" method="get">
                         <div class="log_in">
                             <h1>Sign in</h1>
 
@@ -64,22 +64,22 @@
                             <p>Or use your email for password</p>
 
                             <div class="log_in_input_box">
-                                <input id="email" type="email" required><br>
-                                <label for="email">Email</label>
+                                <input id="log_in_email_or_username" type="text" name="email/username" required><br>
+                                <label for="log_in_email_or_username">Email Or Username</label>
                             </div>
 
                             <div class="log_in_input_box">
-                                <input id="password" type="password" required><br>
-                                <label for="password">Password</label>
+                                <input id="log_in_password" type="password" name="password" required><br>
+                                <label for="log_in_password">Password</label>
                             </div>
 
                             <a class="password_forgot" href="#">Forgot your password?</a>
 
-                            <button>Log in</button>
+                            <button id="log_in_button">Log in</button>
                         </div>
                     </form>
 
-                    <form action="login.html" method="post">
+                    <form action="login.html" method="get">
                         <div class="sign_up">
                             <h1>Create Account</h1>
 
@@ -95,21 +95,21 @@
                             <p>Or use your email for registration</p>
 
                             <div class="log_in_input_box">
-                                <input id="name" type="text" required><br>
-                                <label for="name">Username</label>
+                                <input id="sign_in_name" type="text" name="name" required><br>
+                                <label for="sign_in_name">Username</label>
                             </div>
 
                             <div class="log_in_input_box">
-                                <input id="email" type="email" required><br>
-                                <label for="email">Email</label>
+                                <input id="sign_in_email" type="email" name="email" required><br>
+                                <label for="sign_in_email">Email</label>
                             </div>
 
                             <div class="log_in_input_box">
-                                <input id="password" type="password" required><br>
-                                <label for="password">Password</label>
+                                <input id="sign_in_password" type="password" name="password" required><br>
+                                <label for="sign_in_password">Password</label>
                             </div>
 
-                            <button>Sign in</button>
+                            <button id="sign_in_button">Sign in</button>
                         </div>
                     </form>
 
@@ -117,13 +117,13 @@
                         <div class="welcome_back_box">
                             <h1>Welcome Back!</h1>
                             <p>Enter your personal details to use all of site features</p>
-                            <button>sign up</button>
+                            <button id="switch_to_sign_up">sign up</button>
                         </div>
                         
                         <div class="hello_friend_box">
                             <h1>Hello, Friend!</h1>
                             <p>register with your personal details to use all of site features</p>
-                            <button>sign in</button>
+                            <button id="switch_to_sign_in">sign in</button>
                         </div>
                     </div>
                 </div>

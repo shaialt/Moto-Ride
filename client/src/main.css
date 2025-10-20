@@ -4331,10 +4331,6 @@ i {
   justify-content: space-between;
 }
 
-.log_in_hello_box:hover {
-  transform: translateX(12.5%);
-}
-
 .welcome_back_box {
   width: 12.5%;
   height: 100%;

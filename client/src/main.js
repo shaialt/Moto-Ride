@@ -166,25 +166,93 @@ function changeCatalogMenueFunction(event) {
 
 //?: השמה של אירוע שמרענן את הדפים
 document.addEventListener('DOMContentLoaded', () => {
-    // החלף ל־username ו־repo שלך
     const githubUsername = 'shaialt';
     const githubRepo = 'Moto-Ride';
-
-    // בודק אם אנחנו ב־GitHub Pages לפי ה-hostname (אפשר להתאים לפי הצורך)
     const isGitHubPages = window.location.hostname === `${githubUsername}.github.io`;
-
-    // מגדיר את בסיס הנתיב לפי הסביבה:
-    // אם GitHub Pages: /repo-name/
-    // אחרת (לייב סרבר מקומי או סביבה אחרת): ../
     const basePath = isGitHubPages ? `/${githubRepo}/` : '/';
 
     function fixPath(path, repo) {
-    if (path && path.startsWith('/')) {
-        return `/${repo}${path}`;
-    }
-    return path;
+        if (path && path.startsWith('/')) {
+            return `/${repo}${path}`;
+        }
+        return path;
     }
 
+    // בדיקה אם כבר מחובר
+    const loggedUsers = JSON.parse(localStorage.getItem('loggedInUsers')) || [];
+    const loggedUser = loggedUsers.find(user => user.isLoggedIn);
+    if (loggedUser && window.location.href.includes('login.html')) {
+        // אם כבר מחובר, ישר לפרופיל
+        window.location.href = '/pages/profile.html';
+        return;
+    }
+
+    // התחברות משתמש
+    const logInButton = document.querySelector('#log_in_button');
+    if (logInButton) {
+        logInButton.addEventListener('click', async () => {
+            const userNameOrEmail = document.querySelector('#log_in_email_or_username').value.trim();
+            const userPassword = document.querySelector('#log_in_password').value;
+
+            // בדיקת שדות ריקים
+            if (!userNameOrEmail || !userPassword) {
+                alert('Please fill in all fields.');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${basePath}data/users.json`);
+                const users = await response.json();
+
+                const user = users.find(user =>
+                    (user.email === userNameOrEmail || user.name === userNameOrEmail) &&
+                    user.password === userPassword
+                );
+
+                if (user) {
+                    let loggedUsers = JSON.parse(localStorage.getItem('loggedInUsers')) || [];
+                    loggedUsers.push({
+                        name: user.name,
+                        email: user.email,
+                        isLoggedIn: true
+                    });
+                    localStorage.setItem('loggedInUsers', JSON.stringify(loggedUsers));
+
+                    alert('Login successful! Welcome ' + user.name);
+                    window.location.href = '/pages/profile.html';
+                } else {
+                    alert('Invalid username/email or password.');
+                }
+
+            } catch (error) {
+                console.error('Error fetching users:', error);
+                alert('Could not load users. Please try again later.');
+            }
+        });
+    }
+
+    // התנתקות משתמש
+    const signOutButton = document.querySelector('#sign_out');
+    if (signOutButton) {    
+        console.log(signOutButton);       // זה יודפס או כ־null אם לא קיים
+        console.log(typeof signOutButton);
+        signOutButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            let loggedUsers = JSON.parse(localStorage.getItem('loggedInUsers')) || [];
+
+            loggedUsers = loggedUsers.map(user => ({
+                ...user,
+                isLoggedIn: false
+            }));
+
+            localStorage.setItem('loggedInUsers', JSON.stringify(loggedUsers));
+
+            console.log('After sign out:', loggedUsers); // לוודא בקונסול שהכל התעדכן
+
+            window.location.href = `${basePath}pages/login.html`;
+        });
+    }
+    
     //?: הכנסת מוצרים מתוך ג'ייסון לקטלוג אופנועים
     fetch(`${basePath}data/data.json`)
     .then(response => response.json())
@@ -236,9 +304,107 @@ document.addEventListener('DOMContentLoaded', () => {
         } 
         // אם זה לא דף מוצר – יוצרים את כל כרטיסי הקטלוג (לדף קטלוג)
         else if (window.location.href.includes('catalog.html')) {
-            products.forEach(product => {
+            // טעינת פילטרים מה-URL
+            const urlFilters = getFiltersFromURL();
+            updateFiltersFromURL(urlFilters);
+            
+            // סינון המוצרים
+            const filteredProducts = filterProducts(products, urlFilters);
+            console.log('Filtered products:', filteredProducts.length);
+            
+            // הצגת המוצרים המסוננים במיכל הקטלוג
+            const catalogContainer = document.querySelector('#catalog');
+            if (catalogContainer) catalogContainer.innerHTML = '';
+            filteredProducts.forEach(product => {
                 creator(product);
             });
+
+            // פונקציה מרכזית להוספת אירועי סינון
+            function setupFilterEvents() {
+                // הוספת אירועים לכל הצ'קבוקסים - גם מסידבר רגיל וגם רספונסיבי
+                const allCheckboxes = document.querySelectorAll('.filter_sidebar input[type="checkbox"][name], .filter_sidebar_responsive input[type="checkbox"][name]');
+                allCheckboxes.forEach(checkbox => {
+                    checkbox.addEventListener('change', () => {
+                        // מסנכרן צ'קבוקסים בין הסיידבאר הרגיל לרספונסיבי
+                        // מסנכרן לפני הסינון כדי שלא יישאר צ'קבוקס מקביל מסומן וימשיך לסנן
+                        syncCheckboxes(checkbox);
+                        // לאחר הסנכרון, מפעיל סינון עם מצב עדכני של כל הצ'קבוקסים
+                        applyFilters(products);
+                    });
+                });
+
+                // הוספת אירועים לשדות מחיר - גם רגיל וגם רספונסיבי
+                const priceInputs = document.querySelectorAll('.filter_sidebar .price_input, .filter_sidebar_responsive .price_input');
+                priceInputs.forEach(input => {
+                    input.addEventListener('input', () => {
+                        // מסנכרן ערכי המחיר בין הסיידבאר הרגיל לרספונסיבי
+                        // מסנכרן לפני הסינון כדי שערכי המינימום/מקסימום ייאספו נכון
+                        syncPriceInputs(input);
+                        // לאחר הסנכרון, מפעיל סינון עם ערכים עדכניים
+                        applyFilters(products);
+                    });
+                });
+
+                // כפתורי Reset - גם רגיל וגם רספונסיבי
+                const resetBtns = document.querySelectorAll('.reset_button');
+                resetBtns.forEach(resetBtn => {
+                    resetBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        console.log('Resetting all filters');
+                        
+                        // ניקוי כל הצ'קבוקסים - גם רגיל וגם רספונסיבי
+                        const allCheckboxes = document.querySelectorAll('.filter_sidebar input[type="checkbox"], .filter_sidebar_responsive input[type="checkbox"]');
+                        allCheckboxes.forEach(cb => cb.checked = false);
+                        
+                        // ניקוי שדות מחיר - גם רגיל וגם רספונסיבי
+                        const allPriceInputs = document.querySelectorAll('.filter_sidebar .price_input, .filter_sidebar_responsive .price_input');
+                        allPriceInputs.forEach(input => input.value = '');
+                        
+                        // מעדכן את ה-URL ומציג מחדש
+                        window.history.pushState({}, '', window.location.pathname);
+                        
+                        // מנקה ומציג את כל המוצרים
+                        const container = document.querySelector('#catalog');
+                        if (container) container.innerHTML = '';
+                        
+                        products.forEach(product => {
+                            creator(product);
+                        });
+                    });
+                });
+            }
+
+            // פונקציה לסנכרון צ'קבוקסים בין סידבר רגיל לרספונסיבי
+            function syncCheckboxes(changedCheckbox) {
+                const name = changedCheckbox.name;
+                const value = changedCheckbox.value;
+                const isChecked = changedCheckbox.checked;
+
+                // מצא את הצ'קבוקס המקביל בסידבר האחר
+                const allMatchingCheckboxes = document.querySelectorAll(`input[name="${name}"][value="${value}"]`);
+                allMatchingCheckboxes.forEach(cb => {
+                    if (cb !== changedCheckbox) {
+                        cb.checked = isChecked;
+                    }
+                });
+            }
+
+            // פונקציה לסנכרון שדות מחיר בין סידבר רגיל לרספונסיבי
+            function syncPriceInputs(changedInput) {
+                const placeholder = changedInput.placeholder;
+                const value = changedInput.value;
+
+                // מצא את השדות המקבילים
+                const allMatchingInputs = document.querySelectorAll(`.price_input[placeholder="${placeholder}"]`);
+                allMatchingInputs.forEach(input => {
+                    if (input !== changedInput) {
+                        input.value = value;
+                    }
+                });
+            }
+
+            // הפעלת הפונקציה
+            setupFilterEvents();
         }
 
         // סינון מוצרים לפי חיפוש
@@ -261,7 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         // שמירת תוצאות החיפוש ב-localStorage
                         localStorage.setItem('searchResults', JSON.stringify(filteredProducts));
                         // מעבר לדף הקטלוג עם פרמטר חיפוש
-                        window.location.href = `pages/catalog.html?search=${encodeURIComponent(searchTerm)}`;
+                        window.location.href = `./pages/catalog.html?search=${encodeURIComponent(searchTerm)}`;
                     }
                 }
             });
@@ -644,16 +810,13 @@ function createCatalogProductCardItemElement(product){
         productSuperBox.appendChild(box);
         productSuperBox.appendChild(productBox);
 
+        // הוספת המוצר למיכל בדף קטלוג
         if (window.location.href.includes('catalog.html')){
-            const urlParams = new URLSearchParams(window.location.search);
-            const urlCategory = urlParams.get('category'); // שולף את הקטגוריה מה-URL
-            
-            if (product.category === urlCategory){
-                const container = document.querySelector('#catalog');
-                if(container)
-                    container.appendChild(productSuperBox);
-                }
+            const container = document.querySelector('#catalog');
+            if(container) {
+                container.appendChild(productSuperBox);
             }
+        }
 }
 
 //TODO: פונקציה ששומרת בזיכרון את פרטי המוצר הנבחר לעגלה וצובעת באדום את הלב
@@ -1224,7 +1387,7 @@ function updateCartSubtotalAndTotal() {
 
 //TODO: פונקציה לבניית דף מוצר – מחוץ לפטש
 function createProductPage(product) {
-    // תמונה ראשית בדף מוצר
+    // אני מציג תמונה ראשית בדף המוצר
     const mainImage = document.createElement('img');
     mainImage.classList.add('main_image');
     mainImage.src = product.image;
@@ -1236,29 +1399,29 @@ function createProductPage(product) {
     firstImage.src = product.images[0];
     document.querySelector('#product_page_first_second_img_box').appendChild(firstImage);
 
-    // תמונה שניה בדף מוצר
+    // אני מוסיף תמונה שנייה בדף המוצר
     const secondImage = document.createElement('img');
     secondImage.classList.add('product_page_second_img');
     secondImage.src = product.images[1];
     document.querySelector('#product_page_second_second_img_box').appendChild(secondImage);
 
-    // תמונה שלשית בדף מוצר
+    // אני מוסיף תמונה שלישית בדף המוצר
     const thirdImage = document.createElement('img');
     thirdImage.classList.add('product_page_third_img');
     thirdImage.src = product.images[2];
     document.querySelector('#product_page_third_second_img_box').appendChild(thirdImage);
 
-    // תמונה רביעית בדף מוצר
+    // אני מוסיף תמונה רביעית בדף המוצר
     const fourthImage = document.createElement('img');
     fourthImage.classList.add('product_page_fourth_img');
     fourthImage.src = product.images[3];
     document.querySelector('#product_page_fourth_second_img_box').appendChild(fourthImage);
 
-    // שם מוצר
+    // אני מציג את שם המוצר
     const productName = document.querySelector('#product_page_name');
     productName.textContent = product.name;
 
-    // מחיר מוצר
+    // אני מציג את מחיר המוצר
     const productOriginalPrice = document.querySelector('#original_price');
     productOriginalPrice.textContent = product.originalPrice;
     const productDiscount = document.querySelector('#discount');
@@ -1266,7 +1429,252 @@ function createProductPage(product) {
     const productFinalPrice = document.querySelector('#final_price');
     productFinalPrice.textContent = product.finalPrice;
 
-    // תיאור מוצר
+    // אני מציג את תיאור המוצר
     const productDescription = document.querySelector('#product_page_describe');
     productDescription.textContent = product.description;
+}
+
+//TODO: אני מנהל כאן פונקציות הקשורות למשתמשים
+const switchToSignIn = document.querySelector('#switch_to_sign_in');
+if (switchToSignIn)
+switchToSignIn.addEventListener('click', () => {
+    document.querySelector('.log_in_hello_box').style.transform = 'translateX(12.5%)';
+});
+
+const switchToSignUp = document.querySelector('#switch_to_sign_up');
+if (switchToSignUp)
+switchToSignUp.addEventListener('click', () => {
+    document.querySelector('.log_in_hello_box').style.transform = 'translateX(-87.5%)';
+});
+
+/*
+// אני רושם משתמש חדש
+const registerButton = document.querySelector('#sign_in_button');
+if (registerButton) {
+    registerButton.addEventListener('click', registerUser);
+    function registerUser() {
+        const userName = document.querySelector('#sign_in_name').value.trim();
+        const userEmail = document.querySelector('#sign_in_email').value.trim();
+        const userPassword = document.querySelector('#sign_in_password').value;
+        if (!userName || !userEmail || !userPassword) {
+            alert('Please fill in all fields.');
+            return;
+        }
+        if (userPassword.length < 8) {
+            alert('Password must be at least 8 characters long.');
+            return;
+        }
+        if (userPassword.search(/[0-9]/) === -1) {
+            alert('Password must contain at least one number.');
+            return;
+        }
+        if (userPassword.search(/[A-Z]/) === -1) {
+            alert('Password must contain at least one uppercase letter.');
+        }
+        if (userPassword.search(/[a-z]/) === -1) {
+            alert('Password must contain at least one lowercase letter.');
+            return
+        }
+        if(userPassword.search(/[!@#$%^&*(),.?":{}|<>]/) === -1) {
+            alert('Password must contain at least one special character.');
+            return;
+        }
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        users.push({
+            name: userName,
+            email: userEmail,
+            password: userPassword
+        });
+        localStorage.setItem('users', JSON.stringify(users));
+        alert('Registration successful! You can now log in.');
+        window.location.href = './pages/profile.html';
+    }
+}
+
+// אני מתחבר עם משתמש קיים
+const logInButton = document.querySelector('#log_in_button');
+if (logInButton) {
+    logInButton.addEventListener('click', logIn);
+    function logIn() {
+        const userNameOrEmail = document.querySelector('#log_in_email_or_username').value.trim();
+        const userPassword = document.querySelector('#log_in_password').value;
+        if (!userNameOrEmail || !userPassword) {
+            alert('Please fill in all fields.');
+            return;
+        }
+
+        // בדיקת פרטי המשתמש בזיכרון
+        if (localStorage.getItem('users')) {
+            let users = JSON.parse(localStorage.getItem('users'));
+            const user = users.find(user => {
+                return (user.email === userNameOrEmail || user.name === userNameOrEmail) && user.password === userPassword
+            });
+
+            if (user) {
+                alert('Login successful!');
+                window.location.href = './pages/profile.html';
+            }
+            else {
+                alert('Invalid username/email or password.');
+            }
+        }
+        else {
+            alert('No users found. Please register first.');
+            return;
+        }
+    }
+}
+*/
+
+//TODO: אני מסנן מוצרים לפי הפילטרים
+function filterProducts(products, filters) {
+    return products.filter(product => {
+    // אני מסנן לפי מותג
+        if (filters.brands.length > 0 && !filters.brands.includes(product.manufacturer)) {
+            return false;
+        }
+
+    // אני מסנן לפי סטטוס
+        if (filters.statuses.length > 0 && !filters.statuses.includes(product.status)) {
+            return false;
+        }
+
+    // אני מסנן לפי סוג
+        if (filters.types.length > 0 && !filters.types.includes(product.type)) {
+            return false;
+        }
+
+    // אני מסנן לפי מחיר
+        if (filters.minPrice || filters.maxPrice) {
+            const priceField = product.finalPrice || product.originalPrice;
+            if (priceField) {
+                const price = parsePriceToNumber(priceField);
+                if (filters.minPrice && price < filters.minPrice) {
+                    return false;
+                }
+                if (filters.maxPrice && price > filters.maxPrice) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    });
+}
+
+//TODO: אני קורא את הפילטרים מה-URL
+function getFiltersFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    return {
+        brands: urlParams.get('brand') ? urlParams.get('brand').split(',') : [],
+        statuses: urlParams.get('status') ? urlParams.get('status').split(',') : [],
+        types: urlParams.get('type') ? urlParams.get('type').split(',') : [],
+        minPrice: urlParams.get('minPrice') ? parseFloat(urlParams.get('minPrice')) : null,
+        maxPrice: urlParams.get('maxPrice') ? parseFloat(urlParams.get('maxPrice')) : null
+    };
+}
+
+//TODO: אני מעדכן את ה-URL עם הפילטרים
+function updateURLWithFilters(filters) {
+    const params = new URLSearchParams();
+    
+    if (filters.brands.length > 0) {
+        params.set('brand', filters.brands.join(','));
+    }
+    if (filters.statuses.length > 0) {
+        params.set('status', filters.statuses.join(','));
+    }
+    if (filters.types.length > 0) {
+        params.set('type', filters.types.join(','));
+    }
+    if (filters.minPrice) {
+        params.set('minPrice', filters.minPrice);
+    }
+    if (filters.maxPrice) {
+        params.set('maxPrice', filters.maxPrice);
+    }
+
+    const newURL = params.toString() ? `?${params.toString()}` : window.location.pathname;
+    window.history.pushState({}, '', newURL);
+}
+
+//TODO: אני אוסף את הפילטרים מהטופס
+function collectFilters() {
+    const brands = Array.from(document.querySelectorAll('input[name="brand"]:checked'))
+        .map(cb => cb.value);
+    
+    const statuses = Array.from(document.querySelectorAll('input[name="status"]:checked'))
+        .map(cb => cb.value);
+    
+    const types = Array.from(document.querySelectorAll('input[name="type"]:checked'))
+        .map(cb => cb.value);
+    
+    // אני קורא את ערכי המחירים מהאינפוטים הקיימים
+    const priceInputs = document.querySelectorAll('.price_input');
+    const minPrice = priceInputs[0]?.value || null;
+    const maxPrice = priceInputs[1]?.value || null;
+
+    return {
+        brands,
+        statuses,
+        types,
+        minPrice: minPrice ? parseFloat(minPrice) : null,
+        maxPrice: maxPrice ? parseFloat(maxPrice) : null
+    };
+}
+
+//TODO: אני מעדכן את הצ'קבוקסים לפי ה-URL
+function updateFiltersFromURL(filters) {
+    // אני מעדכן את המותגים המסומנים
+    filters.brands.forEach(brand => {
+        const checkbox = document.querySelector(`input[name="brand"][value="${brand}"]`);
+        if (checkbox) checkbox.checked = true;
+    });
+
+    // אני מעדכן את הסטטוסים המסומנים
+    filters.statuses.forEach(status => {
+        const checkbox = document.querySelector(`input[name="status"][value="${status}"]`);
+        if (checkbox) checkbox.checked = true;
+    });
+
+    // אני מעדכן את הסוגים המסומנים
+    filters.types.forEach(type => {
+        const checkbox = document.querySelector(`input[name="type"][value="${type}"]`);
+        if (checkbox) checkbox.checked = true;
+    });
+
+    // אני מעדכן את טווח המחירים
+    const priceInputs = document.querySelectorAll('.price_input');
+    if (filters.minPrice && priceInputs[0]) {
+        priceInputs[0].value = filters.minPrice;
+    }
+    if (filters.maxPrice && priceInputs[1]) {
+        priceInputs[1].value = filters.maxPrice;
+    }
+}
+
+//TODO: אני מפעיל את הסינון בכל שינוי
+function applyFilters(allProducts) {
+    const filters = collectFilters();
+    console.log('Applying filters:', filters);
+    
+    updateURLWithFilters(filters);
+    const filtered = filterProducts(allProducts, filters);
+    console.log('Results:', filtered.length);
+    
+    // אני מנקה את המיכל
+    // אני מרנדר אל #catalog (שהוא גם עם המחלקה products_list)
+    const container = document.querySelector('#catalog');
+    if (!container) {
+        console.error('Container #catalog not found!');
+        return;
+    }
+    
+    container.innerHTML = '';
+    
+    // אני מציג את המוצרים המסוננים
+    filtered.forEach(product => {
+        creator(product);
+    });
 }

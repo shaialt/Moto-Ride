@@ -16,7 +16,8 @@
         cart: 'pages/cart.html',
         wishlist: 'pages/wishlist.html',
         login: 'pages/login.html',
-        product: 'pages/product.html'
+        product: 'pages/product.html',
+        profile: 'pages/profile.html'
       },
     },
   },
