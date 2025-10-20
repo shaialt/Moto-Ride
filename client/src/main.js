@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loggedUser = loggedUsers.find(user => user.isLoggedIn);
     if (loggedUser && window.location.href.includes('login.html')) {
         // אם כבר מחובר, ישר לפרופיל
-        window.location.href = '/pages/profile.html';
+        window.location.href = `/pages/profile.html`;
         return;
     }
 
