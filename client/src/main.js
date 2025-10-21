@@ -168,7 +168,7 @@ function changeCatalogMenueFunction(event) {
 document.addEventListener('DOMContentLoaded', () => {
     const githubUsername = 'shaialt';
     const githubRepo = 'Moto-Ride';
-    const isGitHubPages = window.location.hostname === `${githubUsername}.github.io/Moto-Ride`;
+    const isGitHubPages = window.location.hostname === `${githubUsername}.github.io`;
     const basePath = isGitHubPages ? `/${githubRepo}/` : '/';
 
     function fixPath(path, repo) {
@@ -219,8 +219,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     localStorage.setItem('loggedInUsers', JSON.stringify(loggedUsers));
 
                     alert('Login successful! Welcome ' + user.name);
-                    window.location.href = '/pages/profile.html';
-                } else {
+                    window.location.href = `${basePath}pages/profile.html`;
+                } 
+                else {
                     alert('Invalid username/email or password.');
                 }
 
