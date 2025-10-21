@@ -168,7 +168,7 @@ function changeCatalogMenueFunction(event) {
 document.addEventListener('DOMContentLoaded', () => {
     const githubUsername = 'shaialt';
     const githubRepo = 'Moto-Ride';
-    const isGitHubPages = window.location.hostname === `${githubUsername}.github.io`;
+    const isGitHubPages = window.location.hostname === `${githubUsername}.github.io/Moto-Ride`;
     const basePath = isGitHubPages ? `/${githubRepo}/` : '/';
 
     function fixPath(path, repo) {
