@@ -103,6 +103,15 @@ function showSlider(type) {
 // הפעלת האנימציה של פס הזמן
 resetTimeAnimation();
 
+// אנימצית קטלוגים מסתובבים
+const rotatingCatalogs = document.querySelectorAll('.catalogs_box_card').forEach(card => {
+    card.addEventListener('click', (event) => {
+        const target = event.currentTarget;
+        target.classList.toggle('flipped');
+    });
+});
+
+
 // פתיחת תפריט ניווט ראשי
 let openMenue = document.querySelector('.right_nav_block .fa-solid');
 openMenue.addEventListener('click', openMenueFunction);

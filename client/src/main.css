@@ -921,7 +921,7 @@ header {
   align-items: center;
 }
 
-.catalogs_box_1 {
+.catalogs_box {
   border-radius: 10px;
   width: calc(25% - 40px);
   height: 100%;
@@ -935,239 +935,70 @@ header {
   align-items: center;
   text-align: center;
   color: white;
-  perspective: 1500px;
 }
 
-.catalogs_box_card_1 {
+.catalogs_box_card {
   width: 100%;
   height: 100%;
   position: relative;
   transform-style: preserve-3d;
   transition: transform 1500ms;
+  cursor: pointer;
 }
 
-.catalogs_box_1:hover > .catalogs_box_card_1 {
+.flipped {
   transform: rotateY(180deg);
   cursor: pointer;
 }
 
-.front_1,
-.back_1 {
+.catalogs_box_card > div:first-child,
+.catalogs_box_card > div:last-child {
   height: 100%;
   width: 100%;
   border-radius: 10px;
   box-shadow: 0 0 5px 2px;
   position: absolute;
   backface-visibility: hidden;
+  top: 0;
+  left: 0;
+}
+
+.catalogs_box_card > div:first-child {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.catalogs_box_card > div:last-child {
+  background-color: black;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
 }
 
 .front_1 {
   background-image: url(/assets/images/categories/motorcycle-catalog.jpg);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.back_1 {
-  background-color: black;
-  transform: rotateY(180deg);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
-}
-
-.catalogs_box_2 {
-  border-radius: 10px;
-  width: calc(25% - 40px);
-  height: 100%;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: white;
-}
-
-.catalogs_box_card_2 {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 1500ms;
-}
-
-.catalogs_box_2:hover > .catalogs_box_card_2 {
-  transform: rotateY(180deg);
-  cursor: pointer;
-}
-
-.front_2,
-.back_2 {
-  height: 100%;
-  width: 100%;
-  border-radius: 10px;
-  box-shadow: 0 0 5px 2px;
-  position: absolute;
-  backface-visibility: hidden;
 }
 
 .front_2 {
   background-image: url(/assets/images/categories/gear-and-protection.webp);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.back_2 {
-  background-color: black;
-  transform: rotateY(180deg);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
-}
-
-.catalogs_box_3 {
-  border-radius: 10px;
-  width: calc(25% - 40px);
-  height: 100%;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: white;
-}
-
-.catalogs_box_card_3 {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 1500ms;
-}
-
-.catalogs_box_3:hover > .catalogs_box_card_3 {
-  transform: rotateY(180deg);
-  cursor: pointer;
-}
-
-.front_3,
-.back_3 {
-  height: 100%;
-  width: 100%;
-  border-radius: 10px;
-  box-shadow: 0 0 5px 2px;
-  position: absolute;
-  backface-visibility: hidden;
 }
 
 .front_3 {
   background-image: url(/assets/images/categories/c.webp);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.back_3 {
-  background-color: black;
-  transform: rotateY(180deg);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
-}
-
-.catalogs_box_4 {
-  border-radius: 10px;
-  width: calc(25% - 40px);
-  height: 100%;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: white;
-}
-
-.catalogs_box_card_4 {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 1500ms;
-}
-
-.catalogs_box_4:hover > .catalogs_box_card_4 {
-  transform: rotateY(180deg);
-  cursor: pointer;
-}
-
-.front_4,
-.back_4 {
-  height: 100%;
-  width: 100%;
-  border-radius: 10px;
-  box-shadow: 0 0 5px 2px;
-  position: absolute;
-  backface-visibility: hidden;
 }
 
 .front_4 {
   background-image: url(/assets/images/categories/technology.png);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.back_4 {
-  background-color: black;
-  transform: rotateY(180deg);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
 }
 
 .catalogs_box_heading {
@@ -2020,22 +1851,7 @@ svg {
     height: 100%;
   }
 
-  .catalogs_box_1 {
-    width: calc(100% - 40px);
-    height: 600px;
-  }
-
-  .catalogs_box_2 {
-    width: calc(100% - 40px);
-    height: 600px;
-  }
-
-  .catalogs_box_3 {
-    width: calc(100% - 40px);
-    height: 600px;
-  }
-
-  .catalogs_box_4 {
+  .catalogs_box {
     width: calc(100% - 40px);
     height: 600px;
   }
@@ -2245,22 +2061,7 @@ svg {
     height: 100%;
   }
 
-  .catalogs_box_1 {
-    width: calc(50% - 40px);
-    height: 600px;
-  }
-
-  .catalogs_box_2 {
-    width: calc(50% - 40px);
-    height: 600px;
-  }
-
-  .catalogs_box_3 {
-    width: calc(50% - 40px);
-    height: 600px;
-  }
-
-  .catalogs_box_4 {
+  .catalogs_box {
     width: calc(50% - 40px);
     height: 600px;
   }
@@ -2435,22 +2236,7 @@ svg {
     height: 100%;
   }
 
-  .catalogs_box_1 {
-    width: calc(50% - 40px);
-    height: 600px;
-  }
-
-  .catalogs_box_2 {
-    width: calc(50% - 40px);
-    height: 600px;
-  }
-
-  .catalogs_box_3 {
-    width: calc(50% - 40px);
-    height: 600px;
-  }
-
-  .catalogs_box_4 {
+  .catalogs_box {
     width: calc(50% - 40px);
     height: 600px;
   }
@@ -2581,22 +2367,7 @@ svg {
     height: 100%;
   }
 
-  .catalogs_box_1 {
-    width: calc(25% - 40px);
-    height: 600px;
-  }
-
-  .catalogs_box_2 {
-    width: calc(25% - 40px);
-    height: 600px;
-  }
-
-  .catalogs_box_3 {
-    width: calc(25% - 40px);
-    height: 600px;
-  }
-
-  .catalogs_box_4 {
+  .catalogs_box {
     width: calc(25% - 40px);
     height: 600px;
   }
