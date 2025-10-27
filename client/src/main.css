@@ -331,6 +331,7 @@ header {
   animation-name: welcome_animation_input;
   animation-duration: 5s;
   font-weight: bold;
+  font-size: 16px;
 }
 
 .welcome_animation_input:-webkit-autofill,

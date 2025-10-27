@@ -1,4 +1,15 @@
-// דף בית גלילה מהאמצע של כרטיסיות מתחלפות
+/*
+*   MOTO-RIDE CLIENT APPLICATION
+*   ===========================
+*   Main JavaScript file handling UI interactions, product management,
+*   user authentication, and cart/wishlist functionality
+ */
+
+
+// =====================================================
+//TODO CENTER SCROLL SUBCATEGORYS
+// =====================================================
+
 document.addEventListener("DOMContentLoaded", function () {
     const wrapper = document.querySelector(".subcategory_wrapper_box");
     const content = document.querySelector(".subcategory_3d_box");
@@ -7,19 +18,21 @@ document.addEventListener("DOMContentLoaded", function () {
     if (wrapper && content && items.length > 0) {
         const wrapperWidth = wrapper.clientWidth;
 
-        // מוצאים את האלמנט האמצעי ביותר
+        //? מוצאים את האלמנט האמצעי ביותר
         const middleIndex = Math.floor(items.length / 2);
         const middleItem = items[middleIndex];
 
-        // מחשבים את המיקום של האלמנט האמצעי בתוך התוכן
-        const middleItemOffset = middleItem.offsetLeft + (middleItem.offsetWidth / 2);
+        const middleItemOffset = middleItem.offsetLeft + (middleItem.offsetWidth / 2); // מחשבים את המיקום של האלמנט האמצעי בתוך התוכן
 
-        // קובעים את הגלילה כך שהאלמנט האמצעי יהיה במרכז
-        wrapper.scrollLeft = middleItemOffset - (wrapperWidth / 2);
+        wrapper.scrollLeft = middleItemOffset - (wrapperWidth / 2); // קובעים את הגלילה כך שהאלמנט האמצעי יהיה במרכז
     }
 });
 
-// קרוסלה לדף הבית
+// =====================================================
+//TODO CAROUSEL FUNCTIONALITY
+// =====================================================
+
+//? קרוסלה לדף הבית
 const nextBtn = document.querySelector('.next'),
       prevBtn = document.querySelector('.prev'),
       carousel = document.querySelector('.carousel');
@@ -100,10 +113,13 @@ function showSlider(type) {
     resetTimeAnimation(); // איפוס האנימציה של פס הזמן
 }
 
-// הפעלת האנימציה של פס הזמן
-resetTimeAnimation();
+resetTimeAnimation(); // הפעלת האנימציה של פס הזמן
 
-// אנימצית קטלוגים מסתובבים
+// =====================================================
+//TODO CATALOG FUNCTIONALITY
+// =====================================================
+
+//? אנימצית קטלוגים מסתובבים
 const rotatingCatalogs = document.querySelectorAll('.catalogs_box_card').forEach(card => {
     card.addEventListener('click', (event) => {
         const target = event.currentTarget;
@@ -111,8 +127,11 @@ const rotatingCatalogs = document.querySelectorAll('.catalogs_box_card').forEach
     });
 });
 
+// =====================================================
+//TODO NAVIGATION MENU FUNCTIONALITY
+// =====================================================
 
-// פתיחת תפריט ניווט ראשי
+//? פתיחת תפריט ניווט ראשי
 let openMenue = document.querySelector('.right_nav_block .fa-solid');
 openMenue.addEventListener('click', openMenueFunction);
 
@@ -123,7 +142,7 @@ function openMenueFunction (event){
     overlay.style.display = 'block';
 };
 
-// סגירת תפריט ניווט ראשי
+//? סגירת תפריט ניווט ראשי
 let closeMenue = document.querySelector('.navigation_menu_close_button');
 closeMenue.addEventListener('click', closeMenueFunction);
 
@@ -134,7 +153,7 @@ function closeMenueFunction (event){
     overlay.style.display = 'none';
 };
 
-// סגירת תפריט ניווט ראשי בעת לחיצה על קישור
+//? סגירת תפריט ניווט ראשי בעת לחיצה על קישור
 let switchPageCloseMenu = document.querySelectorAll('.navigation_menu a');
 switchPageCloseMenu.forEach(item => {
     item.addEventListener('click', function(event){
@@ -149,7 +168,7 @@ switchPageCloseMenu.forEach(item => {
     });
 });
 
-// סגירה ופתיחה תפריט ניווט משני
+//? סגירה ופתיחה תפריט ניווט משני
 let changeCatalogMenu = document.querySelector('.quick_menu_filter');
 if(changeCatalogMenu)
     changeCatalogMenu.addEventListener('click', changeCatalogMenueFunction);
@@ -173,6 +192,10 @@ function changeCatalogMenueFunction(event) {
     }
 }
 
+// =====================================================
+//! DOM CONTENT LOADED FUNCTIONALITY
+// =====================================================
+
 //?: השמה של אירוע שמרענן את הדפים
 document.addEventListener('DOMContentLoaded', () => {
     const githubUsername = 'shaialt';
@@ -187,23 +210,27 @@ document.addEventListener('DOMContentLoaded', () => {
         return path;
     }
 
-    // בדיקה אם כבר מחובר
+    // =====================================================
+    //TODO USER AUTHENTICATION FUNCTIONALITY
+    // =====================================================
+
+    //? בדיקה אם כבר מחובר
     const loggedUsers = JSON.parse(localStorage.getItem('loggedInUsers')) || [];
     const loggedUser = loggedUsers.find(user => user.isLoggedIn);
+
     if (loggedUser && window.location.href.includes('login.html')) {
-        // אם כבר מחובר, ישר לפרופיל
-        window.location.href = `${basePath}pages/profile.html`;
+        window.location.href = `${basePath}pages/profile.html`; // אם כבר מחובר, ישר לפרופיל
         return;
     }
 
-    // התחברות משתמש
+    //? התחברות משתמש
     const logInButton = document.querySelector('#log_in_button');
     if (logInButton) {
         logInButton.addEventListener('click', async () => {
             const userNameOrEmail = document.querySelector('#log_in_email_or_username').value.trim();
             const userPassword = document.querySelector('#log_in_password').value;
 
-            // בדיקת שדות ריקים
+            //? בדיקת שדות ריקים
             if (!userNameOrEmail || !userPassword) {
                 alert('Please fill in all fields.');
                 return;
@@ -241,7 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // התנתקות משתמש
+    //? התנתקות משתמש
     const signOutButton = document.querySelector('#sign_out');
     if (signOutButton) {    
         console.log(signOutButton);       // זה יודפס או כ־null אם לא קיים
@@ -263,19 +290,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
+    // =====================================================
+    //TODO FETCH PRODUCTS AND INITIALIZE CATALOG
+    // =====================================================
+
     //?: הכנסת מוצרים מתוך ג'ייסון לקטלוג אופנועים
     fetch(`${basePath}data/data.json`)
     .then(response => response.json())
     .then(data => {
         if (isGitHubPages) {
             data = data.map(item => {
-            // תיקון תמונה ראשית
-            item.image = fixPath(item.image, githubRepo);
+            
+            item.image = fixPath(item.image, githubRepo); // תיקון תמונה ראשית
 
-            // תיקון לוגו
-            item.logo = fixPath(item.logo, githubRepo);
+            
+            item.logo = fixPath(item.logo, githubRepo); // תיקון לוגו
 
-            // תיקון כל התמונות במערך
+            //? תיקון כל התמונות במערך
             if (Array.isArray(item.images)) {
                 item.images = item.images.map(img => fixPath(img, githubRepo));
             }
@@ -285,24 +316,24 @@ document.addEventListener('DOMContentLoaded', () => {
         return data;
     })
     .then(products => {
-        // בדיקת כמות מוצרים באתר
+        //? בדיקת כמות מוצרים באתר
         let productsNumbersTotal = 0;
         products.forEach(() => productsNumbersTotal++);
         const total_products = document.querySelector('.total_products');
         if (total_products)
             total_products.textContent = `Discover ${productsNumbersTotal} exlusive motorcyles`;
 
-        // סינון המוצרים לפי הפופולריות הגבוהה ביותר
+        //? סינון המוצרים לפי הפופולריות הגבוהה ביותר
         const topPopularProducts = products
             .sort((a, b) => b.popularity - a.popularity) // מיון מהגבוה לנמוך
             .slice(0, 4); // לקיחת רק 4 ראשונים
 
-        // בניית כרטיסים רק עבור הפופולריים (לדף הבית)
+        //? בניית כרטיסים רק עבור הפופולריים (לדף הבית)
         topPopularProducts.forEach(product => {
             createProductCardItemElement(product); // זו הפונקציה שלך שיוצרת את הכרטיס
         });
 
-        // בודק אם זה דף מוצר לפי כתובת URL
+        //? בודק אם זה דף מוצר לפי כתובת URL
         if (window.location.href.includes('product.html')) {
             const urlId = window.location.href.split('=')[2].split('&')[0];
             const product = products.find(p => p.id === urlId);
@@ -312,26 +343,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.warn('Not found product with id:', urlId);
             }
         } 
-        // אם זה לא דף מוצר – יוצרים את כל כרטיסי הקטלוג (לדף קטלוג)
+        //? אם זה לא דף מוצר – יוצרים את כל כרטיסי הקטלוג (לדף קטלוג)
         else if (window.location.href.includes('catalog.html')) {
-            // טעינת פילטרים מה-URL
+            //? טעינת פילטרים מה-URL
             const urlFilters = getFiltersFromURL();
             updateFiltersFromURL(urlFilters);
             
-            // סינון המוצרים
+            //? סינון המוצרים
             const filteredProducts = filterProducts(products, urlFilters);
             console.log('Filtered products:', filteredProducts.length);
             
-            // הצגת המוצרים המסוננים במיכל הקטלוג
+            //? הצגת המוצרים המסוננים במיכל הקטלוג
             const catalogContainer = document.querySelector('#catalog');
             if (catalogContainer) catalogContainer.innerHTML = '';
             filteredProducts.forEach(product => {
                 creator(product);
             });
 
-            // פונקציה מרכזית להוספת אירועי סינון
+            //? פונקציה מרכזית להוספת אירועי סינון
             function setupFilterEvents() {
-                // הוספת אירועים לכל הצ'קבוקסים - גם מסידבר רגיל וגם רספונסיבי
+                //? הוספת אירועים לכל הצ'קבוקסים - גם מסידבר רגיל וגם רספונסיבי
                 const allCheckboxes = document.querySelectorAll('.filter_sidebar input[type="checkbox"][name], .filter_sidebar_responsive input[type="checkbox"][name]');
                 allCheckboxes.forEach(checkbox => {
                     checkbox.addEventListener('change', () => {
@@ -355,25 +386,24 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 });
 
-                // כפתורי Reset - גם רגיל וגם רספונסיבי
+                //? כפתורי Reset - גם רגיל וגם רספונסיבי
                 const resetBtns = document.querySelectorAll('.reset_button');
                 resetBtns.forEach(resetBtn => {
                     resetBtn.addEventListener('click', (e) => {
                         e.preventDefault();
                         console.log('Resetting all filters');
                         
-                        // ניקוי כל הצ'קבוקסים - גם רגיל וגם רספונסיבי
+                        //? ניקוי כל הצ'קבוקסים - גם רגיל וגם רספונסיבי
                         const allCheckboxes = document.querySelectorAll('.filter_sidebar input[type="checkbox"], .filter_sidebar_responsive input[type="checkbox"]');
                         allCheckboxes.forEach(cb => cb.checked = false);
                         
-                        // ניקוי שדות מחיר - גם רגיל וגם רספונסיבי
+                        //? ניקוי שדות מחיר - גם רגיל וגם רספונסיבי
                         const allPriceInputs = document.querySelectorAll('.filter_sidebar .price_input, .filter_sidebar_responsive .price_input');
                         allPriceInputs.forEach(input => input.value = '');
                         
-                        // מעדכן את ה-URL ומציג מחדש
-                        window.history.pushState({}, '', window.location.pathname);
+                        window.history.pushState({}, '', window.location.pathname); // מעדכן את ה-URL ומציג מחדש
                         
-                        // מנקה ומציג את כל המוצרים
+                        //? מנקה ומציג את כל המוצרים
                         const container = document.querySelector('#catalog');
                         if (container) container.innerHTML = '';
                         
@@ -384,13 +414,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            // פונקציה לסנכרון צ'קבוקסים בין סידבר רגיל לרספונסיבי
+            //? פונקציה לסנכרון צ'קבוקסים בין סידבר רגיל לרספונסיבי
             function syncCheckboxes(changedCheckbox) {
                 const name = changedCheckbox.name;
                 const value = changedCheckbox.value;
                 const isChecked = changedCheckbox.checked;
 
-                // מצא את הצ'קבוקס המקביל בסידבר האחר
+                //? מצא את הצ'קבוקס המקביל בסידבר האחר
                 const allMatchingCheckboxes = document.querySelectorAll(`input[name="${name}"][value="${value}"]`);
                 allMatchingCheckboxes.forEach(cb => {
                     if (cb !== changedCheckbox) {
@@ -399,12 +429,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            // פונקציה לסנכרון שדות מחיר בין סידבר רגיל לרספונסיבי
+            //? פונקציה לסנכרון שדות מחיר בין סידבר רגיל לרספונסיבי
             function syncPriceInputs(changedInput) {
                 const placeholder = changedInput.placeholder;
                 const value = changedInput.value;
 
-                // מצא את השדות המקבילים
+                //? מצא את השדות המקבילים
                 const allMatchingInputs = document.querySelectorAll(`.price_input[placeholder="${placeholder}"]`);
                 allMatchingInputs.forEach(input => {
                     if (input !== changedInput) {
@@ -413,8 +443,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            // הפעלת הפונקציה
-            setupFilterEvents();
+            setupFilterEvents(); // הפעלת הפונקציה
         }
 
         // סינון מוצרים לפי חיפוש
@@ -429,7 +458,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const searchTerm = search.value.toLowerCase();
             let filteredProducts = []; // הגדרה בחוץ
 
-            // טיפול בלחיצה על Enter
+            //? טיפול בלחיצה על Enter
             search.addEventListener('keypress', function(event) {
                 if (event.key === 'Enter') {
                     event.preventDefault();
