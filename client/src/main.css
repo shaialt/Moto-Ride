@@ -323,7 +323,7 @@ header {
 }
 
 .welcome_animation_input {
-  width: 155px;
+  width: 100%;
   border: none;
   outline: none;
   background-color: white;
@@ -345,6 +345,7 @@ header {
 .welcome_animation_input::placeholder {
   color: #601e1e;
   font-weight: bold;
+  font-size: 14px;
 }
 
 @keyframes welcome_animation_input {
@@ -1783,10 +1784,6 @@ svg {
     margin-left: 0px;
   }
 
-  .welcome_animation_input {
-    width: 140px;
-  }
-
   .logo_text1 {
     display: none;
   }
@@ -1994,10 +1991,6 @@ svg {
     margin-left: 0px;
   }
 
-  .welcome_animation_input {
-    width: 140px;
-  }
-
   .logo_text1 {
     display: none;
   }
@@ -2173,10 +2166,6 @@ svg {
     margin-left: 0px;
   }
 
-  .welcome_animation_input {
-    width: 140px;
-  }
-
   /*בלוק ימני של תפריט*/
   .right_nav_block {
     width: 30%;
@@ -2321,10 +2310,6 @@ svg {
 
   .welcome_animation_box {
     margin-left: 0px;
-  }
-
-  .welcome_animation_input {
-    width: 140px;
   }
 
   /*בלוק ימני של תפריט*/

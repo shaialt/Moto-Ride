@@ -7,7 +7,7 @@
 
 
 // =====================================================
-//TODO CENTER SCROLL SUBCATEGORYS
+//TODO CENTER SCROLL SUBCATEGORIES
 // =====================================================
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -18,13 +18,13 @@ document.addEventListener("DOMContentLoaded", function () {
     if (wrapper && content && items.length > 0) {
         const wrapperWidth = wrapper.clientWidth;
 
-        //? מוצאים את האלמנט האמצעי ביותר
+        //? Find the most central element
         const middleIndex = Math.floor(items.length / 2);
         const middleItem = items[middleIndex];
 
-        const middleItemOffset = middleItem.offsetLeft + (middleItem.offsetWidth / 2); // מחשבים את המיקום של האלמנט האמצעי בתוך התוכן
+        const middleItemOffset = middleItem.offsetLeft + (middleItem.offsetWidth / 2); // Calculate the position of the middle element within the content
 
-        wrapper.scrollLeft = middleItemOffset - (wrapperWidth / 2); // קובעים את הגלילה כך שהאלמנט האמצעי יהיה במרכז
+        wrapper.scrollLeft = middleItemOffset - (wrapperWidth / 2); // Set the scroll so that the middle element is centered
     }
 });
 
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
 //TODO CAROUSEL FUNCTIONALITY
 // =====================================================
 
-//? קרוסלה לדף הבית
+//? Carousel for home page
 const nextBtn = document.querySelector('.next'),
       prevBtn = document.querySelector('.prev'),
       carousel = document.querySelector('.carousel');
@@ -110,16 +110,16 @@ function showSlider(type) {
         }
     }, timeAutoNext);
 
-    resetTimeAnimation(); // איפוס האנימציה של פס הזמן
+    resetTimeAnimation(); // Reset the time bar animation
 }
 
-resetTimeAnimation(); // הפעלת האנימציה של פס הזמן
+resetTimeAnimation(); // Start the time bar animation
 
 // =====================================================
 //TODO CATALOG FUNCTIONALITY
 // =====================================================
 
-//? אנימצית קטלוגים מסתובבים
+//? Rotating catalogs animation
 const rotatingCatalogs = document.querySelectorAll('.catalogs_box_card').forEach(card => {
     card.addEventListener('click', (event) => {
         const target = event.currentTarget;
@@ -131,7 +131,8 @@ const rotatingCatalogs = document.querySelectorAll('.catalogs_box_card').forEach
 //TODO NAVIGATION MENU FUNCTIONALITY
 // =====================================================
 
-//? פתיחת תפריט ניווט ראשי
+//^ ============ MAIN MENU CONTROLS ============
+//? Open main navigation menu
 let openMenue = document.querySelector('.right_nav_block .fa-solid');
 openMenue.addEventListener('click', openMenueFunction);
 
@@ -142,7 +143,7 @@ function openMenueFunction (event){
     overlay.style.display = 'block';
 };
 
-//? סגירת תפריט ניווט ראשי
+//? Close main navigation menu
 let closeMenue = document.querySelector('.navigation_menu_close_button');
 closeMenue.addEventListener('click', closeMenueFunction);
 
@@ -153,7 +154,7 @@ function closeMenueFunction (event){
     overlay.style.display = 'none';
 };
 
-//? סגירת תפריט ניווט ראשי בעת לחיצה על קישור
+//? Close main navigation menu when clicking on a link
 let switchPageCloseMenu = document.querySelectorAll('.navigation_menu a');
 switchPageCloseMenu.forEach(item => {
     item.addEventListener('click', function(event){
@@ -168,7 +169,8 @@ switchPageCloseMenu.forEach(item => {
     });
 });
 
-//? סגירה ופתיחה תפריט ניווט משני
+//^ ============ CATALOG MENU CONTROLS ============
+//? Open and close secondary navigation menu
 let changeCatalogMenu = document.querySelector('.quick_menu_filter');
 if(changeCatalogMenu)
     changeCatalogMenu.addEventListener('click', changeCatalogMenueFunction);
@@ -193,10 +195,10 @@ function changeCatalogMenueFunction(event) {
 }
 
 // =====================================================
-//! DOM CONTENT LOADED FUNCTIONALITY
+//! USER AUTHENTICATION FUNCTIONALITY
 // =====================================================
 
-//?: השמה של אירוע שמרענן את הדפים
+//?: Event assignment that refreshes the pages
 document.addEventListener('DOMContentLoaded', () => {
     const githubUsername = 'shaialt';
     const githubRepo = 'Moto-Ride';
@@ -214,23 +216,24 @@ document.addEventListener('DOMContentLoaded', () => {
     //TODO USER AUTHENTICATION FUNCTIONALITY
     // =====================================================
 
-    //? בדיקה אם כבר מחובר
+    //^ ============ LOGIN STATUS CHECK ============
+    //? Check if already logged in
     const loggedUsers = JSON.parse(localStorage.getItem('loggedInUsers')) || [];
-    const loggedUser = loggedUsers.find(user => user.isLoggedIn);
-
-    if (loggedUser && window.location.href.includes('login.html')) {
-        window.location.href = `${basePath}pages/profile.html`; // אם כבר מחובר, ישר לפרופיל
+    const currentUser = loggedUsers.find(user => user.isLoggedIn === true);
+    if (currentUser && window.location.href.includes('login.html')) {
+        window.location.href = `${basePath}pages/profile.html`;
         return;
     }
 
-    //? התחברות משתמש
+    //^ ============ USER LOGIN ============
+    //? User login
     const logInButton = document.querySelector('#log_in_button');
     if (logInButton) {
         logInButton.addEventListener('click', async () => {
             const userNameOrEmail = document.querySelector('#log_in_email_or_username').value.trim();
             const userPassword = document.querySelector('#log_in_password').value;
 
-            //? בדיקת שדות ריקים
+            //? Check empty fields
             if (!userNameOrEmail || !userPassword) {
                 alert('Please fill in all fields.');
                 return;
@@ -247,11 +250,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (user) {
                     let loggedUsers = JSON.parse(localStorage.getItem('loggedInUsers')) || [];
-                    loggedUsers.push({
-                        name: user.name,
-                        email: user.email,
-                        isLoggedIn: true
-                    });
+                    
+                    //? Check if user already exists in array
+                    const existingUserIndex = loggedUsers.findIndex(loggedUser => 
+                        loggedUser.email === user.email || loggedUser.name === user.name
+                    );
+                    
+                    //? If user exists, update their login status
+                    if (existingUserIndex !== -1) {
+                        loggedUsers[existingUserIndex].isLoggedIn = true;
+                    } 
+                    
+                    else {
+                        //? If user doesn't exist, add them to array
+                        loggedUsers.push({
+                            name: user.name,
+                            email: user.email,
+                            isLoggedIn: true
+                        });
+                    }
+
+                    //? Ensure only one user is logged in at any given time
+                    loggedUsers = loggedUsers.map(loggedUser => ({
+                        ...loggedUser,
+                        isLoggedIn: loggedUser.email === user.email || loggedUser.name === user.name
+                    }));
+
                     localStorage.setItem('loggedInUsers', JSON.stringify(loggedUsers));
 
                     alert('Login successful! Welcome ' + user.name);
@@ -268,10 +292,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    //? התנתקות משתמש
+    //^ ============ USER LOGOUT ============
+    //? User logout
     const signOutButton = document.querySelector('#sign_out');
     if (signOutButton) {    
-        console.log(signOutButton);       // זה יודפס או כ־null אם לא קיים
+        console.log(signOutButton);       // This will print null if it doesn't exist
         console.log(typeof signOutButton);
         signOutButton.addEventListener('click', (e) => {
             e.preventDefault();
@@ -284,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             localStorage.setItem('loggedInUsers', JSON.stringify(loggedUsers));
 
-            console.log('After sign out:', loggedUsers); // לוודא בקונסול שהכל התעדכן
+            console.log('After sign out:', loggedUsers); // Check in console that everything was updated
 
             window.location.href = `${basePath}pages/login.html`;
         });
@@ -294,19 +319,20 @@ document.addEventListener('DOMContentLoaded', () => {
     //TODO FETCH PRODUCTS AND INITIALIZE CATALOG
     // =====================================================
 
-    //?: הכנסת מוצרים מתוך ג'ייסון לקטלוג אופנועים
+    //^ ============ DATA PATH FIXING ============
+    //? Insert products from JSON to motorcycle catalog
     fetch(`${basePath}data/data.json`)
     .then(response => response.json())
     .then(data => {
         if (isGitHubPages) {
             data = data.map(item => {
             
-            item.image = fixPath(item.image, githubRepo); // תיקון תמונה ראשית
+            item.image = fixPath(item.image, githubRepo); // Fix main image
 
             
-            item.logo = fixPath(item.logo, githubRepo); // תיקון לוגו
+            item.logo = fixPath(item.logo, githubRepo); // Fix logo
 
-            //? תיקון כל התמונות במערך
+            //? Fix all images in array
             if (Array.isArray(item.images)) {
                 item.images = item.images.map(img => fixPath(img, githubRepo));
             }
@@ -316,24 +342,27 @@ document.addEventListener('DOMContentLoaded', () => {
         return data;
     })
     .then(products => {
-        //? בדיקת כמות מוצרים באתר
+        //^ ============ PRODUCT COUNTER ============
+        //? Check number of products on the site
         let productsNumbersTotal = 0;
         products.forEach(() => productsNumbersTotal++);
         const total_products = document.querySelector('.total_products');
         if (total_products)
             total_products.textContent = `Discover ${productsNumbersTotal} exlusive motorcyles`;
 
-        //? סינון המוצרים לפי הפופולריות הגבוהה ביותר
+        //^ ============ POPULAR PRODUCTS ============
+        //? Filter products by highest popularity
         const topPopularProducts = products
-            .sort((a, b) => b.popularity - a.popularity) // מיון מהגבוה לנמוך
-            .slice(0, 4); // לקיחת רק 4 ראשונים
+            .sort((a, b) => b.popularity - a.popularity) // Sort from high to low
+            .slice(0, 4); // Take only first 4
 
-        //? בניית כרטיסים רק עבור הפופולריים (לדף הבית)
+        //? Build cards only for popular products (for home page)
         topPopularProducts.forEach(product => {
-            createProductCardItemElement(product); // זו הפונקציה שלך שיוצרת את הכרטיס
+            createProductCardItemElement(product); // This is your function that creates the card
         });
 
-        //? בודק אם זה דף מוצר לפי כתובת URL
+        //^ ============ PAGE ROUTING ============
+        //? Check if it's a product page by URL address
         if (window.location.href.includes('product.html')) {
             const urlId = window.location.href.split('=')[2].split('&')[0];
             const product = products.find(p => p.id === urlId);
@@ -343,67 +372,69 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.warn('Not found product with id:', urlId);
             }
         } 
-        //? אם זה לא דף מוצר – יוצרים את כל כרטיסי הקטלוג (לדף קטלוג)
+        //^ ============ CATALOG INITIALIZATION ============
+        //? If it's not a product page - create all catalog cards (for catalog page)
         else if (window.location.href.includes('catalog.html')) {
-            //? טעינת פילטרים מה-URL
+            //? Load filters from URL
             const urlFilters = getFiltersFromURL();
             updateFiltersFromURL(urlFilters);
             
-            //? סינון המוצרים
+            //? Filter products
             const filteredProducts = filterProducts(products, urlFilters);
             console.log('Filtered products:', filteredProducts.length);
             
-            //? הצגת המוצרים המסוננים במיכל הקטלוג
+            //? Display filtered products in catalog container
             const catalogContainer = document.querySelector('#catalog');
             if (catalogContainer) catalogContainer.innerHTML = '';
             filteredProducts.forEach(product => {
                 creator(product);
             });
 
-            //? פונקציה מרכזית להוספת אירועי סינון
+            //^ ============ FILTER EVENTS SETUP ============
+            //? Central function to add filter events
             function setupFilterEvents() {
-                //? הוספת אירועים לכל הצ'קבוקסים - גם מסידבר רגיל וגם רספונסיבי
+                //? Add events to all checkboxes - both regular sidebar and responsive
                 const allCheckboxes = document.querySelectorAll('.filter_sidebar input[type="checkbox"][name], .filter_sidebar_responsive input[type="checkbox"][name]');
                 allCheckboxes.forEach(checkbox => {
                     checkbox.addEventListener('change', () => {
-                        // מסנכרן צ'קבוקסים בין הסיידבאר הרגיל לרספונסיבי
-                        // מסנכרן לפני הסינון כדי שלא יישאר צ'קבוקס מקביל מסומן וימשיך לסנן
+                        //? Sync checkboxes between regular and responsive sidebar
+                        //? Sync before filtering so no parallel checkbox remains checked and continues filtering
                         syncCheckboxes(checkbox);
-                        // לאחר הסנכרון, מפעיל סינון עם מצב עדכני של כל הצ'קבוקסים
+                        //? After sync, trigger filtering with updated state of all checkboxes
                         applyFilters(products);
                     });
                 });
 
-                // הוספת אירועים לשדות מחיר - גם רגיל וגם רספונסיבי
+                //? Add events to price fields - both regular and responsive
                 const priceInputs = document.querySelectorAll('.filter_sidebar .price_input, .filter_sidebar_responsive .price_input');
                 priceInputs.forEach(input => {
                     input.addEventListener('input', () => {
-                        // מסנכרן ערכי המחיר בין הסיידבאר הרגיל לרספונסיבי
-                        // מסנכרן לפני הסינון כדי שערכי המינימום/מקסימום ייאספו נכון
+                        //? Sync price values between regular and responsive sidebar
+                        //? Sync before filtering so min/max values are collected correctly
                         syncPriceInputs(input);
-                        // לאחר הסנכרון, מפעיל סינון עם ערכים עדכניים
+                        //? After sync, trigger filtering with updated values
                         applyFilters(products);
                     });
                 });
 
-                //? כפתורי Reset - גם רגיל וגם רספונסיבי
+                //? Reset buttons - both regular and responsive
                 const resetBtns = document.querySelectorAll('.reset_button');
                 resetBtns.forEach(resetBtn => {
                     resetBtn.addEventListener('click', (e) => {
                         e.preventDefault();
                         console.log('Resetting all filters');
                         
-                        //? ניקוי כל הצ'קבוקסים - גם רגיל וגם רספונסיבי
+                        //? Clear all checkboxes - both regular and responsive
                         const allCheckboxes = document.querySelectorAll('.filter_sidebar input[type="checkbox"], .filter_sidebar_responsive input[type="checkbox"]');
                         allCheckboxes.forEach(cb => cb.checked = false);
                         
-                        //? ניקוי שדות מחיר - גם רגיל וגם רספונסיבי
+                        //? Clear price fields - both regular and responsive
                         const allPriceInputs = document.querySelectorAll('.filter_sidebar .price_input, .filter_sidebar_responsive .price_input');
                         allPriceInputs.forEach(input => input.value = '');
                         
-                        window.history.pushState({}, '', window.location.pathname); // מעדכן את ה-URL ומציג מחדש
+                        window.history.pushState({}, '', window.location.pathname); // Update URL and display again
                         
-                        //? מנקה ומציג את כל המוצרים
+                        //? Clear and display all products
                         const container = document.querySelector('#catalog');
                         if (container) container.innerHTML = '';
                         
@@ -414,13 +445,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            //? פונקציה לסנכרון צ'קבוקסים בין סידבר רגיל לרספונסיבי
+            //? Function to sync checkboxes between regular and responsive sidebar
             function syncCheckboxes(changedCheckbox) {
                 const name = changedCheckbox.name;
                 const value = changedCheckbox.value;
                 const isChecked = changedCheckbox.checked;
 
-                //? מצא את הצ'קבוקס המקביל בסידבר האחר
+                //? Find the parallel checkbox in the other sidebar
                 const allMatchingCheckboxes = document.querySelectorAll(`input[name="${name}"][value="${value}"]`);
                 allMatchingCheckboxes.forEach(cb => {
                     if (cb !== changedCheckbox) {
@@ -429,12 +460,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            //? פונקציה לסנכרון שדות מחיר בין סידבר רגיל לרספונסיבי
+            //? Function to sync price fields between regular and responsive sidebar
             function syncPriceInputs(changedInput) {
                 const placeholder = changedInput.placeholder;
                 const value = changedInput.value;
 
-                //? מצא את השדות המקבילים
+                //? Find the parallel fields
                 const allMatchingInputs = document.querySelectorAll(`.price_input[placeholder="${placeholder}"]`);
                 allMatchingInputs.forEach(input => {
                     if (input !== changedInput) {
@@ -443,29 +474,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            setupFilterEvents(); // הפעלת הפונקציה
+            setupFilterEvents(); // Activate the function
         }
 
-        // סינון מוצרים לפי חיפוש
+        // =====================================================
+        //TODO SEARCH FUNCTIONALITY
+        // =====================================================
+
+        //^ ============ SEARCH INPUT HANDLING ============
+        //? Filter products by search
         const search = document.querySelector('#welcome_animation_input');
         search.addEventListener('input', function() {
-            // מחק תיבת הצעות קודמת אם קיימת
+            //? Delete previous suggestions box if exists
             const existingSuggestions = document.querySelector('.suggestions_box');
             if (existingSuggestions) {
                 existingSuggestions.remove();
             }
 
             const searchTerm = search.value.toLowerCase();
-            let filteredProducts = []; // הגדרה בחוץ
+            let filteredProducts = []; // Define outside
 
-            //? טיפול בלחיצה על Enter
+            //? Handle Enter key press
             search.addEventListener('keypress', function(event) {
                 if (event.key === 'Enter') {
                     event.preventDefault();
                     if (filteredProducts.length > 0) {
-                        // שמירת תוצאות החיפוש ב-localStorage
+                        //? Save search results in localStorage
                         localStorage.setItem('searchResults', JSON.stringify(filteredProducts));
-                        // מעבר לדף הקטלוג עם פרמטר חיפוש
+                        //? Navigate to catalog page with search parameter
                         window.location.href = `./pages/catalog.html?search=${encodeURIComponent(searchTerm)}`;
                     }
                 }
@@ -478,12 +514,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         product.description.toLowerCase().includes(searchTerm);
                 });
             
-                // נחזיר רק את השם של המוצרים לא את האובייקטים שלהם
+                //? Return only product names not their objects
                 const filteredProductsNames = filteredProducts.map(product => product.name);
                 console.log('Filtered products:', filteredProductsNames);
             }
 
-            // יצירת תיבת הצעות
+            //^ ============ SEARCH SUGGESTIONS ============
+            //? Create suggestions box
             if (filteredProducts.length > 0) {
                 const suggestionsBox = document.createElement('div');
                 suggestionsBox.classList.add('suggestions_box');
@@ -504,10 +541,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 suggestionsBox.style.transform = 'translateY(-10px)'; // Start slightly above
                 suggestionsBox.style.scrollbarWidth = 'thin';
 
-                // Add transition for smooth animation
+                //? Add transition for smooth animation
                 suggestionsBox.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
                 
-                // הוספת התוצאות לתיבה
+                //? Add results to box
                 filteredProducts.forEach(product => {
                     const suggestion = document.createElement('div');
                     suggestion.style.padding = '10px';
@@ -517,12 +554,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     suggestion.style.alignItems = 'center';
                     suggestion.style.justifyContent = 'space-between';
 
-                    // הוספת שם המוצר
+                    //? Add product name
                     const textDiv = document.createElement('div');
                     textDiv.textContent = product.name;
                     textDiv.style.flex = '1';
 
-                    // יצירת תמונה ממוזערת
+                    //? Create thumbnail image
                     const thumbnailImg = document.createElement('img');
                     thumbnailImg.src = product.image;
                     thumbnailImg.alt = product.name;
@@ -532,7 +569,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     thumbnailImg.style.marginLeft = '10px';
                     thumbnailImg.style.borderRadius = '4px';
 
-                    // הוספת אירוע לחיצה לכל הצעה
+                    //? Add click event to each suggestion
                     suggestion.addEventListener('click', () => {
                         const urlParams = new URLSearchParams();
                         urlParams.append('category', product.category);
@@ -546,12 +583,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     suggestionsBox.appendChild(suggestion);
                 });
 
-                // הוספת תיבת ההצעות למיכל החיפוש
+                //? Add suggestions box to search container
                 const container = document.querySelector('.welcome_animation_box');
                 if (container) {
                     container.style.position = 'relative';
                     container.appendChild(suggestionsBox);
-                    // Trigger the animation
+                    //? Trigger the animation
                     requestAnimationFrame(() => {
                         suggestionsBox.style.opacity = '1'; // Fade in
                         suggestionsBox.style.transform = 'translateY(0)'; // Move down to original position
@@ -562,22 +599,23 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(error => console.error('Error loading JSON:', error));
 
-    // טעינת מועדפים ועגלה מהלוקאל סטורג' בכל דף
+    //? Load favorites and cart from localStorage on every page
     loadWishlistFromLocalStorage();
     loadCartFromLocalStorage();
 });
 
-//TODO: פונקציה ראשית של כל מה שפועל אחרי קבלת הנתונים
+//^ ============ PRODUCT CREATION MANAGER ============
+//? Main function for everything that runs after receiving data
 function creator (product){
     const currentPath = window.location.pathname;
 
-    // אם אנחנו בדף הקטלוג
+    //? If we are on the catalog page
     if (currentPath.includes('catalog.html')) {
-        //!: קריאה לפונקציה שיוצרת את המוצר בקטלוג
+        //? Call function that creates the product in catalog
         createCatalogProductCardItemElement(product);
     }
 
-    //!: השמה של איבנט על האייקונים שבתוך המוצר להוספה למועדפים
+    //? Assign event to icons inside product for adding to favorites
     const allProducts = document.querySelectorAll('.product_super_box').forEach( product => {
     const heart = product.querySelector('.add_to_wishlist');
     if(heart)
@@ -588,14 +626,19 @@ function creator (product){
         cart.addEventListener('click', saveToCart);
     });
 
-    //!: קריאה לפונקציה שמעדכנת מצב מועדפים ועגלה לאחר קבלת תשובה מהשרת
+    //? Call function that updates favorites and cart status after receiving response from server
     updateWishlistHearts();
     updatecarts();
 }
 
-//TODO: פונקציה ליצירת כרטיסיות מוצר בדף בית
+// =====================================================
+//TODO PRODUCT CARD CREATION
+// =====================================================
+
+//^ ============ HOME PAGE CARDS ============
+//? Function to create product cards on home page
 function createProductCardItemElement(product){
-    //TOP PRODUCT SUPER BOX (MAIN DIV)
+    //? TOP PRODUCT SUPER BOX (MAIN DIV)
     const topProductSuperBox = document.createElement('div');
     topProductSuperBox.classList.add('top_product_super_box');
     topProductSuperBox.id = product.id;
@@ -604,18 +647,18 @@ function createProductCardItemElement(product){
         topProductSuperBox.style.setProperty(`--${product.status}`, 'true');
     }
 
-    //BOX DIV
+    //? BOX DIV
     const box = document.createElement('div');
     box.classList.add('box');
     const boxText = document.createElement('p');
     boxText.textContent = 'Moto-Ride 🏍️';
     box.appendChild(boxText);
 
-    //PRODUCT BOX DIV
+    //? PRODUCT BOX DIV
     const productBox = document.createElement('div');
     productBox.classList.add('product_box');
 
-    //PRODUCT IMG DIV
+    //? PRODUCT IMG DIV
     const productImgBox = document.createElement('div');
     productImgBox.classList.add('product_img_box');
     const productImg = document.createElement('img');
@@ -623,14 +666,14 @@ function createProductCardItemElement(product){
     productImg.classList.add('product_img');
     productImgBox.appendChild(productImg);
 
-    //PRODUCT LOGO DIV
+    //? PRODUCT LOGO DIV
     const productLogoBox = document.createElement('div');
     productLogoBox.classList.add('product_logo_box');
     const productLogoImg = document.createElement('img');
     productLogoImg.src = product.logo;
     productLogoImg.classList.add('product_logo_img');
 
-    //ICONS DIV OF PRODUCT LOGO DIV
+    //? ICONS DIV OF PRODUCT LOGO DIV
     const iconsDiv = document.createElement('div');
     const heartIcon = document.createElement('i');
     heartIcon.classList.add('fa-solid', 'fa-heart', 'add_to_wishlist');
@@ -642,11 +685,11 @@ function createProductCardItemElement(product){
     productLogoBox.appendChild(productLogoImg);
     productLogoBox.appendChild(iconsDiv);
 
-    //CENTER DIV
+    //? CENTER DIV
     const center = document.createElement('div');
     center.classList.add('center');
 
-    //PRODUCT NAME BOX ARTICLE OF CENTER DIV
+    //? PRODUCT NAME BOX ARTICLE OF CENTER DIV
     const productNameBox = document.createElement('article');
     productNameBox.classList.add('product_name_box');
     const productName = document.createElement('h3');
@@ -654,7 +697,7 @@ function createProductCardItemElement(product){
     productName.textContent = product.name;
     productNameBox.appendChild(productName);
 
-    //DESCRIBE BOX ARTICLE OF CENTER DIV
+    //? DESCRIBE BOX ARTICLE OF CENTER DIV
     const describeBox = document.createElement('article');
     describeBox.classList.add('describe_box');
     const describe = document.createElement('p');
@@ -662,7 +705,7 @@ function createProductCardItemElement(product){
     describe.textContent = product.description;
     describeBox.appendChild(describe);
 
-    //BUY BOX ARTICLE OF CENTER DIV
+    //? BUY BOX ARTICLE OF CENTER DIV
     const buyBox = document.createElement('article');
     buyBox.classList.add('buy_box');
     const priceContainer = document.createElement('div');
@@ -681,7 +724,7 @@ function createProductCardItemElement(product){
     priceContainer.appendChild(originalPriceBox);
     priceContainer.appendChild(finalPrice);
 
-    //BUTTON OF BUY BOX ARTICLE OF CENTER DIV
+    //? BUTTON OF BUY BOX ARTICLE OF CENTER DIV
     const productBuyButtonLink = document.createElement('a');
     productBuyButtonLink.href = `product.html?category=${encodeURIComponent(product.category)}&id=${product.id}&name=${encodeURIComponent(product.name)}`;
     productBuyButtonLink.classList.add('a_button');
@@ -696,37 +739,38 @@ function createProductCardItemElement(product){
     buyBox.appendChild(priceContainer);
     buyBox.appendChild(productBuyButtonLink);
 
-    //CENTER DIV BUILD
+    //? CENTER DIV BUILD
     center.appendChild(productNameBox);
     center.appendChild(describeBox);
     center.appendChild(buyBox);
 
-    //NEW POPULAR DIV + CURVE DIV
+    //? NEW POPULAR DIV + CURVE DIV
     const newPopular = document.createElement('div');
     newPopular.classList.add('new_popular');
     const curve = document.createElement('div');
     curve.classList.add('curve');
 
-    //PRODUCT BOX DIV BUILD
+    //? PRODUCT BOX DIV BUILD
     productBox.appendChild(productImgBox);
     productBox.appendChild(productLogoBox);
     productBox.appendChild(center);
     productBox.appendChild(newPopular);
     productBox.appendChild(curve);
 
-    //TOP PRODUCT SUPER BOX BUILD
+    //? TOP PRODUCT SUPER BOX BUILD
     topProductSuperBox.appendChild(box);
     topProductSuperBox.appendChild(productBox);
 
-    //BUILD ON HOME PAGE
+    //? BUILD ON HOME PAGE
     const container = document.querySelector('#top_products');
     if (container)
         container.appendChild(topProductSuperBox);
 }
 
-//TODO: פונקציה ליצירת כרטיסיות מוצר בקטלוג
+//^ ============ CATALOG PAGE CARDS ============
+//? Function to create product cards in catalog
 function createCatalogProductCardItemElement(product){
-        //PRODUCT SUPER BOX (MAIN DIV)
+        //? PRODUCT SUPER BOX (MAIN DIV)
         const productSuperBox = document.createElement('div');
         productSuperBox.classList.add('product_super_box');
         productSuperBox.id = product.id;
@@ -735,18 +779,18 @@ function createCatalogProductCardItemElement(product){
             productSuperBox.style.setProperty(`--${product.status}`, 'true');
         }
 
-        //BOX DIV
+        //? BOX DIV
         const box = document.createElement('div');
         box.classList.add('box');
         const boxText = document.createElement('p');
         boxText.textContent = 'Moto-Ride 🏍️';
         box.appendChild(boxText);
 
-        //PRODUCT BOX DIV
+        //? PRODUCT BOX DIV
         const productBox = document.createElement('div');
         productBox.classList.add('product_box');
 
-        //PRODUCT IMG DIV
+        //? PRODUCT IMG DIV
         const productImgBox = document.createElement('div');
         productImgBox.classList.add('product_img_box');
         const productImg = document.createElement('img');
@@ -754,14 +798,14 @@ function createCatalogProductCardItemElement(product){
         productImg.classList.add('product_img');
         productImgBox.appendChild(productImg);
 
-        //PRODUCT LOGO DIV
+        //? PRODUCT LOGO DIV
         const productLogoBox = document.createElement('div');
         productLogoBox.classList.add('product_logo_box');
         const productLogoImg = document.createElement('img');
         productLogoImg.src = product.logo;
         productLogoImg.classList.add('product_logo_img');
 
-        //ICONS DIV OF PRODUCT LOGO DIV
+        //? ICONS DIV OF PRODUCT LOGO DIV
         const iconsDiv = document.createElement('div');
         const heartIcon = document.createElement('i');
         heartIcon.classList.add('fa-solid', 'fa-heart', 'add_to_wishlist');
@@ -773,11 +817,11 @@ function createCatalogProductCardItemElement(product){
         productLogoBox.appendChild(productLogoImg);
         productLogoBox.appendChild(iconsDiv);
 
-        //CENTER DIV
+        //? CENTER DIV
         const center = document.createElement('div');
         center.classList.add('center');
 
-        //PRODUCT NAME BOX ARTICLE OF CENTER DIV
+        //? PRODUCT NAME BOX ARTICLE OF CENTER DIV
         const productNameBox = document.createElement('article');
         productNameBox.classList.add('product_name_box');
         const productName = document.createElement('h3');
@@ -785,7 +829,7 @@ function createCatalogProductCardItemElement(product){
         productName.textContent = product.name;
         productNameBox.appendChild(productName);
 
-        //DESCRIBE BOX ARTICLE OF CENTER DIV
+        //? DESCRIBE BOX ARTICLE OF CENTER DIV
         const describeBox = document.createElement('article');
         describeBox.classList.add('describe_box');
         const describe = document.createElement('p');
@@ -793,7 +837,7 @@ function createCatalogProductCardItemElement(product){
         describe.textContent = product.description;
         describeBox.appendChild(describe);
 
-        //BUY BOX ARTICLE OF CENTER DIV
+        //? BUY BOX ARTICLE OF CENTER DIV
         const buyBox = document.createElement('article');
         buyBox.classList.add('buy_box');
         const priceContainer = document.createElement('div');
@@ -812,7 +856,7 @@ function createCatalogProductCardItemElement(product){
         priceContainer.appendChild(originalPriceBox);
         priceContainer.appendChild(finalPrice);
 
-        //BUTTON OF BUY BOX ARTICLE OF CENTER DIV
+        //? BUTTON OF BUY BOX ARTICLE OF CENTER DIV
         const productBuyButtonLink = document.createElement('a');
         productBuyButtonLink.href = `product.html?category=${encodeURIComponent(product.category)}&id=${product.id}&name=${encodeURIComponent(product.name)}`;
         productBuyButtonLink.classList.add('a_button');
@@ -827,29 +871,29 @@ function createCatalogProductCardItemElement(product){
         buyBox.appendChild(priceContainer);
         buyBox.appendChild(productBuyButtonLink);
 
-        //CENTER DIV BUILD
+        //? CENTER DIV BUILD
         center.appendChild(productNameBox);
         center.appendChild(describeBox);
         center.appendChild(buyBox);
 
-        //NEW POPULAR DIV + CURVE DIV
+        //? NEW POPULAR DIV + CURVE DIV
         const newPopular = document.createElement('div');
         newPopular.classList.add('new_popular');
         const curve = document.createElement('div');
         curve.classList.add('curve');
 
-        //PRODUCT BOX DIV BUILD
+        //? PRODUCT BOX DIV BUILD
         productBox.appendChild(productImgBox);
         productBox.appendChild(productLogoBox);
         productBox.appendChild(center);
         productBox.appendChild(newPopular);
         productBox.appendChild(curve);
 
-        //PRODUCT SUPER BOX BUILD
+        //? PRODUCT SUPER BOX BUILD
         productSuperBox.appendChild(box);
         productSuperBox.appendChild(productBox);
 
-        // הוספת המוצר למיכל בדף קטלוג
+        //? Add product to container in catalog page
         if (window.location.href.includes('catalog.html')){
             const container = document.querySelector('#catalog');
             if(container) {
@@ -858,20 +902,25 @@ function createCatalogProductCardItemElement(product){
         }
 }
 
-//TODO: פונקציה ששומרת בזיכרון את פרטי המוצר הנבחר לעגלה וצובעת באדום את הלב
+// =====================================================
+//TODO WISHLIST AND CART MANAGEMENT
+// =====================================================
+
+//^ ============ WISHLIST OPERATIONS ============
+//? Function that saves selected product details to memory for wishlist and colors the heart red
 function saveToWishlist(event){
-    // שינוי מצב הלב בקטלוג של הוספה והסרה של המוצר
+    //? Change heart state in catalog for adding and removing product
     const heartIconClick = event.currentTarget;
     if(heartIconClick.classList.contains('add_to_wishlist_click'))
         heartIconClick.classList.remove('add_to_wishlist_click');
     else
         heartIconClick.classList.add('add_to_wishlist_click');
 
-    // מציאת כרטיס המוצר
+    //? Find product card
     const productBox = heartIconClick.closest('.product_super_box');
     if (!productBox) return;
 
-    // שליפת נתונים מתוך הכרטיס הנבחר
+    //? Extract data from selected card
     const productId = productBox.id;
     const name = productBox.querySelector('.product_name')?.textContent.trim();
     const description = productBox.querySelector('.describe')?.textContent.trim();
@@ -885,7 +934,7 @@ function saveToWishlist(event){
 
     if (!productId || !name) return;
 
-    // מבנה הנתונים לשמירה
+    //? Data structure for saving
     const wishlistProductData = {
         id: productId,
         name,
@@ -918,7 +967,8 @@ function saveToWishlist(event){
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
 }
 
-//TODO: עדכון צבע הלבבות לאחר יצירת הכרטיסים בהתאם ללוקאל סטורג לאחר רענון
+//^ ============ WISHLIST UI UPDATES ============
+//? Update heart colors after creating cards according to localStorage after refresh
 function updateWishlistHearts() {
   const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
   wishlist.forEach(savedItem => {
@@ -932,16 +982,17 @@ function updateWishlistHearts() {
   });
 }
 
-//TODO: פונקציה ששולפת מהזיכרון את הנתונים של המוצרים ומזמנת פונקציה שבונה אותם במועדפים
+//^ ============ WISHLIST LOADING ============
+//? Function that extracts product data from memory and calls function to build them in favorites
 function loadWishlistFromLocalStorage() {
     const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
     const container = document.querySelector('#wish_chosen_products_list_ul');
     if (!container) {
         console.warn('Container for wishlist not found!');
-        return; // יוצא מהפונקציה כדי לא לגרום לשגיאה
+        return; // Exit function to avoid causing error
     }
     
-    container.innerHTML = ''; // מנקה את הרשימה לפני טעינה למניעת שכפוליות
+    container.innerHTML = ''; // Clear list before loading to prevent duplicates
 
     if (wishlist.length === 0) {
         return;
@@ -951,20 +1002,21 @@ function loadWishlistFromLocalStorage() {
         createWishlistItemElement(product);
     });
 
-    //TODO: קריאה לפונקציה שנותנת לכולם לאחר השליפה מהזיכרון איבנט למחיקת מוצר
+    //? Call function that gives everyone after extraction from memory an event to delete product
     addWishlistDeleteEventListeners();
 
-    // מעדכן את הטקסט בכותרת אחרי שינוי
+    //? Update text in header after change
     const headerParagraph = document.querySelector('.wish_header p');
     if (headerParagraph) {
         headerParagraph.textContent = 'You have: ' + wishlist.length + ' items in your wishlist.';
     }
 }
 
-//TODO: פונקציה ליצירת כרטיסיות מוצר למועדפים
+//^ ============ WISHLIST CARD CREATION ============
+//? Function to create product cards for favorites
 function createWishlistItemElement(wishlistProductData) {
     const wishlistListItem = document.createElement('li');
-    wishlistListItem.setAttribute('data-id', wishlistProductData.id); // להוספה אם תצטרך בעתיד
+    wishlistListItem.setAttribute('data-id', wishlistProductData.id); // For addition if needed in future
 
     const wishlistProductWrapper = document.createElement('div');
     wishlistProductWrapper.classList.add('wish_chosen_product_list');
@@ -1025,7 +1077,7 @@ function createWishlistItemElement(wishlistProductData) {
     wishlistBuyNowButton.textContent = 'Buy now';
     wishlistBuyNowButton.classList.add('buy_now_button');
 
-    // הרכבה
+    //? Assembly
     wishlistImageLink.appendChild(wishlistImage);
     wishlistImageBox.appendChild(wishlistImageLink);
 
@@ -1054,7 +1106,8 @@ function createWishlistItemElement(wishlistProductData) {
     document.querySelector('#wish_chosen_products_list_ul').appendChild(wishlistListItem);
 }
 
-//TODO: לאחר יצירת כל פריט במועדפים פונקציה שמוסיפה אירוע למחיקת פריטים
+//^ ============ WISHLIST DELETE EVENTS ============
+//? After creating each item in favorites, function that adds event to delete items
 function addWishlistDeleteEventListeners() {
     const deleteButtons = document.querySelectorAll('.wish_delete');
     deleteButtons.forEach(button => {
@@ -1062,48 +1115,49 @@ function addWishlistDeleteEventListeners() {
     });
 }
 
-//TODO: הפונקציה שמוחקת את הפריט במועדפים מהדום הזיכרון (והקטלוג כבר נשען על הזיכרון)
+//? Function that deletes the item in favorites from DOM and memory (catalog already relies on memory)
 function handleDeleteWishlistItem(event) {
-    // האלמנט שנלחץ
+    //? The element that was clicked
     const deleteBtn = event.currentTarget;
 
-    // האלמנט של רשימת הפריט (הורה ל-wishlistListItem)
+    //? The list item element (parent to wishlistListItem)
     const listItem = deleteBtn.closest('li');
 
     if (!listItem) return;
 
-    // מזהה הפריט מתוך data-id
+    //? Item identifier from data-id
     const productId = listItem.getAttribute('data-id');
 
-    // 1. הסרה מה-DOM
+    //? 1. Remove from DOM
     listItem.remove();
 
-    // 2. הסרה מ-localStorage
+    //? 2. Remove from localStorage
     let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
     wishlist = wishlist.filter(item => item.id !== productId);
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
 
-        // מעדכן את הטקסט בכותרת אחרי שינוי
+        //? Update header text after change
     const headerParagraph = document.querySelector('.wish_header p');
     if (headerParagraph) {
         headerParagraph.textContent = 'You have: ' + wishlist.length + ' items in your wishlist.';
     }
 }
 
-//TODO: פונקציה ששומרת בזיכרון את פרטי המוצר הנבחר למועדפים וצובעת באדום את העגלה
+//^ ============ CART OPERATIONS ============
+//? Function that saves selected product details to memory for favorites and colors the cart red
 function saveToCart(event){
-    // שינוי מצב הלב בקטלוג של הוספה והסרה של המוצר
+    //? Change heart state in catalog for adding and removing product
     const cartIconClick = event.currentTarget;
     if(cartIconClick.classList.contains('add_to_cart_click'))
         cartIconClick.classList.remove('add_to_cart_click');
     else
         cartIconClick.classList.add('add_to_cart_click');
 
-    // מציאת כרטיס המוצר
+    //? Find product card
     const productBox = cartIconClick.closest('.product_super_box');
     if (!productBox) return;
 
-    // שליפת נתונים מתוך הכרטיס הנבחר
+    //? Extract data from selected card
     const productId = productBox.id;
     const name = productBox.querySelector('.product_name')?.textContent.trim();
     const description = productBox.querySelector('.describe')?.textContent.trim();
@@ -1121,7 +1175,7 @@ function saveToCart(event){
 
     if (!productId || !name) return;
 
-    // מבנה הנתונים לשמירה
+    //? Data structure for saving
     const cartProductData = {
         id: productId,
         name,
@@ -1155,7 +1209,12 @@ function saveToCart(event){
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-//TODO: עדכון צבע העגלות לאחר יצירת הכרטיסים בהתאם ללוקאל סטורג
+// =====================================================
+//TODO CART MANAGEMENT
+// =====================================================
+
+//^ ============ CART UI UPDATES ============
+//? Update cart colors after creating cards according to localStorage
 function updatecarts() {
   const cart = JSON.parse(localStorage.getItem('cart')) || [];
   cart.forEach(savedItem => {
@@ -1169,16 +1228,17 @@ function updatecarts() {
   });
 }
 
-//TODO: פונקציה ששולפת מהזיכרון את הנתונים של המוצרים ומזמנת פונקציה שבונה אותם בעגלה
+//^ ============ CART LOADING ============
+//? Function that extracts product data from memory and calls function to build them in cart
 function loadCartFromLocalStorage() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const container = document.querySelector('#chosen_products_list_ul');
     if (!container) {
         console.warn('Container for cart not found!');
-        return; // יוצא מהפונקציה כדי לא לגרום לשגיאה
+        return; // Exit function to avoid causing error
     }
     
-    container.innerHTML = ''; // מנקה את הרשימה לפני טעינה למניעת שכפוליות
+    container.innerHTML = ''; // Clear list before loading to prevent duplicates
 
     if (cart.length === 0) {
         return;
@@ -1188,72 +1248,73 @@ function loadCartFromLocalStorage() {
         createCartItemElement(product);
     });
 
-    //TODO: הוספת מאזינים אחרי יצירת האלמנטים
+    //? Add listeners after creating elements
     addCartDeleteEventListeners();
     addCartQuantityEventListeners();
 
-    //TODO: מעדכן את הכמות מוצרים בכותרת
+    //? Update product quantity in header
     const headerParagraph = document.querySelector('.cart_header p');
     if (headerParagraph) {
         headerParagraph.textContent = 'You have: ' + cart.length + ' items in your wishlist.';
     }
 
-    //TODO: מעדכן את המחיר הסופי לפני משלוח
+    //? Update final price before shipping
     updateCartSubtotalAndTotal()
 }
 
-//TODO: פונקציה לבניית פריט עגלה חדש
+//^ ============ CART CARD CREATION ============
+//? Function to build new cart item
 function createCartItemElement(cartProductData) {
-    // יצירת תיבת <li> שתכיל את המוצר
+    //? Create <li> box that will contain the product
     const cartListItem = document.createElement('li');
-    cartListItem.setAttribute('data-id', cartProductData.id); // להוספה אם תצטרך בעתיד
+    cartListItem.setAttribute('data-id', cartProductData.id); // For addition if needed in future
 
-    // יצירת תיבת המוצר הכללית בעגלה
+    //? Create general product box in cart
     const cartProductBox = document.createElement('div');
     cartProductBox.classList.add('chosen_product_list');
 
-    // הוספת data-price עם המחיר ליחידה (מספר)
+    //? Add data-price with price per unit (number)
     cartProductBox.dataset.price = cartProductData.finalPrice;
 
-    // יצירת כפתור מחיקת מוצר מהעגלה
+    //? Create delete product from cart button
     const deleteIcon = document.createElement('i');
     deleteIcon.classList.add('cart_delete', 'fa-solid', 'fa-xmark');
 
-    // יצירת תיבת תמונת המוצר
+    //? Create product image box
     const imageBox = document.createElement('div');
     imageBox.classList.add('chosen_product_img_box');
 
-    // יצירת קישור לדף רכישה או מידע נוסף
+    //? Create link to purchase page or additional info
     const productLink = document.createElement('a');
-    productLink.href = `catalog.html#${cartProductData.id}`; // במידה ואין קישור, מונע שבירה
+    productLink.href = `catalog.html#${cartProductData.id}`; // If no link exists, prevents breaking
 
-    // יצירת תמונת המוצר
+    //? Create product image
     const productImage = document.createElement('img');
     productImage.src = cartProductData.image;
     productImage.alt = '';
 
-    // חיבור התמונה לקישור והתיבה
+    //? Connect image to link and box
     productLink.appendChild(productImage);
     imageBox.appendChild(productLink);
 
-    // יצירת רשימת פרטי המוצר (שם, מחיר, כמות, מחיר כולל)
+    //? Create product details list (name, price, quantity, total price)
     const detailsList = document.createElement('ul');
 
-    // שם המוצר
+    //? Product name
     const nameItem = document.createElement('li');
     nameItem.textContent = cartProductData.name;
 
-    // מחיר ליחידה
+    //? Price per unit
     const pricePerItem = document.createElement('li');
     pricePerItem.classList.add('cart_price_per_item')
     pricePerItem.textContent = `${cartProductData.finalPrice.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} $`;
    
-    // תיבת כמות לבחירת מספר יחידות
+    //? Quantity box for selecting number of units
     const quantityItem = document.createElement('li');
     let quantity = parseInt(cartProductData.quantity);
-    if (!quantity || quantity < 1) quantity = 1; // תיקון כמות לא חוקית
+    if (!quantity || quantity < 1) quantity = 1; // Fix invalid quantity
 
-    // שמירה חוזרת לאובייקט
+    //? Save back to object
     cartProductData.quantity = quantity;
 
     const quantityInput = document.createElement('input');
@@ -1262,7 +1323,7 @@ function createCartItemElement(cartProductData) {
     quantityInput.min = 1;
     quantityInput.classList.add('chosen_product_input');
 
-    //TODO: מונע הכנסת תווים לא חוקיים (מקלדת בטלפון/דפדפן)
+    //? Prevent entering invalid characters (phone keyboard/browser)
     quantityInput.addEventListener('keydown', function (e) {
         if (e.key === '-' || e.key === '.' || e.key === 'e') {
             e.preventDefault();
@@ -1271,29 +1332,30 @@ function createCartItemElement(cartProductData) {
 
     quantityItem.appendChild(quantityInput);
 
-    // מחיר כולל (מחיר ליחידה * כמות)
+    //? Total price (price per unit * quantity)
     const totalItem = document.createElement('li');
     totalItem.classList.add('cart_item_total_price');
     const totalPrice = cartProductData.finalPrice;
     totalItem.textContent = `${(cartProductData.finalPrice * quantity).toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} $`;
-    // חיבור כל שורות המידע לרשימה
+    //? Connect all info rows to list
     detailsList.appendChild(nameItem);
     detailsList.appendChild(pricePerItem);
     detailsList.appendChild(quantityItem);
     detailsList.appendChild(totalItem);
 
-    // חיבור אייקון המחיקה, התמונה והרשימה לקופסה הראשית
+    //? Connect delete icon, image and list to main box
     cartProductBox.appendChild(deleteIcon);
     cartProductBox.appendChild(imageBox);
     cartProductBox.appendChild(detailsList);
 
-    // הוספת הקופסה ל־<li>
+    //? Add box to <li>
     cartListItem.appendChild(cartProductBox);
 
     document.querySelector('#chosen_products_list_ul').appendChild(cartListItem);
 }
 
-//TODO: לאחר יצירת כל פריט בעגלה פונקציה שמוסיפה אירוע למחיקת פריטים
+//^ ============ CART DELETE EVENTS ============
+//? After creating each item in cart, function that adds event to delete items
 function addCartDeleteEventListeners() {
     const deleteButtons = document.querySelectorAll('.cart_delete');
     deleteButtons.forEach(button => {
@@ -1301,38 +1363,39 @@ function addCartDeleteEventListeners() {
     });
 }
 
-//TODO: הפונקציה שמוחקת את הפריט בעגלה מהדום הזיכרון (והקטלוג כבר נשען על הזיכרון)
+//? Function that deletes the item in cart from DOM and memory (catalog already relies on memory)
 function handleDeleteCartItem(event) {
-    // האלמנט שנלחץ
+    //? The element that was clicked
     const deleteBtn = event.currentTarget;
 
-    // האלמנט של רשימת הפריט (הורה ל-wishlistListItem)
+    //? The list item element (parent to wishlistListItem)
     const listItem = deleteBtn.closest('li');
 
     if (!listItem) return;
 
-    // מזהה הפריט מתוך data-id
+    //? Item identifier from data-id
     const productId = listItem.getAttribute('data-id');
 
-    // 1. הסרה מה-DOM
+    //? 1. Remove from DOM
     listItem.remove();
 
-    // 2. הסרה מ-localStorage
+    //? 2. Remove from localStorage
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     cart = cart.filter(item => item.id !== productId);
     localStorage.setItem('cart', JSON.stringify(cart));
 
-    //TODO: מעדכן את הכמות מוצרים לאחר מחיקת מוצרים
+    //? Update product quantity after deleting products
     const headerParagraph = document.querySelector('.cart_header p');
     if (headerParagraph) {
         headerParagraph.textContent = 'You have: ' + cart.length + ' items in your wishlist.';
     }
 
-    //TODO: מעדכן את המחיר הסופי לפני משלוח במחיקת מוצרים
+    //? Update final price before shipping when deleting products
     updateCartSubtotalAndTotal()
 }
 
-//TODO: השמה של איבנט על הכמות שהמשתמש רוצה
+//^ ============ CART QUANTITY MANAGEMENT ============
+//? Assign event to quantity that user wants
 function addCartQuantityEventListeners() {
     const quantityInputs = document.querySelectorAll('.chosen_product_input');
     quantityInputs.forEach(input => {
@@ -1340,22 +1403,22 @@ function addCartQuantityEventListeners() {
     });
 }
 
-//TODO: פונקציה שמשנה את המחיר של המוצר בעגלה
+//? Function that changes the price of the product in cart
 function cartQuantity(event) {
     const quantityInput = event.currentTarget;
     const quantityValue = Number(quantityInput.value);
 
-    // תיקון ערך לא חוקי - אם ריק, אפס, או פחות מ-1, נקבע ל-1
+    //? Fix invalid value - if empty, zero, or less than 1, set to 1
     if (!quantityValue || quantityValue < 1) {
         quantityValue = 1;
-        quantityInput.value = quantityValue; // מחזיר את השדה לערך חוקי
+        quantityInput.value = quantityValue; // Return field to valid value
     }
 
     const productBox = quantityInput.closest('.chosen_product_list');
 
     if (!productBox) return;
 
-    // קריאת המחיר מה-data-price
+    //? Read price from data-price
     const pricePerItem = Number(productBox.dataset.price);
     const totalPricePerItemElement = productBox.querySelector('.cart_item_total_price');
 
@@ -1364,7 +1427,7 @@ function cartQuantity(event) {
     totalPricePerItemElement.textContent = `${total.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} $`;
     }
 
-    // עדכון localStorage
+    //? Update localStorage
     const listItem = quantityInput.closest('li[data-id]');
     if (!listItem) return;
     const productId = listItem.getAttribute('data-id');
@@ -1376,26 +1439,30 @@ function cartQuantity(event) {
         localStorage.setItem('cart', JSON.stringify(cart));
     }
 
-    //TODO: מעדכן את המחיר הסופי לפני משלוח בשינוי כמות
+    //? Update final price before shipping when changing quantity
     updateCartSubtotalAndTotal()
 }
 
-//TODO: פונקציה שממירה את המחיר עם פסיקים ונקודות וסימן דולר
+// =====================================================
+//TODO UTILITY FUNCTIONS
+// =====================================================
+
+//? Function that converts price with commas, dots and dollar sign
 function parsePriceToNumber(priceString) {
     if (!priceString) return 0;
 
-    // הסרת תווים שאינם ספרות, נקודה או פסיק
+    //? Remove characters that are not digits, dot or comma
     let cleaned = priceString.replace(/[^\d.,]/g, '');
 
     if (cleaned.includes('.') && cleaned.includes(','))
     {
-        // אם יש גם נקודה וגם פסיק, הפסיק הוא אלפים - נסיר אותו
+        //? If there's both dot and comma, comma is thousands - remove it
         cleaned = cleaned.replace(/,/g, '');
     } 
     
     else 
         if (cleaned.includes(',') && !cleaned.includes('.')) {
-            // אם יש רק פסיקים ונקודה לא קיימת, נחליף פסיקים בנקודות (למקרה של עשרוני עם פסיק)
+            //? If there are only commas and no dot, replace commas with dots (for decimal case with comma)
             cleaned = cleaned.replace(/,/g, '.');
         }
 
@@ -1404,7 +1471,8 @@ function parsePriceToNumber(priceString) {
     return isNaN(number) ? 0 : number;
 }
 
-//TODO: פונקציה שמטפלת במחיר כולל
+//^ ============ CART CALCULATIONS ============
+//? Function that handles total price
 function updateCartSubtotalAndTotal() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     let subtotal = 0;
@@ -1424,43 +1492,47 @@ function updateCartSubtotalAndTotal() {
     totalElement.textContent =  subtotalElement.textContent;
 }
 
-//TODO: פונקציה לבניית דף מוצר – מחוץ לפטש
+// =====================================================
+//TODO PRODUCT PAGE CREATION
+// =====================================================
+
+//? Function to build product page - outside fetch
 function createProductPage(product) {
-    // אני מציג תמונה ראשית בדף המוצר
+    //? Display main image on product page
     const mainImage = document.createElement('img');
     mainImage.classList.add('main_image');
     mainImage.src = product.image;
     document.querySelector('#product_page_main_img').appendChild(mainImage);
     
-    // תמונה ראשונה בדף מוצר
+    //? First image on product page
     const firstImage = document.createElement('img');
     firstImage.classList.add('product_page_first_img');
     firstImage.src = product.images[0];
     document.querySelector('#product_page_first_second_img_box').appendChild(firstImage);
 
-    // אני מוסיף תמונה שנייה בדף המוצר
+    //? Add second image on product page
     const secondImage = document.createElement('img');
     secondImage.classList.add('product_page_second_img');
     secondImage.src = product.images[1];
     document.querySelector('#product_page_second_second_img_box').appendChild(secondImage);
 
-    // אני מוסיף תמונה שלישית בדף המוצר
+    //? Add third image on product page
     const thirdImage = document.createElement('img');
     thirdImage.classList.add('product_page_third_img');
     thirdImage.src = product.images[2];
     document.querySelector('#product_page_third_second_img_box').appendChild(thirdImage);
 
-    // אני מוסיף תמונה רביעית בדף המוצר
+    //? Add fourth image on product page
     const fourthImage = document.createElement('img');
     fourthImage.classList.add('product_page_fourth_img');
     fourthImage.src = product.images[3];
     document.querySelector('#product_page_fourth_second_img_box').appendChild(fourthImage);
 
-    // אני מציג את שם המוצר
+    //? Display product name
     const productName = document.querySelector('#product_page_name');
     productName.textContent = product.name;
 
-    // אני מציג את מחיר המוצר
+    //? Display product price
     const productOriginalPrice = document.querySelector('#original_price');
     productOriginalPrice.textContent = product.originalPrice;
     const productDiscount = document.querySelector('#discount');
@@ -1468,12 +1540,15 @@ function createProductPage(product) {
     const productFinalPrice = document.querySelector('#final_price');
     productFinalPrice.textContent = product.finalPrice;
 
-    // אני מציג את תיאור המוצר
+    //? Display product description
     const productDescription = document.querySelector('#product_page_describe');
     productDescription.textContent = product.description;
 }
 
-//TODO: אני מנהל כאן פונקציות הקשורות למשתמשים
+// =====================================================
+//TODO USER INTERFACE FUNCTIONALITY  
+// =====================================================
+
 const switchToSignIn = document.querySelector('#switch_to_sign_in');
 if (switchToSignIn)
 switchToSignIn.addEventListener('click', () => {
@@ -1486,104 +1561,30 @@ switchToSignUp.addEventListener('click', () => {
     document.querySelector('.log_in_hello_box').style.transform = 'translateX(-87.5%)';
 });
 
-/*
-// אני רושם משתמש חדש
-const registerButton = document.querySelector('#sign_in_button');
-if (registerButton) {
-    registerButton.addEventListener('click', registerUser);
-    function registerUser() {
-        const userName = document.querySelector('#sign_in_name').value.trim();
-        const userEmail = document.querySelector('#sign_in_email').value.trim();
-        const userPassword = document.querySelector('#sign_in_password').value;
-        if (!userName || !userEmail || !userPassword) {
-            alert('Please fill in all fields.');
-            return;
-        }
-        if (userPassword.length < 8) {
-            alert('Password must be at least 8 characters long.');
-            return;
-        }
-        if (userPassword.search(/[0-9]/) === -1) {
-            alert('Password must contain at least one number.');
-            return;
-        }
-        if (userPassword.search(/[A-Z]/) === -1) {
-            alert('Password must contain at least one uppercase letter.');
-        }
-        if (userPassword.search(/[a-z]/) === -1) {
-            alert('Password must contain at least one lowercase letter.');
-            return
-        }
-        if(userPassword.search(/[!@#$%^&*(),.?":{}|<>]/) === -1) {
-            alert('Password must contain at least one special character.');
-            return;
-        }
-        let users = JSON.parse(localStorage.getItem('users')) || [];
-        users.push({
-            name: userName,
-            email: userEmail,
-            password: userPassword
-        });
-        localStorage.setItem('users', JSON.stringify(users));
-        alert('Registration successful! You can now log in.');
-        window.location.href = './pages/profile.html';
-    }
-}
+// =====================================================
+//TODO PRODUCT FILTERING SYSTEM
+// =====================================================
 
-// אני מתחבר עם משתמש קיים
-const logInButton = document.querySelector('#log_in_button');
-if (logInButton) {
-    logInButton.addEventListener('click', logIn);
-    function logIn() {
-        const userNameOrEmail = document.querySelector('#log_in_email_or_username').value.trim();
-        const userPassword = document.querySelector('#log_in_password').value;
-        if (!userNameOrEmail || !userPassword) {
-            alert('Please fill in all fields.');
-            return;
-        }
-
-        // בדיקת פרטי המשתמש בזיכרון
-        if (localStorage.getItem('users')) {
-            let users = JSON.parse(localStorage.getItem('users'));
-            const user = users.find(user => {
-                return (user.email === userNameOrEmail || user.name === userNameOrEmail) && user.password === userPassword
-            });
-
-            if (user) {
-                alert('Login successful!');
-                window.location.href = './pages/profile.html';
-            }
-            else {
-                alert('Invalid username/email or password.');
-            }
-        }
-        else {
-            alert('No users found. Please register first.');
-            return;
-        }
-    }
-}
-*/
-
-//TODO: אני מסנן מוצרים לפי הפילטרים
+//^ ============ FILTER LOGIC ============
+//? Filter products by filters
 function filterProducts(products, filters) {
     return products.filter(product => {
-    // אני מסנן לפי מותג
+    //? Filter by brand
         if (filters.brands.length > 0 && !filters.brands.includes(product.manufacturer)) {
             return false;
         }
 
-    // אני מסנן לפי סטטוס
+    //? Filter by status
         if (filters.statuses.length > 0 && !filters.statuses.includes(product.status)) {
             return false;
         }
 
-    // אני מסנן לפי סוג
+    //? Filter by type
         if (filters.types.length > 0 && !filters.types.includes(product.type)) {
             return false;
         }
 
-    // אני מסנן לפי מחיר
+    //? Filter by price
         if (filters.minPrice || filters.maxPrice) {
             const priceField = product.finalPrice || product.originalPrice;
             if (priceField) {
@@ -1601,7 +1602,8 @@ function filterProducts(products, filters) {
     });
 }
 
-//TODO: אני קורא את הפילטרים מה-URL
+//^ ============ URL HANDLING ============
+//? Read filters from URL
 function getFiltersFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
     
@@ -1614,7 +1616,7 @@ function getFiltersFromURL() {
     };
 }
 
-//TODO: אני מעדכן את ה-URL עם הפילטרים
+//? Update URL with filters
 function updateURLWithFilters(filters) {
     const params = new URLSearchParams();
     
@@ -1638,7 +1640,8 @@ function updateURLWithFilters(filters) {
     window.history.pushState({}, '', newURL);
 }
 
-//TODO: אני אוסף את הפילטרים מהטופס
+//^ ============ FILTER COLLECTION ============
+//? Collect filters from form
 function collectFilters() {
     const brands = Array.from(document.querySelectorAll('input[name="brand"]:checked'))
         .map(cb => cb.value);
@@ -1649,7 +1652,7 @@ function collectFilters() {
     const types = Array.from(document.querySelectorAll('input[name="type"]:checked'))
         .map(cb => cb.value);
     
-    // אני קורא את ערכי המחירים מהאינפוטים הקיימים
+    //? Read price values from existing inputs
     const priceInputs = document.querySelectorAll('.price_input');
     const minPrice = priceInputs[0]?.value || null;
     const maxPrice = priceInputs[1]?.value || null;
@@ -1663,27 +1666,28 @@ function collectFilters() {
     };
 }
 
-//TODO: אני מעדכן את הצ'קבוקסים לפי ה-URL
+//^ ============ FILTER URL SYNC ============
+//? Update checkboxes according to URL
 function updateFiltersFromURL(filters) {
-    // אני מעדכן את המותגים המסומנים
+    //? Update marked brands
     filters.brands.forEach(brand => {
         const checkbox = document.querySelector(`input[name="brand"][value="${brand}"]`);
         if (checkbox) checkbox.checked = true;
     });
 
-    // אני מעדכן את הסטטוסים המסומנים
+    //? Update marked statuses
     filters.statuses.forEach(status => {
         const checkbox = document.querySelector(`input[name="status"][value="${status}"]`);
         if (checkbox) checkbox.checked = true;
     });
 
-    // אני מעדכן את הסוגים המסומנים
+    //? Update marked types
     filters.types.forEach(type => {
         const checkbox = document.querySelector(`input[name="type"][value="${type}"]`);
         if (checkbox) checkbox.checked = true;
     });
 
-    // אני מעדכן את טווח המחירים
+    //? Update price range
     const priceInputs = document.querySelectorAll('.price_input');
     if (filters.minPrice && priceInputs[0]) {
         priceInputs[0].value = filters.minPrice;
@@ -1693,7 +1697,8 @@ function updateFiltersFromURL(filters) {
     }
 }
 
-//TODO: אני מפעיל את הסינון בכל שינוי
+//^ ============ FILTER APPLICATION ============
+//? Activate filtering on every change
 function applyFilters(allProducts) {
     const filters = collectFilters();
     console.log('Applying filters:', filters);
@@ -1702,8 +1707,8 @@ function applyFilters(allProducts) {
     const filtered = filterProducts(allProducts, filters);
     console.log('Results:', filtered.length);
     
-    // אני מנקה את המיכל
-    // אני מרנדר אל #catalog (שהוא גם עם המחלקה products_list)
+    //? Clear container
+    //? Render to #catalog (which also has the products_list class)
     const container = document.querySelector('#catalog');
     if (!container) {
         console.error('Container #catalog not found!');
@@ -1712,7 +1717,7 @@ function applyFilters(allProducts) {
     
     container.innerHTML = '';
     
-    // אני מציג את המוצרים המסוננים
+    //? Display filtered products
     filtered.forEach(product => {
         creator(product);
     });
